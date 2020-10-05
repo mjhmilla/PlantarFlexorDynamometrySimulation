@@ -140,37 +140,39 @@ tV      = [tmin:((tmax-tmin)/(npts-1)):tmax];
 
 
 pathFcn = benchConfig.pathFcn;
-        
-benchRecord = [];
-benchRecord.activation                  = zeros(npts,nsim);
-benchRecord.cpuTime                     = zeros(npts,nsim);
-benchRecord.normFiberForceAlongTendon   = zeros(npts,nsim);
-benchRecord.normFiberLength             = zeros(npts,nsim);    
-benchRecord.pennationAngle              = zeros(npts,nsim);
-benchRecord.normFiberVelocity           = zeros(npts,nsim);
-benchRecord.pennationAngVelocity        = zeros(npts,nsim);
-benchRecord.fiberStiffnessAlongTendon   = zeros(npts,nsim);
-benchRecord.tendonStiffnessAlongTendon  = zeros(npts,nsim);
-benchRecord.muscleStiffness             = zeros(npts,nsim);
-benchRecord.fiberVelocity               = zeros(npts,nsim);
-benchRecord.fiberVelocityAlongTendon    = zeros(npts,nsim);
-benchRecord.tendonVelocity              = zeros(npts,nsim);
-benchRecord.pathLength                  = zeros(npts,nsim);
-benchRecord.pathVelocity                = zeros(npts,nsim);
 
-benchRecord.dSystemEnergyLessWork       = zeros(npts,nsim);
-benchRecord.systemEnergyLessWork        = zeros(npts,nsim);
-benchRecord.tendonPotentialEnergy       = zeros(npts,nsim);
-benchRecord.fiberPotentialEnergy        = zeros(npts,nsim);
-benchRecord.fiberActiveWork             = zeros(npts,nsim);
-benchRecord.dampingWork                 = zeros(npts,nsim);
-benchRecord.boundaryWork                = zeros(npts,nsim);
+benchRecord = getEmptyBenchRecord(npts,nsim);        
 
-benchRecord.tendonPower                 = zeros(npts,nsim);
-benchRecord.fiberParallelElementPower   = zeros(npts,nsim);
-benchRecord.fiberActivePower            = zeros(npts,nsim);
-benchRecord.dampingPower                = zeros(npts,nsim);
-benchRecord.boundaryPower               = zeros(npts,nsim);
+%benchRecord = [];
+%benchRecord.activation                  = zeros(npts,nsim);
+%benchRecord.cpuTime                     = zeros(npts,nsim);
+%benchRecord.normFiberForceAlongTendon   = zeros(npts,nsim);
+%benchRecord.normFiberLength             = zeros(npts,nsim);    
+%benchRecord.pennationAngle              = zeros(npts,nsim);
+%benchRecord.normFiberVelocity           = zeros(npts,nsim);
+%benchRecord.pennationAngVelocity        = zeros(npts,nsim);
+%benchRecord.fiberStiffnessAlongTendon   = zeros(npts,nsim);
+%benchRecord.tendonStiffnessAlongTendon  = zeros(npts,nsim);
+%benchRecord.muscleStiffness             = zeros(npts,nsim);
+%benchRecord.fiberVelocity               = zeros(npts,nsim);
+%benchRecord.fiberVelocityAlongTendon    = zeros(npts,nsim);
+%benchRecord.tendonVelocity              = zeros(npts,nsim);
+%benchRecord.pathLength                  = zeros(npts,nsim);
+%benchRecord.pathVelocity                = zeros(npts,nsim);
+
+%benchRecord.dSystemEnergyLessWork       = zeros(npts,nsim);
+%benchRecord.systemEnergyLessWork        = zeros(npts,nsim);
+%benchRecord.tendonPotentialEnergy       = zeros(npts,nsim);
+%benchRecord.fiberPotentialEnergy        = zeros(npts,nsim);
+%benchRecord.fiberActiveWork             = zeros(npts,nsim);
+%benchRecord.dampingWork                 = zeros(npts,nsim);
+%benchRecord.boundaryWork                = zeros(npts,nsim);
+
+%benchRecord.tendonPower                 = zeros(npts,nsim);
+%benchRecord.fiberParallelElementPower   = zeros(npts,nsim);
+%benchRecord.fiberActivePower            = zeros(npts,nsim);
+%benchRecord.dampingPower                = zeros(npts,nsim);
+%benchRecord.boundaryPower               = zeros(npts,nsim);
 
 
 for i = 1:1:nsim
@@ -230,7 +232,9 @@ for i = 1:1:nsim
              'AbsTol',benchConfig.absTol,...
              'Stats','off');
     t0 = tic;
-    disp([' ',num2str(i),' of ',num2str(nsim)]);
+    if(nsim > 1)
+      disp([' ',num2str(i),' of ',num2str(nsim)]);
+    end
     [xe ye] = ode15s(dfcn,tV,[benchConfig.initialActivationState;muscleState0(:);0;0;0],options);                                                   
     cpuTime = toc(t0);
     workOfBoundary     = zeros(size(xe));

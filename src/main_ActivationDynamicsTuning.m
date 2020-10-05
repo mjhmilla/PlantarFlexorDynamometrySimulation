@@ -3,6 +3,29 @@ close all;
 clear all;
 
 
+outputFolder = '../plots/';
+outputFileName = 'fig_IsometricNormMusculotendonForce_ExpAndSim.pdf';
+
+flag_generateDiagnosticPlots = 0;
+
+%%
+% Plot configuration
+%%
+
+numberOfFiguresPerPage        = 9;
+numberOfVerticalPlotRows      = 3;
+numberOfHorizontalPlotColumns = 3;    
+assert(numberOfVerticalPlotRows*numberOfHorizontalPlotColumns ...
+         >= numberOfFiguresPerPage);
+
+plotHorizMarginCm = 1.5;
+plotVertMarginCm  = 1.5;           
+pageHeight  = 29.7;
+pageWidth   = 21.0;           
+plotHeight  = 6;
+plotWidth   = 6;
+
+plotConfigGeneric;
 %%
 % Plot the experimental data
 %%
@@ -36,29 +59,37 @@ isometricAnkleAngles = [100, 105, 110,...
 pIdx = Inf;              
 for i=1:1:length(dataFields)
   idx = floor((i-1)/2)+1;
-  subplot(3,3,idx)
-    n = 0.25;
-    if(pIdx ==idx)
-      n=0.75;
-    
-      tqMax = max(expData.torque.(dataFields{i}));
-      tqMin = mean(expData.torque.(dataFields{i})(1:100,1));
-      plot(expData.timestamp_analogs.(dataFields{i}),...
-           (expData.torque.(dataFields{i})-tqMin)./(tqMax-tqMin),...
-           'Color',[1,1,1].*n, 'LineWidth',2);
-      hold on;
-      legendText = dataFields{i};
+  
+  [row,col] = find(subPlotPanelIndex==idx);          
+  subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
+  subplot('Position',subPlotVec);
+       
+  n = 0.25;
+  if(pIdx ==idx)
+    n=0.75;
 
-      if(pIdx == idx)
-        title(legendText(1,5:(end-3)));
+    tqMax = max(expData.torque.(dataFields{i}));
+    tqMin = mean(expData.torque.(dataFields{i})(1:100,1));
+    plot(expData.timestamp_analogs.(dataFields{i}),...
+         (expData.torque.(dataFields{i})-tqMin)./(tqMax-tqMin),...
+         'Color',[1,1,1].*n, 'LineWidth',2);
+    hold on;
+    legendText = dataFields{i};
+
+    if(pIdx == idx)
+      if(idx==1)
+        title(['Ankle Angle $(>90^\circ \,DF): ', legendText(1,5:(end-3)),'^\circ$']);        
+      else
+        title(['Ankle Angle: $', legendText(1,5:(end-3)),'^\circ$']);        
       end
     end
-    xlabel('Time (s)');
-    ylabel('Torque (Nm)');
-    xlim([0,8]);
-    ylim([-0.1,1.1]);
-    box off;
-    grid on;
+  end
+  xlabel('Time (s)');
+  ylabel('Norm. 0-1 Torque (Nm)');
+  xlim([0,8]);
+  ylim([-0.1,1.1]);
+  box off;
+  grid on;
   pIdx = idx;
 end
 
@@ -76,29 +107,10 @@ flag_runClassicElasticBench      = 0;
 flag_runDampedFiberElasticBench  = 1;
 flag_updateExistingPlots         = 0;
 
-if(flag_runRigidBench==1 && flag_updateExistingPlots==0)
-  figRigidTendonBasic  = figure;
-  figRigidTendonEnergy = figure;
-  figRigidTendonPower  = figure;
-end
-
-if(flag_runClassicElasticBench==1 && flag_updateExistingPlots==0)
-  figClassicElasticBasic  = figure;
-  figClassicElasticEnergy = figure;
-  figClassicElasticPower  = figure;
-end
-
-if(flag_runDampedFiberElasticBench==1 && flag_updateExistingPlots==0)
-  figDampedFiberElasticBasic  = figure;
-  figDampedFiberElasticEnergy = figure;
-  figDampedFiberElasticPower  = figure;
-end
-
 %%
 %Configure the muscle
 %%
 
-torqueScalingFactor = 10.6230; %Scales gas lat to the scale of the measured triceps sureae
 
 countMax = length(isometricAnkleAngles);
 
@@ -404,9 +416,7 @@ for count=1:1:countMax
           runMillard2012ComputationalBenchmark(calcRigidTendonMuscleInfoFcn,...
           calcInitalRigidMuscleState ,...
           benchConfig,...
-          figRigidTendonBasic,...
-          figRigidTendonEnergy,...
-          figRigidTendonPower);
+          [],[],[]);
 
       normFiberForceAT = benchRecordRigid.normFiberForceAlongTendon(:,1);
       normForceMin = min(normFiberForceAT);
@@ -414,15 +424,18 @@ for count=1:1:countMax
       normForceAT01 = (normFiberForceAT-normForceMin)./(normForceMax-normForceMin);
       
       figure(figData)
-      subplot(3,3,count)
-      %plot(simTime,rigidTendonTorque.*torqueScalingFactor,'r');
+      
+      [row,col] = find(subPlotPanelIndex==count);          
+      subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
+      subplot('Position',subPlotVec);
+
       plot(simTime,normForceAT01,'r');
       hold on;        
         
-      save('benchRecordRigid.mat','benchRecordRigid');
-      saveas(figRigidTendonBasic,  'figRigidTendonBasic.fig','fig');
-      saveas(figRigidTendonEnergy, 'figRigidTendonEnergy.fig','fig');
-      saveas(figRigidTendonPower,  'figRigidTendonPower.fig','fig');
+      %save('benchRecordRigid.mat','benchRecordRigid');
+      %saveas(figRigidTendonBasic,  'figRigidTendonBasic.fig','fig');
+      %saveas(figRigidTendonEnergy, 'figRigidTendonEnergy.fig','fig');
+      %saveas(figRigidTendonPower,  'figRigidTendonPower.fig','fig');
 
         
   end
@@ -500,10 +513,7 @@ for count=1:1:countMax
           runMillard2012ComputationalBenchmark(...
           calcClassicElasticTendonMuscleInfoFcn,...
           calcClassicElasticTendonInitialMuscleStateFcn,...
-          benchConfig,...
-          figClassicElasticBasic,...
-          figClassicElasticEnergy,...
-          figClassicElasticPower);
+          benchConfig,[],[],[]);
 
 
       normFiberForceAT = benchRecordClassicElastic.normFiberForceAlongTendon(:,1);
@@ -513,17 +523,20 @@ for count=1:1:countMax
       
       
       figure(figData)
-      subplot(3,3,count)
+      
+      [row,col] = find(subPlotPanelIndex==count);          
+      subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
+      subplot('Position',subPlotVec);     
+      
       plot(simTime,normForceAT01,'g');
-      %plot(simTime,classicElasticTorque.*torqueScalingFactor,'g');
       hold on;
 
         
         
-      save('benchRecordClassicElastic.mat','benchRecordClassicElastic');
-      saveas(figClassicElasticBasic,'figClassicElasticBasic.fig','fig');
-      saveas(figClassicElasticEnergy,'figClassicElasticEnergy.fig','fig');
-      saveas(figClassicElasticPower,'figClassicElasticPower.fig','fig');
+      %save('benchRecordClassicElastic.mat','benchRecordClassicElastic');
+      %saveas(figClassicElasticBasic,'figClassicElasticBasic.fig','fig');
+      %saveas(figClassicElasticEnergy,'figClassicElasticEnergy.fig','fig');
+      %saveas(figClassicElasticPower,'figClassicElasticPower.fig','fig');
 
   end
   %%=========================================================================
@@ -594,19 +607,7 @@ for count=1:1:countMax
           runMillard2012ComputationalBenchmark(...
           calcDampedFiberElasticTendonMuscleInfoFcn,...
           calcDampedFiberElasticTendonInitialMuscleStateFcn,...
-          benchConfig,...
-          figDampedFiberElasticBasic,...
-          figDampedFiberElasticEnergy,...
-          figDampedFiberElasticPower);
-
-      save('benchRecordDampedFiberElasticTendon.mat',...
-          'benchRecordDampedFiberElasticTendon');
-      saveas(figDampedFiberElasticBasic,...
-          'figDampedFiberElasticBasic.fig','fig');
-      saveas(figDampedFiberElasticEnergy,...
-          'figDampedFiberElasticEnergy.fig','fig');
-      saveas(figDampedFiberElasticPower,...
-          'figDampedFiberElasticPower.fig','fig');        
+          benchConfig,[],[],[]);
 
         
       normFiberForceAT = benchRecordDampedFiberElasticTendon.normFiberForceAlongTendon(:,1);
@@ -616,8 +617,11 @@ for count=1:1:countMax
       
       
       figure(figData)
-      subplot(3,3,count)
-      %plot(simTime,dampedFiberTorque.*torqueScalingFactor,'b');
+      
+      [row,col] = find(subPlotPanelIndex==count);          
+      subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
+      subplot('Position',subPlotVec);
+      
       plot(simTime,normForceAT01,'b');
       hold on;
         
@@ -625,3 +629,8 @@ for count=1:1:countMax
   
   
 end
+
+figure(figData); 
+configPlotExporter;
+print('-dpdf',[outputFolder,outputFileName]); 
+
