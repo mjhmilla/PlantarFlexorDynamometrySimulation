@@ -3,6 +3,35 @@ A simulation of in-vivo dynamometry experiments on the plantar flexors carried o
 
 This code is an extension of https://github.com/mjhmilla/Millard2012EquilibriumMuscleMatlabPort
 
+# Installation
+
+1. Clone/download this repository to your machine.
+2. Put these files into the 'data' folder (which comes empty):
+
+- Isos_for_Matt.mat
+- Isos_for_Matt.xlsx
+- Own_Study.xlsx
+
+Contact Denis Holzer for this data
+
+3. Check that everything works:
+  - Run main_ActivationDynamicsTuning.m: this should save a pdf file to the "plots" folder:
+
+    fig_IsometricNormMusculotendonForce_ExpAndSim.pdf  
+
+  - Run main_MaxActivationRampShortening.m: this will save 4 files to the "data" folder:
+
+    simFv_gaslat_preload_0_dampedFiberElasticTendon.mat
+    simFv_gaslat_preload_0_rigidTendon.mat
+    simFv_gaslat_preload_1_dampedFiberElasticTendon.mat
+    simFv_gaslat_preload_1_rigidTendon.mat
+
+  - Run main_PlotMaxActivationRampShortening.m: this should save a pdf file to the "plots" folder:
+
+    fig_ForceVelocity_Simulation_Vs_Experiment.pdf
+
+# Overview
+
 There are three functions that have been added to simulate the in-vivo 
 force-velocity dynamometry experiments that are being analyzed by Denis Holzer 
 and Wolfgang Sieberl:
@@ -11,7 +40,7 @@ and Wolfgang Sieberl:
     Compares the normalized force recorded during isometric trials to the isometric force developed by a simulated muscle with the activation dynamics equations and parameters that appear in Thelen. The time-course of the active force developed by the gaslat is dominated entirely by the force-velocity curve and the long elastic Achilles tendon. The experimental data and the simulated time course agree well enough that it is quite reasonable to use the standard model of activation dynamics to simulate these experiments.
 
 2. main_MaxActivationRampShortening.m
-    This function simulates two different experimental protocols that are used to estimate the force-velocity curve of the plantar flexors in-vivo: one protocol has the participant fully activate their plantar flexors prior to shortening, the other begins shortening as soon as the plantar flexors develop force. After simulation the results are written to mat files that appear in the data/ folder. As this function may need to be edited please see the Section "Guided Code-Tour: main_MaxActivationRampShortening.m" below
+    This function simulates two different experimental protocols that are used to estimate the force-velocity curve of the plantar flexors in-vivo: one protocol has the participant fully activate their plantar flexors prior to shortening (preload), the other begins shortening as soon as the plantar flexors develop force (no preload). After simulation the results are written to mat files that appear in the data/ folder. As this function may need to be edited please see the Section "Guided Code-Tour: main_MaxActivationRampShortening.m" below for details.
 
 3. main_PlotMaxActivationRampShortening.m
     This function plots the simulation results.
@@ -52,7 +81,7 @@ Now the musculotendon force goes to zero but only at 15 degrees of plantar flexi
  - Re-run the script
 
  Note: I have given you a more advanced function to create the force velocity curve than is present in OpenSim. For details read the comment in 'createFiberForceVelocityCurve2018.m' between lines 27-39. Now the muscle generates a bit more active force, though not much more. As far as I can tell the elasticity of the Achilles tendon has the stongest influnce on the active force created by the muscle during this ramp experiment.
- 
+
 5. If you want to see the tendon-force-length curve, the fiber-force-length curve, the active-fiber-force length curve, and the force velocity curve just set this flag to one (line 116)
 
  flag_plotNormMuscleCurves            = 1;
