@@ -66,11 +66,7 @@ Vicon_angular_Velocity = xlsread(expData,'Vicon_angular_Velocity');
 FSZ_Velocity_Individual = xlsread(expData,'Velocity_Individual');
 Isomed_angular_Velocity = xlsread(expData,'Isomed_angular_Velocity');
 
-Hauraix_velocities = xlsread(expData,'Hauraix_velocities');
-Hauraix_angular_velo = Hauraix_velocities(:,2);
-Hauraix_FSZ_velo = Hauraix_velocities(:,1);
-
-Chino_Joint_Velo = [0 51.642 98.657 134.254 188.657];
+Chino_Joint_Velo = [0 51.642 98.657 134.254 188.657];                       % Data taken from Chino et al., 2008
 Chino_Joint_Velo_STD = [0 5.038 9.739 20.821 16.119];
 
 Chino_force = [1 .868 .768 .697 .603];
@@ -81,12 +77,14 @@ Chino_Fascicle_Velo = flip(Chino_Fascicle_Velo);
 Chino_Fascicle_Velo_STD = [23.52 19.221 12.266 5.564 0];
 Chino_Fascicle_Velo_STD = flip(Chino_Fascicle_Velo_STD);
 
-Hauraix_Joint_Velo = [0 30 90 150 210 290 330];
+Hauraix_Joint_Velo = [0   29.4442   89.0488  147.9360  203.2319...
+                      249.9101  277.9173];                                  % Data taken from Hauraix et al., 2015
+Hauraix_Joint_Velo = Hauraix_Joint_Velo.*0.8314;                            % account for the difference in angular ankle joint velocity and dynamometer velocity
 Hauraix_Force = [431.76 380.33 262.52 198.54 159.07 139.33 129.77];
 Hauraix_Force_norm = Hauraix_Force./Hauraix_Force(1);
 Hauraix_Fascicle_Velo = [0 10.61 46.06 72.85 98.53 120.58 131.19];
 
-Hauraix13_Fascicle_Velo = [56 85 113 131 153 168];
+Hauraix13_Fascicle_Velo = [56 85 113 131 153 168];                          % Data taken from Hauraix et al., 2013
 Hauraix13_Joint_Velo = [30 90 150 210 270 330];
 
 figure(fig_Fv);
