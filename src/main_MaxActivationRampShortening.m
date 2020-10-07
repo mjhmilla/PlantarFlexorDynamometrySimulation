@@ -35,7 +35,7 @@ outputDataFolder = '../data/';
 outputFileName   = sprintf('simFv_%s_preload_%i',...
                            muscle,flag_simForceVelocityExpWithPreload);
 
-flag_runRigidBench               = 1;
+flag_runRigidBench               = 0;
 flag_runClassicElasticBench      = 0;
 flag_runDampedFiberElasticBench  = 1;
 
@@ -716,7 +716,7 @@ for count=1:1:countMax
         
         dampedFiberElasticTendonConfig.useFiberDamping  = 1;
         dampedFiberElasticTendonConfig.useElasticTendon = 1;
-        dampedFiberElasticTendonConfig.damping          = 0.1;
+        dampedFiberElasticTendonConfig.damping          = 0.01;
         dampedFiberElasticTendonConfig.iterMax          = 100;
         dampedFiberElasticTendonConfig.tol              = 1e-6;
         dampedFiberElasticTendonConfig.minActivation    = 0.0;
@@ -795,7 +795,7 @@ for count=1:1:countMax
                                 count);
 
         dampedFiberElasticTendonSimulationRecord.detailedResults.ankleAngularVelocity(:,count)= ...
-          benchRecordRigid.pathVelocity./ankleAchillesTendonMomentArm;
+          benchRecordDampedFiberElasticTendon.pathVelocity./ankleAchillesTendonMomentArm;
 
         dampedFiberElasticTendonSimulationRecord.detailedResults.simulationTime(:,count) = ...
           ([0:(1/(npts-1)):1]').*(totalSimTime);
