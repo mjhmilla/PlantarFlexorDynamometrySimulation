@@ -8,13 +8,12 @@ clear all;
 % will generate the desired plots.
 
 
-flag_simForceVelocityExpWithPreload = 0;
+flag_simForceVelocityExpWithPreload =0;
 % 0: Shortening begins simultaneously with the development of force
 % 1: Shortening begins after 100% activation is reached.
 
 flag_generateDiagnosticPlots        = 0; %Basic/Energy/Power plots
 flag_updateExistingPlots            = 0; %Only applies to the diagnostic plots
-
 
 
 tendonStrainAtOneNormForceOverride = 0.1;
@@ -202,6 +201,7 @@ for count=1:1:countMax
         createDefaultNormalizedMuscleCurves(muscleAbbr,...
         tendonStrainAtOneNormForceOverride,...
         shiftFiberForceLengthCurve,...
+        outputDataFolder,...
         flag_updateNormMuscleCurves,...
         flag_plotNormMuscleCurves);
     
@@ -407,7 +407,7 @@ for count=1:1:countMax
     ltSlk    = muscleArch.tendonSlackLength;
     fiso     = muscleArch.fiso;
     
-    
+    save([outputDataFolder,'muscleArch.mat'],'muscleArch');
     
     %%
     % I. Starting Musculotendon Path Length

@@ -30,3 +30,13 @@ benchRecord.fiberParallelElementPower   = zeros(numberOfPoints,numberOfSimulatio
 benchRecord.fiberActivePower            = zeros(numberOfPoints,numberOfSimulations);
 benchRecord.dampingPower                = zeros(numberOfPoints,numberOfSimulations);
 benchRecord.boundaryPower               = zeros(numberOfPoints,numberOfSimulations);  
+
+benchRecord.activeFiberForce             = zeros(numberOfPoints,numberOfSimulations);  
+benchRecord.activeFiberForceAlongTendon  = zeros(numberOfPoints,numberOfSimulations);  
+benchRecord.passiveFiberForce            = zeros(numberOfPoints,numberOfSimulations); 
+benchRecord.passiveFiberForceAlongTendon = zeros(numberOfPoints,numberOfSimulations); 
+
+benchRecord.fiberActiveForceLengthMultiplier  = zeros(numberOfPoints,numberOfSimulations);  
+benchRecord.fiberPassiveForceLengthMultiplier = zeros(numberOfPoints,numberOfSimulations);  
+benchRecord.fiberForceVelocityMultiplier      = zeros(numberOfPoints,numberOfSimulations);  
+benchRecord.normDamping                  = zeros(numberOfPoints,numberOfSimulations);  

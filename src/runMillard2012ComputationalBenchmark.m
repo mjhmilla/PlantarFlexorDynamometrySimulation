@@ -143,36 +143,7 @@ pathFcn = benchConfig.pathFcn;
 
 benchRecord = getEmptyBenchRecord(npts,nsim);        
 
-%benchRecord = [];
-%benchRecord.activation                  = zeros(npts,nsim);
-%benchRecord.cpuTime                     = zeros(npts,nsim);
-%benchRecord.normFiberForceAlongTendon   = zeros(npts,nsim);
-%benchRecord.normFiberLength             = zeros(npts,nsim);    
-%benchRecord.pennationAngle              = zeros(npts,nsim);
-%benchRecord.normFiberVelocity           = zeros(npts,nsim);
-%benchRecord.pennationAngVelocity        = zeros(npts,nsim);
-%benchRecord.fiberStiffnessAlongTendon   = zeros(npts,nsim);
-%benchRecord.tendonStiffnessAlongTendon  = zeros(npts,nsim);
-%benchRecord.muscleStiffness             = zeros(npts,nsim);
-%benchRecord.fiberVelocity               = zeros(npts,nsim);
-%benchRecord.fiberVelocityAlongTendon    = zeros(npts,nsim);
-%benchRecord.tendonVelocity              = zeros(npts,nsim);
-%benchRecord.pathLength                  = zeros(npts,nsim);
-%benchRecord.pathVelocity                = zeros(npts,nsim);
 
-%benchRecord.dSystemEnergyLessWork       = zeros(npts,nsim);
-%benchRecord.systemEnergyLessWork        = zeros(npts,nsim);
-%benchRecord.tendonPotentialEnergy       = zeros(npts,nsim);
-%benchRecord.fiberPotentialEnergy        = zeros(npts,nsim);
-%benchRecord.fiberActiveWork             = zeros(npts,nsim);
-%benchRecord.dampingWork                 = zeros(npts,nsim);
-%benchRecord.boundaryWork                = zeros(npts,nsim);
-
-%benchRecord.tendonPower                 = zeros(npts,nsim);
-%benchRecord.fiberParallelElementPower   = zeros(npts,nsim);
-%benchRecord.fiberActivePower            = zeros(npts,nsim);
-%benchRecord.dampingPower                = zeros(npts,nsim);
-%benchRecord.boundaryPower               = zeros(npts,nsim);
 
 
 for i = 1:1:nsim
@@ -256,7 +227,7 @@ for i = 1:1:nsim
     end
 
     T0V0 = 0;
-    benchRecord.activation(:,i) = activationState;
+    
     
     for j=1:1:length(tV)
         
@@ -279,6 +250,8 @@ for i = 1:1:nsim
 
         tendonForce = mtInfo.muscleDynamicsInfo.tendonForce;
                
+        
+        
         lceN    = mtInfo.muscleLengthInfo.normFiberLength;
         alpha   = mtInfo.muscleLengthInfo.pennationAngle;
         dlceN   = mtInfo.fiberVelocityInfo.normFiberVelocity;
@@ -293,6 +266,8 @@ for i = 1:1:nsim
         %force and kinematic information
         %%
         
+        benchRecord.activation(j,i) = mtInfo.muscleDynamicsInfo.activation;
+        
         benchRecord.normFiberForceAlongTendon(j,i)   = fNAT;
         benchRecord.normFiberLength(j,i)             = lceN;    
         benchRecord.pennationAngle(j,i)              = alpha;
@@ -304,9 +279,19 @@ for i = 1:1:nsim
         benchRecord.pathLength(j,i)                  = lp;
         benchRecord.pathVelocity(j,i)                = dlp;
         
-        benchRecord.fiberVelocity(j,i) = mtInfo.fiberVelocityInfo.fiberVelocity;
-        benchRecord.fiberVelocityAlongTendon(j,i) = mtInfo.fiberVelocityInfo.fiberVelocityAlongTendon;
-        benchRecord.tendonVelocity(j,i) = mtInfo.fiberVelocityInfo.tendonVelocity;
+        benchRecord.fiberVelocity(j,i)              =  mtInfo.fiberVelocityInfo.fiberVelocity;
+        benchRecord.fiberVelocityAlongTendon(j,i)   = mtInfo.fiberVelocityInfo.fiberVelocityAlongTendon;
+        benchRecord.tendonVelocity(j,i)             = mtInfo.fiberVelocityInfo.tendonVelocity;
+        
+        benchRecord.activeFiberForce(j,i)             = mtInfo.muscleDynamicsInfo.activeFiberForce;  
+        benchRecord.activeFiberForceAlongTendon(j,i)  = mtInfo.muscleDynamicsInfo.activeFiberForceAlongTendon;  
+        benchRecord.passiveFiberForce(j,i)            = mtInfo.muscleDynamicsInfo.passiveFiberForce; 
+        benchRecord.passiveFiberForceAlongTendon(j,i) = mtInfo.muscleDynamicsInfo.passiveFiberForceAlongTendon; 
+
+        benchRecord.fiberActiveForceLengthMultiplier(j,i)  = mtInfo.muscleLengthInfo.fiberActiveForceLengthMultiplier;  
+        benchRecord.fiberPassiveForceLengthMultiplier(j,i) = mtInfo.muscleLengthInfo.fiberPassiveForceLengthMultiplier;  
+        benchRecord.fiberForceVelocityMultiplier(j,i)           = mtInfo.fiberVelocityInfo.fiberForceVelocityMultiplier;  
+        benchRecord.normDamping(j,i)                       = mtInfo.fiberVelocityInfo.normDamping ; 
 
         %%
         %Energetics & power information

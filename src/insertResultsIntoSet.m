@@ -32,3 +32,12 @@ benchRecordSet.fiberActivePower(:,simNo)            = singleBenchRecord.fiberAct
 benchRecordSet.dampingPower(:,simNo)                = singleBenchRecord.dampingPower(:,1)               ;
 benchRecordSet.boundaryPower(:,simNo)               = singleBenchRecord.boundaryPower(:,1)              ;  
 
+benchRecordSet.activeFiberForce(:,simNo)             = singleBenchRecord.activeFiberForce(:,1) ; 
+benchRecordSet.activeFiberForceAlongTendon(:,simNo)  = singleBenchRecord.activeFiberForceAlongTendon(:,1); 
+benchRecordSet.passiveFiberForce(:,simNo)            = singleBenchRecord.passiveFiberForce(:,1); 
+benchRecordSet.passiveFiberForceAlongTendon(:,simNo) = singleBenchRecord.passiveFiberForceAlongTendon(:,1); 
+
+benchRecordSet.fiberActiveForceLengthMultiplier(:,simNo)  = singleBenchRecord.fiberActiveForceLengthMultiplier(:,1); 
+benchRecordSet.fiberPassiveForceLengthMultiplier(:,simNo) = singleBenchRecord.fiberPassiveForceLengthMultiplier(:,1);
+benchRecordSet.fiberForceVelocityMultiplier(:,simNo)      = singleBenchRecord.fiberForceVelocityMultiplier(:,1);
+benchRecordSet.normDamping(:,simNo)                       = singleBenchRecord.normDamping(:,1);

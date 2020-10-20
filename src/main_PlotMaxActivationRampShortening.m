@@ -2,6 +2,7 @@ clc;
 close all;
 clear all;
 
+dataFolder = '../data/';
 outputFolder = '../plots/';
 outputFileName = 'fig_ForceVelocity_Simulation_Vs_Experiment.pdf';
 
@@ -18,8 +19,8 @@ expData = '../data/Own_Study.xlsx';
 simDataSets = {'../data/simFv_gaslat_preload_1_dampedFiberElasticTendon.mat',...
               '../data/simFv_gaslat_preload_0_dampedFiberElasticTendon.mat'};
              
-simDataSetName = {'Sim.: ET+Preload',...
-                  'Sim.: ET'};      
+simDataSetName = {'Sim.: Preload',...
+                  'Sim.: Slack'};      
                 
  
 %simDataSetColor = [0.5,0.5,0.5;...
@@ -32,10 +33,17 @@ simDataSetLineType = {'-','--'};
 
 simDataPlotWhiteOutline = [0,1];
 
-simDataSetLineWidth= [2,0.25];
+simDataSetLineWidth= [2.0,0.5];
 
-simDataLegendPosition = {'SouthEast','NorthEast','SouthWest'};
+load([dataFolder,'normMuscleCurves.mat']);
+load([dataFolder,'muscleArch.mat']);
 
+fvCurveSample = calcBezierYFcnXCurveSampleVector(...
+                normMuscleCurves.fiberForceVelocityCurve, 500);
+
+%%
+% Subplot Configuration
+%%
 
 scaleNormForce =  100;
 
@@ -46,12 +54,34 @@ omegaMaxDeg = 200;
 m2mm = 1000;
 velMaxMM    = (omegaMaxDeg*(pi/180))*ankleAchillesTendonMomentArm*m2mm;
 
+idxOmegaVsVel=1;
+idxForceVsVel=3;
+idxForceVsOmega=5;
+
+idxVelocityDecomposition = 2;
+idxFiberLength=4;
+idxMultipliers=6;
+
+subplotList = [idxOmegaVsVel;...
+               idxForceVsVel;...
+               idxForceVsOmega;...
+               idxVelocityDecomposition;...
+               idxFiberLength;...
+               idxMultipliers];
+
 subplotXlim = [0,velMaxMM.*1.05;...
                0,velMaxMM.*1.05;...
-               0,omegaMaxDeg.*1.05];
+               0,omegaMaxDeg.*1.05;...
+               0,velMaxMM.*1.05;...
+               0,velMaxMM.*1.05;...
+               0,velMaxMM.*1.05];
+             
 subplotYlim = [0,omegaMaxDeg.*1.1;...
                0,1.1.*scaleNormForce;...
-               0,1.1.*scaleNormForce];
+               0,1.1.*scaleNormForce;...
+  -velMaxMM.*0.2,velMaxMM.*1.10;...
+               0,1.1;...
+               -0.1,1.1];
 
 omegaDegTicks     = round([0:0.125:1].*omegaMaxDeg,0);             
 velMMTicks        = round([0:0.125:1].*velMaxMM,0);             
@@ -67,8 +97,20 @@ subplotTicks(2).yticks = forcePercentTicks;
 subplotTicks(3).xticks = omegaDegTicks;
 subplotTicks(3).yticks = forcePercentTicks;
 
+subplotTicks(4).xticks = round([     0:0.125:1.125].*velMaxMM,0);
+subplotTicks(4).yticks = round([-0.125:0.125:1.125].*velMaxMM,0);
+
+subplotTicks(5).xticks = round([     0:0.125:1.125].*velMaxMM,0);
+subplotTicks(5).yticks = round([0:0.1:1.1],1);
+
+subplotTicks(6).xticks = round([     0:0.125:1.125].*velMaxMM,0);
+subplotTicks(6).yticks = round([0:0.1:1.1],1);
+
+simDataLegendPosition = {'SouthEast','NorthEast','SouthWest','NorthWest',...
+                         'SouthEast','SouthWest'};
+
 %%
-% Exp. Data Plot Settings
+% Individual Data Series Configuration
 %%
 
 flag_plotExpMeanLine = 0;
@@ -88,15 +130,15 @@ ChinoErrorLineType = '^';
 ChinoLineType = '-';
 
 
-Hauraix2015Color        = [0.65,0.65,1]; 
+Hauraix2015Color        = [0.5,0.5,1]; 
 Hauraix2015FillColor    = Hauraix2015Color.*0.25 + greyFill2.*0.75; 
-Hauraix2015LineWidth= 1.5; 
+Hauraix2015LineWidth= 1.; 
 Hauraix2015ErrorLineType = 's--';
 Hauraix2015LineType = '--';
 
-Hauraix2013Color      = [0.45,0.45,1]; 
+Hauraix2013Color      = [0.75,0.75,1]; 
 Hauraix2013FillColor  = Hauraix2013Color.*0.25 + greyFill2.*0.75;
-Hauraix2013LineWidth= 1.; 
+Hauraix2013LineWidth= 0.5; 
 Hauraix2013ErrorLineType = 'd--';
 Hauraix2013LineType = '--';
 
@@ -113,9 +155,11 @@ end
 % Plot configuration
 %%
 
-numberOfFiguresPerPage        = 3;
+
+
+numberOfFiguresPerPage        = 6;
 numberOfVerticalPlotRows      = 3;
-numberOfHorizontalPlotColumns = 1;    
+numberOfHorizontalPlotColumns = 2;    
 assert(numberOfVerticalPlotRows*numberOfHorizontalPlotColumns ...
          >= numberOfFiguresPerPage);
 
@@ -123,8 +167,8 @@ plotHorizMarginCm = 2;
 plotVertMarginCm  = 2;           
 pageHeight  = 29.7;
 pageWidth   = 21.0;           
-plotHeight  = 9;
-plotWidth   = 16;
+plotHeight  = 8;
+plotWidth   = 10;
 
 plotConfigGeneric;
 
@@ -166,7 +210,7 @@ figure(fig_Fv);
 %%
 % R^2 ankle angular velocity vs. fascicle velocity
 %%
-[row,col] = find(subPlotPanelIndex==1);          
+[row,col] = find(subPlotPanelIndex==idxOmegaVsVel);          
  subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
  subplot('Position',subPlotVec);    
 
@@ -226,7 +270,9 @@ figure(fig_Fv);
                   mean(-Vicon_angular_Velocity,2),ft);
     
   txt = ['R$^2$ of linear fit:',num2str(a.rsquare)];
-  text(10,250,txt,'Interpreter','latex');
+  ht=text(20,75,txt,'Interpreter','latex','HorizontalAlignment','Left',...
+          'VerticalAlignment','Bottom');
+  set(ht,'Rotation',60);
   box off
   
   xlabel('Fascicle Velocity (mm/s)','Interpreter','latex');
@@ -238,12 +284,23 @@ figure(fig_Fv);
 % Tendon force vs. fascicle velocity
 %%
 
-  [row,col] = find(subPlotPanelIndex==2);          
+  [row,col] = find(subPlotPanelIndex==idxForceVsVel);          
    subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
    subplot('Position',subPlotVec); 
 
   hold on
  
+  vmax = muscleArch.maximumNormalizedFiberVelocity...
+         *muscleArch.optimalFiberLength;
+  fill([0;fvCurveSample.x.*(vmax);0].*-m2mm,...
+       [0;fvCurveSample.y;0].*scaleNormForce,...
+       [1,1,1].*0.9,...
+       'LineStyle','none',...
+       'Handlevisibility','off');
+  hold on;
+            
+  
+  
   fig_Fv = errorcloud(fig_Fv, ...
             Chino_Fascicle_Velo',...
                 Chino_force',...
@@ -312,6 +369,13 @@ figure(fig_Fv);
                 'LineWidth', expLineWidth,...
                 'DisplayName','Exp.');
 
+
+  plot([fvCurveSample.x.*(vmax)].*-m2mm,...
+       [fvCurveSample.y].*scaleNormForce,...
+       '-','Color',[1,1,1],...
+       'LineWidth',1.5,...
+       'Handlevisibility','off');
+  hold on;
            
               
   %e.Marker = 'o';
@@ -330,7 +394,7 @@ figure(fig_Fv);
 % Tendon force vs. fascicle velocity
 %%
 
-  [row,col] = find(subPlotPanelIndex==3);          
+  [row,col] = find(subPlotPanelIndex==idxForceVsOmega);          
    subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
    subplot('Position',subPlotVec); 
 
@@ -425,23 +489,26 @@ for i=1:1:length(simDataSets)
 
   trials = size(data.standardResults.activation,2);
   measurementLength                   = zeros(trials,1);
-  measuredForce                       = zeros(trials,1);
+  measuredForceAlongTendon            = zeros(trials,1);
+  
   measuredFiberVelocity               = zeros(trials,1);
   measuredFiberVelocityAlongTendon    = zeros(trials,1);
   measuredAnkleAngularVelocity        = zeros(trials,1);
   pennationAngle                      = zeros(trials,1);
-  
+  normFiberLength                     = zeros(trials,1);
+
+  measuredForceVelocityMultiplier     = zeros(trials,1);
   
   for j=1:1:trials
     %Use interpolation to evaluate the data at the time of the measurement
 
 
-      measuredForce(j,1) = ...
+      measuredForceAlongTendon(j,1) = ...
         interp1(data.detailedResults.simulationTime(:,j), ...
                 data.standardResults.normFiberForceAlongTendon(:,j), ...
                 data.detailedResults.measurementTime(1,j));
 
-      measuredForce(j,1) = measuredForce(j,1) ...
+      measuredForceAlongTendon(j,1) = measuredForceAlongTendon(j,1) ...
         ./data.detailedResults.normFiberForceAlongTendonIsometric(1,j);
               
       measuredFiberVelocity(j,1) = ...
@@ -463,9 +530,17 @@ for i=1:1:length(simDataSets)
         interp1(data.detailedResults.simulationTime(:,j), ...
                 data.standardResults.pennationAngle(:,j), ...
                 data.detailedResults.measurementTime(1,j));   
-                                              
-
+              
+      measuredForceVelocityMultiplier(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.fiberForceVelocityMultiplier(:,j), ...
+                data.detailedResults.measurementTime(1,j));              
+              
   end
+  
+  
+
+  
  
   %%
   % R^2 ankle angular velocity vs. fascicle velocity
@@ -473,12 +548,12 @@ for i=1:1:length(simDataSets)
   m2mm    = 1000;
   rad2deg = 180/pi; 
   
-  [row,col] = find(subPlotPanelIndex==1);          
+  [row,col] = find(subPlotPanelIndex==idxOmegaVsVel);          
   subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
   subplot('Position',subPlotVec);    
 
     if(simDataPlotWhiteOutline(1,i)==1)
-      plot(measuredFiberVelocity.*(-m2mm), ...
+      plot(measuredFiberVelocityAlongTendon.*(-m2mm), ...
             measuredAnkleAngularVelocity.*(-rad2deg),...
             '-',...        
             'Color', [1,1,1],...
@@ -488,7 +563,7 @@ for i=1:1:length(simDataSets)
     end
     
    
-  plot(measuredFiberVelocity.*(-m2mm), ...
+  plot(measuredFiberVelocityAlongTendon.*(-m2mm), ...
         measuredAnkleAngularVelocity.*(-rad2deg),...
         simDataSetLineType{i},...        
         'Color', simDataSetColor(i,:),...
@@ -501,13 +576,13 @@ for i=1:1:length(simDataSets)
   % Tendon force vs. fascicle velocity
   %%
 
-  [row,col] = find(subPlotPanelIndex==2);          
+  [row,col] = find(subPlotPanelIndex==idxForceVsVel);          
   subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
   subplot('Position',subPlotVec); 
 
   if(simDataPlotWhiteOutline(1,i)==1)
-    plot(measuredFiberVelocity.*(-m2mm), ...
-         measuredForce.*scaleNormForce, ...
+    plot(measuredFiberVelocityAlongTendon.*(-m2mm), ...
+         measuredForceAlongTendon.*scaleNormForce, ...
          '-',...  
           'Color',[1,1,1],...        
           'LineWidth',simDataSetLineWidth(1,i).*2,...        
@@ -515,27 +590,45 @@ for i=1:1:length(simDataSets)
     hold on;  
   end
     
-  plot(measuredFiberVelocity.*(-m2mm), ...
-       measuredForce.*scaleNormForce, ...
+  plot(measuredFiberVelocityAlongTendon.*(-m2mm), ...
+       measuredForceAlongTendon.*scaleNormForce, ...
        simDataSetLineType{i},...  
         'Color',simDataSetColor(i,:),...        
         'LineWidth',simDataSetLineWidth(1,i),...        
         'DisplayName',simDataSetName{i});
   hold on;
 
+  if(i==1)
+    ht=text(197,21,'Model Force Velocity Curve',...
+         'HorizontalAlignment','Right',...
+         'VerticalAlignment','Bottom');       
+    hold on;
+    set(ht,'Rotation',-14);
+    hold on;
+  end
+  
+%   plot(measuredFiberVelocityAlongTendon.*(-m2mm), ...
+%        measuredForceVelocityMultiplier.*scaleNormForce, ...
+%        simDataSetLineType{i},...  
+%         'Color',simDataSetColor(i,:),...        
+%         'LineWidth',simDataSetLineWidth(1,i),...        
+%         'DisplayName',[simDataSetName{i},' fv']);
+%   hold on;
+
+  
 
    
   %%
   % Tendon force vs. fascicle velocity
   %%
 
-  [row,col] = find(subPlotPanelIndex==3);          
+  [row,col] = find(subPlotPanelIndex==idxForceVsOmega);          
   subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
   subplot('Position',subPlotVec);    
   
   if(simDataPlotWhiteOutline(1,i)==1)
     plot( measuredAnkleAngularVelocity.*(-rad2deg),...
-          measuredForce.*scaleNormForce,...
+          measuredForceAlongTendon.*scaleNormForce,...
           '-',...
           'Color',[1,1,1],...        
           'LineWidth',simDataSetLineWidth(1,i)*2,...
@@ -543,7 +636,7 @@ for i=1:1:length(simDataSets)
     hold on;  
   end  
   plot( measuredAnkleAngularVelocity.*(-rad2deg),...
-        measuredForce.*scaleNormForce,...
+        measuredForceAlongTendon.*scaleNormForce,...
         simDataSetLineType{i},...
         'Color',simDataSetColor(i,:),...        
         'LineWidth',simDataSetLineWidth(1,i),...
@@ -551,11 +644,206 @@ for i=1:1:length(simDataSets)
   hold on;
   
 
+%   plot(measuredAnkleAngularVelocity.*(-rad2deg), ...
+%        measuredForceVelocityMultiplier.*scaleNormForce, ...
+%        simDataSetLineType{i},...  
+%         'Color',simDataSetColor(i,:),...        
+%         'LineWidth',simDataSetLineWidth(1,i),...        
+%         'DisplayName',[simDataSetName{i},' fv']);
+%   hold on;  
   
 end
 
-for i=1:1:3
-  [row,col] = find(subPlotPanelIndex==i);          
+%%
+% Generate the velocity decomposition plots
+%%
+for i=1:1:length(simDataSets)
+  [row,col] = find(subPlotPanelIndex==idxVelocityDecomposition);          
+  subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
+  subplot('Position',subPlotVec);   
+  
+  if(i==1)
+    plot([0,300],[0,300],'-','Color',[1,1,1].*0.75,'LineWidth',1,...
+         'HandleVisibility','off');
+    hold on;
+    plot([0,300],[0,0],'-','Color',[1,1,1].*0.75,'LineWidth',1,...
+        'HandleVisibility','off');
+    hold on;
+    text(200,12.5,'Shortening','HorizontalAlignment','Right');
+    hold on;
+    text(200,-12.5,'Lengthening','HorizontalAlignment','Right');
+    hold on;
+    
+  end
+
+  
+  %Load the set and remove the simulation-specific name
+  data=load(simDataSets{i});
+  headField = fields(data);
+  data = data.(headField{1});
+
+  trials = size(data.standardResults.activation,2);
+  measuredForceAlongTendon            = zeros(trials,1);
+  measuredFiberVelocityAlongTendon    = zeros(trials,1);
+  measuredTendonVelocity              = zeros(trials,1);
+  measuredPathVelocity                = zeros(trials,1);
+  measuredPennationAngle              = zeros(trials,1);
+  measuredNormFiberLength             = zeros(trials,1);
+  measuredPassiveFiberForceAlongTendon= zeros(trials,1);                  
+  measuredActivation             = zeros(trials,1);
+  measuredForceVelocityMultiplier= zeros(trials,1);
+  measuredActiveForceLengthMultiplier= zeros(trials,1);
+  measuredPassiveForceLengthMultiplier= zeros(trials,1);
+  measuredNormDamping= zeros(trials,1);
+  
+  for j=1:1:trials
+    %Use interpolation to evaluate the data at the time of the measurement
+
+
+      measuredForceAlongTendon(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.normFiberForceAlongTendon(:,j), ...
+                data.detailedResults.measurementTime(1,j));              
+              
+      measuredFiberVelocityAlongTendon(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.fiberVelocityAlongTendon(:,j), ...
+                data.detailedResults.measurementTime(1,j));  
+
+      measuredTendonVelocity(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.tendonVelocity(:,j), ...
+                data.detailedResults.measurementTime(1,j));                
+                                              
+      measuredPathVelocity(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.pathVelocity(:,j), ...
+                data.detailedResults.measurementTime(1,j));                
+
+      measuredPennationAngle(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.pennationAngle(:,j), ...
+                data.detailedResults.measurementTime(1,j));   
+
+      measuredNormFiberLength(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.normFiberLength(:,j), ...
+                data.detailedResults.measurementTime(1,j));                 
+                            
+      measuredPassiveFiberForceAlongTendon(j,1)=...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.passiveFiberForceAlongTendon(:,j), ...
+                data.detailedResults.measurementTime(1,j));  
+
+      measuredActivation(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.activation(:,j), ...
+                data.detailedResults.measurementTime(1,j));    
+              
+      measuredForceVelocityMultiplier(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.fiberForceVelocityMultiplier(:,j), ...
+                data.detailedResults.measurementTime(1,j));
+              
+      measuredActiveForceLengthMultiplier(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.fiberActiveForceLengthMultiplier(:,j), ...
+                data.detailedResults.measurementTime(1,j));
+      
+      measuredNormDamping(j,1) = ...
+        interp1(data.detailedResults.simulationTime(:,j), ...
+                data.standardResults.normDamping(:,j), ...
+                data.detailedResults.measurementTime(1,j));              
+  end  
+  
+  plot(measuredPathVelocity.*(-m2mm),...
+       measuredFiberVelocityAlongTendon.*(-m2mm),...
+       simDataSetLineType{i},...
+       'Color',simDataSetColor(i,:),...        
+       'LineWidth',simDataSetLineWidth(1,i),...
+       'DisplayName',[simDataSetName{i},' (Fiber Vel. AT)']);
+  hold on;
+  
+  plot(measuredPathVelocity.*(-m2mm),...
+      measuredTendonVelocity.*(-m2mm),...
+      simDataSetLineType{i},...
+     'Color',[1,0,0],...        
+     'LineWidth',simDataSetLineWidth(1,i),...
+     'DisplayName',[simDataSetName{i}, ' (Tendon Vel.)']);
+  hold on;
+  
+  box off;
+  
+  if(i==1)
+    xlabel('Path Shortening Velocity (mm/s)');
+    ylabel('Shortening Velocity (mm/s)');    
+  end
+  
+  
+  [row,col] = find(subPlotPanelIndex==idxFiberLength);          
+  subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
+  subplot('Position',subPlotVec);  
+  plot(measuredPathVelocity.*(-m2mm),...
+      measuredNormFiberLength,...
+      simDataSetLineType{i},...
+     'Color',simDataSetColor(i,:),...        
+     'LineWidth',simDataSetLineWidth(1,i),...
+     'DisplayName',[simDataSetName{i}, ' (Norm. Fiber Length)']);
+  hold on;  
+  box off;
+  
+  if(i==1)
+    xlabel('Path Shortening Velocity (mm/s)');
+    ylabel('Norm. Fiber Length');    
+  end
+  
+
+  [row,col] = find(subPlotPanelIndex==idxMultipliers);          
+  subPlotVec = reshape(subPlotPanel(row,col,:),1,4); 
+  
+  subplot('Position',subPlotVec);  
+  plot(measuredPathVelocity.*(-m2mm),...
+      measuredActiveForceLengthMultiplier,...
+      simDataSetLineType{i},...
+     'Color',[1,0,0],...        
+     'LineWidth',simDataSetLineWidth(1,i),...
+     'DisplayName',[simDataSetName{i}, ' (fal)']);
+  hold on;  
+  
+  plot(measuredPathVelocity.*(-m2mm),...
+      measuredPassiveForceLengthMultiplier,...
+      simDataSetLineType{i},...
+     'Color',[0,0,1],...        
+     'LineWidth',simDataSetLineWidth(1,i),...
+     'DisplayName',[simDataSetName{i}, ' (fpe)']);
+  hold on;  
+
+  plot(measuredPathVelocity.*(-m2mm),...
+      measuredForceVelocityMultiplier,...
+      simDataSetLineType{i},...
+     'Color',[0,0,0],...        
+     'LineWidth',simDataSetLineWidth(1,i),...
+     'DisplayName',[simDataSetName{i}, ' (fv)']);
+  hold on;  
+  
+  plot(measuredPathVelocity.*(-m2mm),...
+      measuredNormDamping,...
+      simDataSetLineType{i},...
+     'Color',[0,1,1],...        
+     'LineWidth',simDataSetLineWidth(1,i),...
+     'DisplayName',[simDataSetName{i}, ' (damping)']);
+  hold on;   
+  
+  box off;    
+  if(i==1)
+    xlabel('Path Shortening Velocity (mm/s)');
+    ylabel('Multipliers');    
+  end    
+  
+end
+
+for i=1:1:length(subplotList)
+  [row,col] = find(subPlotPanelIndex==subplotList(i,1));          
   subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
   subplot('Position',subPlotVec);    
   legend('Location',simDataLegendPosition{i});

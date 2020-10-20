@@ -32,7 +32,7 @@
 %%
 function normMuscleCurves = createDefaultNormalizedMuscleCurves(...
                 muscleName,tendonStrainAtOneNormForceInput,...
-                shiftFiberForceLengthCurve,...
+                shiftFiberForceLengthCurve,saveToFolder,...
                 flag_updateCurves, flag_plotCurves)
 %%
 % This function constructs the default normalized muscle fiber and tendon
@@ -63,8 +63,8 @@ function normMuscleCurves = createDefaultNormalizedMuscleCurves(...
 %%
 normMuscleCurves = [];
 
-if(exist('normMuscleCurves.mat','file') == 2 && flag_updateCurves == 0)
-    tmp = load('normMuscleCurves.mat');
+if(exist([saveToFolder,'normMuscleCurves.mat'],'file') == 2 && flag_updateCurves == 0)
+    tmp = load([saveToFolder,'normMuscleCurves.mat']);
     normMuscleCurves = tmp.normMuscleCurves;
 else    
     %%
@@ -273,7 +273,7 @@ else
     % calcNormalizedMuscleCurveDerivative
     %%
 
-    save('normMuscleCurves.mat','normMuscleCurves');
+    save([saveToFolder,'normMuscleCurves.mat'],'normMuscleCurves');
 end
 
 if(flag_plotCurves ==1)

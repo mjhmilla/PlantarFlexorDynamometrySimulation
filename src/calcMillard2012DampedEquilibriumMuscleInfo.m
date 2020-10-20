@@ -790,7 +790,7 @@ mtInfo.fiberVelocityInfo.pennationAngularVelocity     = dalpha;  %angle/time    
 mtInfo.fiberVelocityInfo.tendonVelocity               = dlt;     %length/time           m/s
 mtInfo.fiberVelocityInfo.normTendonVelocity           = dltN;    %(length/time)/length  (m/s)/m
 mtInfo.fiberVelocityInfo.fiberForceVelocityMultiplier = fvN;     %force/force           NA
-
+mtInfo.fiberVelocityInfo.normDamping                  = beta*dlceN;
 
 %%
 %7. Evaluate the potential energy stored in the musculotendon
@@ -846,8 +846,12 @@ mtInfo.muscleDynamicsInfo.activation                = a;                  % NA  
 mtInfo.muscleDynamicsInfo.fiberForce                = ffN*fiso;           % force                N
 mtInfo.muscleDynamicsInfo.fiberForceAlongTendon     = ffN*fiso*cosAlpha;  % force                N
 mtInfo.muscleDynamicsInfo.normFiberForce            = ffN;            % force/force          N/N
-mtInfo.muscleDynamicsInfo.activeFiberForce          = ffaN*fiso;      % force                N
-mtInfo.muscleDynamicsInfo.passiveFiberForce         = ffpN*fiso;      % force                N
+mtInfo.muscleDynamicsInfo.activeFiberForce             = ffaN*fiso;      % force                N
+mtInfo.muscleDynamicsInfo.activeFiberForceAlongTendon  = ffaN*fiso*cosAlpha;      % force                N
+
+mtInfo.muscleDynamicsInfo.passiveFiberForce            = ffpN*fiso;      % force                N
+mtInfo.muscleDynamicsInfo.passiveFiberForceAlongTendon = ffpN*fiso*cosAlpha;      % force                N
+
 mtInfo.muscleDynamicsInfo.tendonForce               = ftN*fiso;        % force                N
 mtInfo.muscleDynamicsInfo.normTendonForce           = ftN;             % force/force          N/N
 mtInfo.muscleDynamicsInfo.fiberStiffness            = kf;             % force/length         N/m
