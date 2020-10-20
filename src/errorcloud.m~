@@ -1,0 +1,18 @@
+function figH = errorcloud(figH,x,y,xneg,yneg,xpos,ypos,lineType,...
+                           fillColor,lineColor,markerFaceColor,lineWidth,...
+                           displayName)
+                
+dataHull=calcDataHull(x,y,xneg,yneg,xpos,ypos);
+
+figure(figH);
+
+centerLine = [];
+
+for i=1:1:length(dataHull)
+  fill(dataHull(i).x,dataHull(i).y,fillColor,'EdgeColor',none);
+  hold on;
+  
+end
+
+
+
