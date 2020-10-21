@@ -2,10 +2,17 @@ clc;
 close all;
 clear all;
 
-dataFolder = '../data/';
-outputFolder = '../plots/';
-outputFileName = 'fig_ForceVelocity_Simulation_Vs_Experiment.pdf';
 
+
+fractionOfFastTwitchFibers         = 0.0;
+fractionOfFastTwitchFibersStr = ...
+  ['FastTwitch_',num2str(round(fractionOfFastTwitchFibers*100,0))];
+
+
+dataFolder      = '../data/';
+outputFolder    = '../plots/';
+outputFileName  = ['fig_ForceVelocity_Simulation_Vs_Experiment_',...
+                  fractionOfFastTwitchFibersStr,'.pdf'];
 
 expData = '../data/Own_Study.xlsx'; 
 
@@ -16,8 +23,11 @@ expData = '../data/Own_Study.xlsx';
 %give you an error, but it doesn't, it just silently lets you overwrite
 %an important internal varible
 
-simDataSets = {'../data/simFv_gaslat_preload_1_dampedFiberElasticTendon.mat',...
-              '../data/simFv_gaslat_preload_0_dampedFiberElasticTendon.mat'};
+simDataSets = {...
+  ['../data/simFv_gaslat_preload_1_dampedFiberElasticTendon_',...
+  fractionOfFastTwitchFibersStr,'.mat'],...
+  ['../data/simFv_gaslat_preload_0_dampedFiberElasticTendon_',...
+  fractionOfFastTwitchFibersStr,'.mat']};
              
 simDataSetName = {'Sim.: Preload',...
                   'Sim.: Slack'};      
@@ -35,8 +45,8 @@ simDataPlotWhiteOutline = [0,1];
 
 simDataSetLineWidth= [2.0,0.5];
 
-load([dataFolder,'normMuscleCurves.mat']);
-load([dataFolder,'muscleArch.mat']);
+load([dataFolder,'normMuscleCurves_',fractionOfFastTwitchFibersStr,'.mat']);
+load([dataFolder,'muscleArch_',fractionOfFastTwitchFibersStr,'.mat']);
 
 fvCurveSample = calcBezierYFcnXCurveSampleVector(...
                 normMuscleCurves.fiberForceVelocityCurve, 500);
@@ -79,7 +89,7 @@ subplotXlim = [0,velMaxMM.*1.05;...
 subplotYlim = [0,omegaMaxDeg.*1.1;...
                0,1.1.*scaleNormForce;...
                0,1.1.*scaleNormForce;...
-  -velMaxMM.*0.2,velMaxMM.*1.10;...
+  -velMaxMM.*0.3,velMaxMM.*1.4;...
                0,1.1;...
                -0.1,1.1];
 
@@ -98,7 +108,7 @@ subplotTicks(3).xticks = omegaDegTicks;
 subplotTicks(3).yticks = forcePercentTicks;
 
 subplotTicks(4).xticks = round([     0:0.125:1.125].*velMaxMM,0);
-subplotTicks(4).yticks = round([-0.125:0.125:1.125].*velMaxMM,0);
+subplotTicks(4).yticks = round([-0.25:0.125:1.125].*velMaxMM,0);
 
 subplotTicks(5).xticks = round([     0:0.125:1.125].*velMaxMM,0);
 subplotTicks(5).yticks = round([0:0.1:1.1],1);
@@ -106,6 +116,7 @@ subplotTicks(5).yticks = round([0:0.1:1.1],1);
 subplotTicks(6).xticks = round([     0:0.125:1.125].*velMaxMM,0);
 subplotTicks(6).yticks = round([0:0.1:1.1],1);
 
+simDataAddLegend = [1,1,1,0,0,0];
 simDataLegendPosition = {'SouthEast','NorthEast','SouthWest','NorthWest',...
                          'SouthEast','SouthWest'};
 
@@ -277,7 +288,7 @@ figure(fig_Fv);
   
   xlabel('Fascicle Velocity (mm/s)','Interpreter','latex');
   ylabel('Angular Velocity ($^\circ$/s)','Interpreter','latex');   
-  title('Fascicle velocity vs. Ankle joint angular velocity');
+  title('A. Fascicle velocity vs. Ankle joint angular velocity');
   
   
 %%
@@ -388,16 +399,29 @@ figure(fig_Fv);
 
   xlabel('Fascicle Velocity (mm/s)')
   ylabel('Norm. Force (\%)')
-  title('Fascicle force vs. Fascicle velocity');
+  title('B. Fascicle force vs. Fascicle velocity');
   
 %%
-% Tendon force vs. fascicle velocity
+% Tendon force vs. ankle angular velocity
 %%
 
   [row,col] = find(subPlotPanelIndex==idxForceVsOmega);          
    subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
    subplot('Position',subPlotVec); 
 
+   
+  vmax = muscleArch.maximumNormalizedFiberVelocity...
+         *muscleArch.optimalFiberLength;
+  ankleOmegaRad = -fvCurveSample.x.*(vmax)/ankleAchillesTendonMomentArm;
+  ankleOmegaDeg = ankleOmegaRad.*(180/pi);      
+  
+  fill([0;ankleOmegaDeg;0],...
+       [0;fvCurveSample.y;0].*scaleNormForce,...
+       [1,1,1].*0.9,...
+       'LineStyle','none',...
+       'Handlevisibility','off');
+  hold on;   
+    
    
   fig_Fv = errorcloud(fig_Fv, ...
             Chino_Joint_Velo',...
@@ -463,6 +487,15 @@ figure(fig_Fv);
   %e.Color = 'k';
   %e.LineStyle = ':';    
 
+  
+  
+  plot(ankleOmegaDeg,...
+       fvCurveSample.y.*scaleNormForce,...
+       '-','Color',[1,1,1],...
+       'LineWidth',1.5,...
+       'Handlevisibility','off');
+  hold on;  
+  
   ylim([0 1.1]);  
   box off;
   
@@ -470,7 +503,7 @@ figure(fig_Fv);
   %legend('Hauraix et al., 2015','current study')
   xlabel('Angular velocity ($^\circ$/s)')
   ylabel('Norm. Force (\%)')
-  title('Fascicle force vs. Ankle joint angular velocity');
+  title('C. Fascicle force vs. Ankle joint angular velocity');
   
 
 
@@ -599,11 +632,11 @@ for i=1:1:length(simDataSets)
   hold on;
 
   if(i==1)
-    ht=text(197,21,'Model Force Velocity Curve',...
+    ht=text(197,12,'Model Force Velocity Curve',...
          'HorizontalAlignment','Right',...
          'VerticalAlignment','Bottom');       
     hold on;
-    set(ht,'Rotation',-14);
+    set(ht,'Rotation',-10);
     hold on;
   end
   
@@ -619,7 +652,7 @@ for i=1:1:length(simDataSets)
 
    
   %%
-  % Tendon force vs. fascicle velocity
+  % Tendon force vs. ankle angular velocity
   %%
 
   [row,col] = find(subPlotPanelIndex==idxForceVsOmega);          
@@ -643,7 +676,18 @@ for i=1:1:length(simDataSets)
         'DisplayName',simDataSetName{i});
   hold on;
   
+  if(i==1)
+    ht=text(210,12,'Model Force Velocity Curve',...
+         'HorizontalAlignment','Right',...
+         'VerticalAlignment','Bottom');       
+    hold on;
+    set(ht,'Rotation',-10);
+    hold on;
 
+  end
+
+  
+  
 %   plot(measuredAnkleAngularVelocity.*(-rad2deg), ...
 %        measuredForceVelocityMultiplier.*scaleNormForce, ...
 %        simDataSetLineType{i},...  
@@ -658,24 +702,13 @@ end
 % Generate the velocity decomposition plots
 %%
 for i=1:1:length(simDataSets)
-  [row,col] = find(subPlotPanelIndex==idxVelocityDecomposition);          
-  subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
-  subplot('Position',subPlotVec);   
-  
-  if(i==1)
-    plot([0,300],[0,300],'-','Color',[1,1,1].*0.75,'LineWidth',1,...
-         'HandleVisibility','off');
-    hold on;
-    plot([0,300],[0,0],'-','Color',[1,1,1].*0.75,'LineWidth',1,...
-        'HandleVisibility','off');
-    hold on;
-    text(200,12.5,'Shortening','HorizontalAlignment','Right');
-    hold on;
-    text(200,-12.5,'Lengthening','HorizontalAlignment','Right');
-    hold on;
-    
+  flag_preload=0;
+  tagPreload = '';
+  if(contains(simDataSets{i},'preload_1')==1)
+    flag_preload=1;
+    tagPreload = ' (Pre)';
   end
-
+  
   
   %Load the set and remove the simulation-specific name
   data=load(simDataSets{i});
@@ -754,7 +787,38 @@ for i=1:1:length(simDataSets)
         interp1(data.detailedResults.simulationTime(:,j), ...
                 data.standardResults.normDamping(:,j), ...
                 data.detailedResults.measurementTime(1,j));              
-  end  
+  end    
+  
+  [row,col] = find(subPlotPanelIndex==idxVelocityDecomposition);          
+  subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
+  subplot('Position',subPlotVec);   
+
+  if(i==1)
+    fill([0,300,300,0],[0,300,0,0],[1,1,1].*0.9,'EdgeColor','none',...
+         'HandleVisibility','off');
+    hold on;
+    ht = text(160,160,'Shortening slower than path',...
+      'HorizontalAlignment','Right','VerticalAlignment','Top');
+    hold on;
+    set(ht, 'Rotation',25);
+    ht = text(160,160,'Shortening faster than path',...
+      'HorizontalAlignment','Right','VerticalAlignment','bottom');
+    hold on;    
+    set(ht, 'Rotation',25);    
+    plot([0,300],[0,0],'-','Color',[1,1,1].*0.75,'LineWidth',1,...
+        'HandleVisibility','off');
+    hold on;
+    text(94, 6.,'Shortening','HorizontalAlignment','Center');
+    hold on;
+    text(94,-6.,'Lengthening','HorizontalAlignment','Center');
+    hold on;
+    
+  end
+
+  xStart = measuredPathVelocity(1,1).*(-m2mm);
+  xEnd   = measuredPathVelocity(end,1).*(-m2mm);
+  xDelta = (xEnd-xStart)*0.05;
+  yDeltaStatic = 5;
   
   plot(measuredPathVelocity.*(-m2mm),...
        measuredFiberVelocityAlongTendon.*(-m2mm),...
@@ -764,51 +828,130 @@ for i=1:1:length(simDataSets)
        'DisplayName',[simDataSetName{i},' (Fiber Vel. AT)']);
   hold on;
   
+  ht=text(xEnd, measuredFiberVelocityAlongTendon(end,1).*(-m2mm)-yDeltaStatic,...
+       ['$$v^{MaT}$$',tagPreload],...
+       'VerticalAlignment','Top','HorizontalAlignment','Right',...
+       'Color',simDataSetColor(i,:));  
+
+  dy= measuredFiberVelocityAlongTendon(end,1).*(-m2mm)...
+     -measuredFiberVelocityAlongTendon(end-1,1).*(-m2mm);
+  dx = measuredPathVelocity(end,1).*(-m2mm) ...
+      -measuredPathVelocity(end-1,1).*(-m2mm);
+  textAngle = atan2(dy,dx)*(180/pi);
+     
+  set(ht,'Rotation',textAngle);
+  
   plot(measuredPathVelocity.*(-m2mm),...
       measuredTendonVelocity.*(-m2mm),...
       simDataSetLineType{i},...
      'Color',[1,0,0],...        
      'LineWidth',simDataSetLineWidth(1,i),...
      'DisplayName',[simDataSetName{i}, ' (Tendon Vel.)']);
-  hold on;
+  hold on;  
   
+  ht=text(xEnd-xDelta, measuredTendonVelocity(end,1).*(-m2mm),...
+       ['$$v^{T}$$',tagPreload],...
+       'VerticalAlignment','Bottom','HorizontalAlignment','Left',...
+       'Color',[1,0,0]);  
+ 
+  dy= measuredTendonVelocity(end,1).*(-m2mm)...
+     -measuredTendonVelocity(end-1,1).*(-m2mm);
+  textAngle = atan2(dy,dx)*(180/pi);     
+  set(ht,'Rotation',textAngle);
+     
+     
   box off;
   
   if(i==1)
     xlabel('Path Shortening Velocity (mm/s)');
-    ylabel('Shortening Velocity (mm/s)');    
+    ylabel('Shortening Velocity (mm/s)'); 
+    title('D. Path Velocity Decomposition: Fiber(AT) \& Tendon');
   end
   
-  
+  %%
+  % Plot fiber kinematics
+  %%
   [row,col] = find(subPlotPanelIndex==idxFiberLength);          
   subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
   subplot('Position',subPlotVec);  
+  yyaxis left;
+    
+  xStart = measuredPathVelocity(1,1).*(-m2mm);
+  xEnd   = measuredPathVelocity(end,1).*(-m2mm);
+  
   plot(measuredPathVelocity.*(-m2mm),...
       measuredNormFiberLength,...
       simDataSetLineType{i},...
-     'Color',simDataSetColor(i,:),...        
+     'Color',[44,137,160]./255,...        
      'LineWidth',simDataSetLineWidth(1,i),...
      'DisplayName',[simDataSetName{i}, ' (Norm. Fiber Length)']);
   hold on;  
+  
+  text(xEnd, measuredNormFiberLength(end,1),...
+     ['$$\tilde{\ell}^{M}$$',tagPreload],...
+     'VerticalAlignment','Bottom','HorizontalAlignment','Right',...
+     'Color',[44,137,160]./255);
+  
   box off;
   
   if(i==1)
     xlabel('Path Shortening Velocity (mm/s)');
     ylabel('Norm. Fiber Length');    
+    title('E. Fiber Length \& Pennation Angle');
   end
+  ylim([0,1.1]);   
+  yyaxis right;
   
-
+  plot(measuredPathVelocity.*(-m2mm),...
+      measuredPennationAngle.*(180/pi),...
+      simDataSetLineType{i},...
+     'Color',[255,102,0]./255,...        
+     'LineWidth',simDataSetLineWidth(1,i),...
+     'DisplayName',[simDataSetName{i}, ' (Pennation Angle)']);
+  hold on;  
+  
+  text(xEnd, measuredPennationAngle(end).*(180/pi),...
+     ['$$\alpha$$',tagPreload],...
+     'VerticalAlignment','Bottom','HorizontalAlignment','Right',...
+     'Color',[255,102,0]./255);
+  if(i==1)
+    ylabel('Pennation Angle (deg)');
+  end
+  ylim([0,20]); 
+  yyaxis left;  
+  box off;
+  
+  %%
+  % Plot multipliers
+  %%
   [row,col] = find(subPlotPanelIndex==idxMultipliers);          
   subPlotVec = reshape(subPlotPanel(row,col,:),1,4); 
   
+  xStart= measuredPathVelocity(1,1).*(-m2mm);
+  xEnd  = measuredPathVelocity(end,1).*(-m2mm);
+  xDelta = (xEnd-xStart)*0.1;
+  yDelta = 0.075;
+  yDeltaFixed=yDelta;
+  xDeltaFixed=2*xDelta;
+  if(mod(i,2)==0)
+    xDelta=0;
+    yDelta=0;
+  end
+  
   subplot('Position',subPlotVec);  
+
   plot(measuredPathVelocity.*(-m2mm),...
-      measuredActiveForceLengthMultiplier,...
+      measuredActiveForceLengthMultiplier-yDelta,...
       simDataSetLineType{i},...
      'Color',[1,0,0],...        
      'LineWidth',simDataSetLineWidth(1,i),...
      'DisplayName',[simDataSetName{i}, ' (fal)']);
   hold on;  
+  
+  text(xEnd, measuredActiveForceLengthMultiplier(end,1)-yDelta,...
+       ['$$f^{L}(\tilde{\ell}^{CE})$$',tagPreload],...
+       'VerticalAlignment','Bottom','HorizontalAlignment','Right',...
+       'Color',[1,0,0]);
   
   plot(measuredPathVelocity.*(-m2mm),...
       measuredPassiveForceLengthMultiplier,...
@@ -818,6 +961,13 @@ for i=1:1:length(simDataSets)
      'DisplayName',[simDataSetName{i}, ' (fpe)']);
   hold on;  
 
+  text(xEnd-xDelta-xDeltaFixed, ...
+        measuredPassiveForceLengthMultiplier(end,1)-yDelta,...
+       ['$$f^{PE}(\tilde{\ell}^{CE})$$',tagPreload],...
+       'VerticalAlignment','Bottom','HorizontalAlignment','Right',...
+       'Color',[0,0,1]);
+  
+  
   plot(measuredPathVelocity.*(-m2mm),...
       measuredForceVelocityMultiplier,...
       simDataSetLineType{i},...
@@ -825,6 +975,11 @@ for i=1:1:length(simDataSets)
      'LineWidth',simDataSetLineWidth(1,i),...
      'DisplayName',[simDataSetName{i}, ' (fv)']);
   hold on;  
+
+  text(xEnd, measuredForceVelocityMultiplier(end,1)-yDelta,...
+       ['$$f^{V}(\tilde{v}^{CE})$$',tagPreload],...
+       'VerticalAlignment','Bottom','HorizontalAlignment','Right',...
+       'Color',[0,0,0]);
   
   plot(measuredPathVelocity.*(-m2mm),...
       measuredNormDamping,...
@@ -833,27 +988,40 @@ for i=1:1:length(simDataSets)
      'LineWidth',simDataSetLineWidth(1,i),...
      'DisplayName',[simDataSetName{i}, ' (damping)']);
   hold on;   
+
+  text(xEnd-xDelta, measuredNormDamping(end,1)-yDelta,...
+       ['$$\tilde{v}^{CE}\,\beta$$',tagPreload],...
+       'VerticalAlignment','Bottom','HorizontalAlignment','Right',...
+       'Color',[0,1,1]);
   
   box off;    
   if(i==1)
     xlabel('Path Shortening Velocity (mm/s)');
     ylabel('Multipliers');    
+    title('F. Damped Hill Model Multipliers');
+    
   end    
   
 end
+
+
 
 for i=1:1:length(subplotList)
   [row,col] = find(subPlotPanelIndex==subplotList(i,1));          
   subPlotVec = reshape(subPlotPanel(row,col,:),1,4);    
   subplot('Position',subPlotVec);    
-  legend('Location',simDataLegendPosition{i});
-  legend boxoff;
+  if(simDataAddLegend(1,i)==1)
+    legend('Location',simDataLegendPosition{i});
+    legend boxoff;
+  end
+
+  xticks(subplotTicks(i).xticks);
+  yticks(subplotTicks(i).yticks);  
   
   xlim(subplotXlim(i,:));
   ylim(subplotYlim(i,:));
   
-  xticks(subplotTicks(i).xticks);
-  yticks(subplotTicks(i).yticks);
+
 end
 
 figure(fig_Fv); 

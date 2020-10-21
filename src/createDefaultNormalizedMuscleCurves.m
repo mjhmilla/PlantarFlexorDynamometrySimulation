@@ -32,6 +32,8 @@
 %%
 function normMuscleCurves = createDefaultNormalizedMuscleCurves(...
                 muscleName,tendonStrainAtOneNormForceInput,...
+                fractionOfFastTwitchFibers,...
+                fractionOfFastTwitchFibersStr,...
                 shiftFiberForceLengthCurve,saveToFolder,...
                 flag_updateCurves, flag_plotCurves)
 %%
@@ -63,8 +65,10 @@ function normMuscleCurves = createDefaultNormalizedMuscleCurves(...
 %%
 normMuscleCurves = [];
 
-if(exist([saveToFolder,'normMuscleCurves.mat'],'file') == 2 && flag_updateCurves == 0)
-    tmp = load([saveToFolder,'normMuscleCurves.mat']);
+if(exist([saveToFolder,'normMuscleCurves_',...
+    fractionOfFastTwitchFibersStr,'.mat'],'file') == 2 && flag_updateCurves == 0)
+    tmp = load([saveToFolder,'normMuscleCurves_',...
+                fractionOfFastTwitchFibersStr,'.mat']);
     normMuscleCurves = tmp.normMuscleCurves;
 else    
     %%
@@ -122,7 +126,14 @@ else
     flag_smoothenNonZeroDyDxC = 0;
     flag_usingOctave = 0;
     
-    fvAtHalfVMax = 0.15; 
+    fvAtHalfMaxSlowTwitch = 0.15;
+    fvAtHalfMaxFastTwitch = 0.22;
+    
+    assert(fractionOfFastTwitchFibers >=0);
+    assert(fractionOfFastTwitchFibers<=1);
+    
+    fvAtHalfVMax = fvAtHalfMaxSlowTwitch*(1-fractionOfFastTwitchFibers)...
+                 + fvAtHalfMaxFastTwitch*fractionOfFastTwitchFibers; 
 %   A fast/slow twitch force-velocity curve can be created by adjusting
 %   fvAtHalfVMax:
 %
@@ -273,7 +284,7 @@ else
     % calcNormalizedMuscleCurveDerivative
     %%
 
-    save([saveToFolder,'normMuscleCurves.mat'],'normMuscleCurves');
+    save([saveToFolder,'normMuscleCurves_',fractionOfFastTwitchFibersStr,'.mat'],'normMuscleCurves');
 end
 
 if(flag_plotCurves ==1)

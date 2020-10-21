@@ -8,9 +8,34 @@ clear all;
 % will generate the desired plots.
 
 
-flag_simForceVelocityExpWithPreload =0;
+flag_simForceVelocityExpWithPreload =1;
 % 0: Shortening begins simultaneously with the development of force
 % 1: Shortening begins after 100% activation is reached.
+
+fractionOfFastTwitchFibers         = 1.0;
+% 0: Gives you a force-velocity curve constent with a slow-twitch fiber
+% 1: Gives you a force-velocity curve constent with a fast-twitch fiber
+
+
+fractionOfFastTwitchFibersStr = ...
+  ['FastTwitch_',num2str(round(fractionOfFastTwitchFibers*100,0))];
+%Note: To update the plots:
+% 1. Set fractionOfFastTwitchFibers to the desired value.
+% 2. Run once with          flag_simForceVelocityExpWithPreload =0
+% 3. Run a second time with flag_simForceVelocityExpWithPreload =1
+% 4. Then run the plot script.
+%
+% Warning! This overwrites the MAT files in the output folder: normally
+% this is ok. If you want to put the fast-vs-slow twitch on one plot you
+% will need to update the file naming convention so that 
+%
+%  simFv_gaslat_preload_0_dampedFiberElasticTendon.mat
+%  simFv_gaslat_preload_1_dampedFiberElasticTendon.mat
+%  muscleArch.mat
+%  normMuscleCurves.mat
+%
+%
+
 
 flag_generateDiagnosticPlots        = 0; %Basic/Energy/Power plots
 flag_updateExistingPlots            = 0; %Only applies to the diagnostic plots
@@ -143,7 +168,7 @@ for count=1:1:countMax
     muscleAbbrArnold2010                 = muscle;
     
     flag_plotNormMuscleCurves            = 0;
-    flag_updateNormMuscleCurves          = 0;
+    flag_updateNormMuscleCurves          = 1;
     if(count == 1)
       flag_updateNormMuscleCurves=1;
     end
@@ -196,12 +221,20 @@ for count=1:1:countMax
         muscleAbbr = 'compBench';
     end
     
+    if(count==1)
+      flag_updateNormMuscleCurves=1;
+    else
+      flag_updateNormMuscleCurves=0;
+    end
+    
     
     normMuscleCurves = ...
         createDefaultNormalizedMuscleCurves(muscleAbbr,...
         tendonStrainAtOneNormForceOverride,...
+        fractionOfFastTwitchFibers,...
+        fractionOfFastTwitchFibersStr,...
         shiftFiberForceLengthCurve,...
-        outputDataFolder,...
+        outputDataFolder,...        
         flag_updateNormMuscleCurves,...
         flag_plotNormMuscleCurves);
     
@@ -407,7 +440,8 @@ for count=1:1:countMax
     ltSlk    = muscleArch.tendonSlackLength;
     fiso     = muscleArch.fiso;
     
-    save([outputDataFolder,'muscleArch.mat'],'muscleArch');
+    save([outputDataFolder,...
+      'muscleArch_',fractionOfFastTwitchFibersStr,'.mat'],'muscleArch');
     
     %%
     % I. Starting Musculotendon Path Length
@@ -585,8 +619,10 @@ for count=1:1:countMax
         
         
         if(count==countMax)
-          disp(['  saved to: ',outputDataFolder, outputFileName,'_rigidTendon.mat']);
-          save( [outputDataFolder, outputFileName,'_rigidTendon.mat'],...
+          disp(['  saved to: ',outputDataFolder, outputFileName,...
+            '_rigidTendon_',fractionOfFastTwitchFibersStr,'.mat']);
+          save( [outputDataFolder, outputFileName,'_rigidTendon_',...
+                 fractionOfFastTwitchFibersStr,'.mat'],...
                 'rigidTendonSimulationRecord');
         end
     end
@@ -701,8 +737,10 @@ for count=1:1:countMax
           normFiberForceAlongTendonIsometric;        
 
         if(count==countMax)
-          disp(['  saved to: ',outputDataFolder, outputFileName,'_classicElasticTendon.mat']);          
-          save( [outputDataFolder, outputFileName,'_classicElasticTendon.mat'],...
+          disp(['  saved to: ',outputDataFolder, outputFileName,...
+            '_classicElasticTendon_',fractionOfFastTwitchFibersStr,'.mat']);          
+          save( [outputDataFolder, outputFileName,...
+            '_classicElasticTendon_',fractionOfFastTwitchFibersStr,'.mat'],...
                 'classicElasticTendonSimulationRecord');
         end
         
@@ -807,8 +845,10 @@ for count=1:1:countMax
           normFiberForceAlongTendonIsometric;           
         
         if(count==countMax)
-          disp(['  saved to: ',outputDataFolder, outputFileName,'_dampedFiberElasticTendon.mat']);          
-          save( [outputDataFolder, outputFileName,'_dampedFiberElasticTendon.mat'],...
+          disp(['  saved to: ',outputDataFolder, outputFileName,...
+            '_dampedFiberElasticTendon_',fractionOfFastTwitchFibersStr,'.mat']);          
+          save( [outputDataFolder, outputFileName,...
+            '_dampedFiberElasticTendon_',fractionOfFastTwitchFibersStr,'.mat'],...
                 'dampedFiberElasticTendonSimulationRecord');     
         end
     end
