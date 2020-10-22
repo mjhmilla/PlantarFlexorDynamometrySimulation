@@ -2,6 +2,7 @@ function benchRecord = getEmptyBenchRecord(numberOfPoints, numberOfSimulations)
 
 benchRecord = [];
 benchRecord.activation                  = zeros(numberOfPoints,numberOfSimulations);
+benchRecord.time                        = zeros(numberOfPoints,numberOfSimulations);
 benchRecord.cpuTime                     = zeros(numberOfPoints,numberOfSimulations);
 benchRecord.normFiberForceAlongTendon   = zeros(numberOfPoints,numberOfSimulations);
 benchRecord.normFiberLength             = zeros(numberOfPoints,numberOfSimulations);    

@@ -8,25 +8,25 @@ clear all;
 % will generate the desired plots.
 
 
-flag_simForceVelocityExpWithPreload =0;
+flag_simForceVelocityExpWithPreload =1;
 % 0: Shortening begins simultaneously with the development of force
 % 1: Shortening begins after 100% activation is reached.
 
-fractionOfFastTwitchFibers         = 0.0;
+fractionOfFastTwitchFibers         = 1.0;
 % 0: Gives you a force-velocity curve constent with a slow-twitch fiber
 % 1: Gives you a force-velocity curve constent with a fast-twitch fiber
 
-measureAtAnkleAngle  = 0;
+measureAtAnkleAngle  = 1;
   %from Rugg et al.  
   ankleAngleMaxPlantarFlexion   = -23;   %in degrees
   ankleAngleAtMeasurement       = ankleAngleMaxPlantarFlexion;
   
 measureAtNormFiberLength = 1;
-  normFiberLengthAtMeasurement = 0.75; %A length common to all tests
+  normFiberLengthAtMeasurement = 0.7; %A length common to all tests
   
-assert( xor(measureAtAnkleAngle,measureAtNormFiberLength) == 1);
+assert( measureAtAnkleAngle && measureAtNormFiberLength == 0);
 
-flag_measurementSetting = measureAtAnkleAngle;
+flag_measurementSetting = measureAtNormFiberLength;
 
 
 fractionOfFastTwitchFibersStr = ...
@@ -196,8 +196,8 @@ for count=1:1:countMax
     
     %Path function inputs
     initialHoldTime              = initialHoldTime;   %Initial time [s] at the starting angle
-    rampStartAngle               = -25;   %degrees, -ve: dorsiflexion
-    rampEndAngle                 =  25;    %degrees
+    rampStartAngle               = -15;   %degrees, -ve: dorsiflexion
+    rampEndAngle                 =  15;    %degrees
     rampAngularVelocity          =  n;  %degrees per second.
     ankleAngularVelocity(count)  = n;
     %Parameters from the literature
@@ -628,9 +628,9 @@ for count=1:1:countMax
         end   
         
         if(flag_measurementSetting == measureAtNormFiberLength)
-          measurementTime = ...
-            getTimeAtNormFiberLength(rigidTendonSimulationRecord, ...
-                                     normFiberLengthAtMeasurement,count);          
+          measurementTime = getTime
+          
+
         end
         rigidTendonSimulationRecord.detailedResults.measurementTime(1,count) = ...
           measurementTime;
@@ -752,18 +752,9 @@ for count=1:1:countMax
         classicElasticTendonSimulationRecord.detailedResults.simulationTime(:,count) = ...
           ([0:(1/(npts-1)):1]').*(totalSimTime);
 
-        measurementTime = 0;
-        if(flag_measurementSetting == measureAtAnkleAngle)
-          measurementTime = measurementTimeAnkleAngle;          
-        end           
-        if(flag_measurementSetting == measureAtNormFiberLength)
-          measurementTime = ...
-            getTimeAtNormFiberLength(classicElasticTendonSimulationRecord, ...
-                                     normFiberLengthAtMeasurement,count);          
-        end
         classicElasticTendonSimulationRecord.detailedResults.measurementTime(1,count) = ...
-          measurementTime;        
-
+          measurementTimeAnkleAngle;
+        
         classicElasticTendonSimulationRecord.detailedResults.normFiberForceAlongTendonIsometric(1,count) = ...
           normFiberForceAlongTendonIsometric;        
 
@@ -851,12 +842,12 @@ for count=1:1:countMax
 
         benchRecordDampedFiberElasticTendon = ...
             runMillard2012ComputationalBenchmark(...
-              calcDampedFiberElasticTendonMuscleInfoFcn,...
-              calcDampedFiberElasticTendonInitialMuscleStateFcn,...
-              benchConfig,...
-              figDampedFiberElasticBasic,...
-              figDampedFiberElasticEnergy,...
-              figDampedFiberElasticPower);
+            calcDampedFiberElasticTendonMuscleInfoFcn,...
+            calcDampedFiberElasticTendonInitialMuscleStateFcn,...
+            benchConfig,...
+            figDampedFiberElasticBasic,...
+            figDampedFiberElasticEnergy,...
+            figDampedFiberElasticPower);
         
         dampedFiberElasticTendonSimulationRecord.standardResults = ...
           insertResultsIntoSet( benchRecordDampedFiberElasticTendon,...
@@ -869,18 +860,9 @@ for count=1:1:countMax
         dampedFiberElasticTendonSimulationRecord.detailedResults.simulationTime(:,count) = ...
           ([0:(1/(npts-1)):1]').*(totalSimTime);
 
-        measurementTime = 0;
-        if(flag_measurementSetting == measureAtAnkleAngle)
-          measurementTime = measurementTimeAnkleAngle;          
-        end           
-        if(flag_measurementSetting == measureAtNormFiberLength)
-          measurementTime = ...
-            getTimeAtNormFiberLength(dampedFiberElasticTendonSimulationRecord, ...
-                                     normFiberLengthAtMeasurement,count);          
-        end
         dampedFiberElasticTendonSimulationRecord.detailedResults.measurementTime(1,count) = ...
-          measurementTime;         
-                
+          measurementTimeAnkleAngle;
+        
         dampedFiberElasticTendonSimulationRecord.detailedResults.normFiberForceAlongTendonIsometric(1,count) = ...
           normFiberForceAlongTendonIsometric;           
         

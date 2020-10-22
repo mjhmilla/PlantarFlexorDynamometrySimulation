@@ -6,6 +6,7 @@ simNo=simulationNumber;
 
 benchRecordSet.activation(:,simNo)                  = singleBenchRecord.activation(:,1)                 ;
 benchRecordSet.cpuTime(:,simNo)                     = singleBenchRecord.cpuTime(:,1)                    ;
+benchRecordSet.time(:,simNo)                        = singleBenchRecord.time(:,1)                       ;
 benchRecordSet.normFiberForceAlongTendon(:,simNo)   = singleBenchRecord.normFiberForceAlongTendon(:,1)  ;
 benchRecordSet.normFiberLength(:,simNo)             = singleBenchRecord.normFiberLength(:,1)            ;    
 benchRecordSet.pennationAngle(:,simNo)              = singleBenchRecord.pennationAngle(:,1)             ;

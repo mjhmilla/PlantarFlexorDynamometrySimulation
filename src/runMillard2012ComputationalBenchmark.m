@@ -268,6 +268,8 @@ for i = 1:1:nsim
         
         benchRecord.activation(j,i) = mtInfo.muscleDynamicsInfo.activation;
         
+        benchRecord.time(j,i)=tV(1,j);
+        
         benchRecord.normFiberForceAlongTendon(j,i)   = fNAT;
         benchRecord.normFiberLength(j,i)             = lceN;    
         benchRecord.pennationAngle(j,i)              = alpha;
