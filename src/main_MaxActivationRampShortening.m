@@ -12,7 +12,7 @@ flag_simForceVelocityExpWithPreload =0;
 % 0: Shortening begins simultaneously with the development of force
 % 1: Shortening begins after 100% activation is reached.
 
-fractionOfFastTwitchFibers         = 0.0;
+fractionOfFastTwitchFibers         = 0.5;
 % 0: Gives you a force-velocity curve constent with a slow-twitch fiber
 % 1: Gives you a force-velocity curve constent with a fast-twitch fiber
 
@@ -22,11 +22,11 @@ measureAtAnkleAngle  = 0;
   ankleAngleAtMeasurement       = ankleAngleMaxPlantarFlexion;
   
 measureAtNormFiberLength = 1;
-  normFiberLengthAtMeasurement = 0.75; %A length common to all tests
+  normFiberLengthAtMeasurement = 0.775; %A length common to all tests
   
 assert( xor(measureAtAnkleAngle,measureAtNormFiberLength) == 1);
 
-flag_measurementSetting = measureAtAnkleAngle;
+flag_measurementSetting = measureAtNormFiberLength;
 
 
 fractionOfFastTwitchFibersStr = ...
@@ -196,8 +196,8 @@ for count=1:1:countMax
     
     %Path function inputs
     initialHoldTime              = initialHoldTime;   %Initial time [s] at the starting angle
-    rampStartAngle               = -25;   %degrees, -ve: dorsiflexion
-    rampEndAngle                 =  25;    %degrees
+    rampStartAngle               = -20;   %degrees, -ve: dorsiflexion
+    rampEndAngle                 =  20;    %degrees
     rampAngularVelocity          =  n;  %degrees per second.
     ankleAngularVelocity(count)  = n;
     %Parameters from the literature
@@ -583,16 +583,7 @@ for count=1:1:countMax
         
         calcInitalRigidMuscleState = [];
         
-        %Calculate the normalization factor: normFiberForceAlongTendonIsometric
-        if(count == 1)
-          activation=1;
-          pathState=[0;lpRampMid];
-          muscleState = [];
-          muscleInfo = calcRigidTendonMuscleInfoFcn(activation,pathState,muscleState);
-          cosPennationAngle = muscleInfo.muscleLengthInfo.cosPennationAngle;
-          normFiberForce = muscleInfo.muscleDynamicsInfo.normFiberForce;
-          normFiberForceAlongTendonIsometric = normFiberForce*cosPennationAngle;
-        end
+
         
         benchConfig.initialActivationState = 1;
         if(flag_simForceVelocityExpWithPreload==0)
@@ -635,6 +626,14 @@ for count=1:1:countMax
         rigidTendonSimulationRecord.detailedResults.measurementTime(1,count) = ...
           measurementTime;
 
+        %Get the isometric force of the muscle at the sample point
+        if(count ==1)
+          normFiberForceAlongTendonIsometric = ...
+            interp1(...
+              rigidTendonSimulationRecord.standardResults.time(:,count),...
+              rigidTendonSimulationRecord.standardResults.normFiberForceAlongTendon(:,count),...
+              measurementTime);
+        end        
         
         rigidTendonSimulationRecord.detailedResults.normFiberForceAlongTendonIsometric(1,count) = ...
           normFiberForceAlongTendonIsometric;
@@ -686,35 +685,7 @@ for count=1:1:countMax
             pathState2,...
             muscleArch,...
             calcMuscleInfo3,...
-            initConfig4);
-        
-        %Calculate the normalization factor: normFiberForceAlongTendonIsometric
-        if(count == 1)
-          activation  = 1;
-          pathState   = [0;lpRampMid];
-                    
-          initConfig.iterMax = 100;
-          initConfig.tol     = 1e-8;
-          initConfig.useStaticFiberSolution = 0;
-          initSoln = calcClassicElasticTendonInitialMuscleStateFcn(...
-                        activation,...
-                        pathState,...                                          
-                        calcClassicElasticTendonMuscleInfoFcn,...
-                        initConfig);   
-                      
-          assert(initSoln.converged == 1 || initSoln.isClamped == 1,...
-                 'Failed to bring the muscle to a valid initial solution');
-               
-          muscleState = initSoln.muscleState(:);
-          
-          muscleInfo = calcClassicElasticTendonMuscleInfoFcn(...
-                          activation,pathState,muscleState);
-                        
-          cosPennationAngle = muscleInfo.muscleLengthInfo.cosPennationAngle;
-          normFiberForce    = muscleInfo.muscleDynamicsInfo.normFiberForce;
-          normFiberForceAlongTendonIsometric = normFiberForce*cosPennationAngle;
-        end
-
+            initConfig4);        
           
         benchConfig.numberOfMuscleStates = 1;
         benchConfig.minimumActivation    = ...
@@ -764,6 +735,15 @@ for count=1:1:countMax
         classicElasticTendonSimulationRecord.detailedResults.measurementTime(1,count) = ...
           measurementTime;        
 
+        %Get the isometric force of the muscle at the sample point
+        if(count ==1)
+          normFiberForceAlongTendonIsometric = ...
+            interp1(...
+              classicElasticTendonSimulationRecord.standardResults.time(:,count),...
+              classicElasticTendonSimulationRecord.standardResults.normFiberForceAlongTendon(:,count),...
+              measurementTime);
+        end
+        
         classicElasticTendonSimulationRecord.detailedResults.normFiberForceAlongTendonIsometric(1,count) = ...
           normFiberForceAlongTendonIsometric;        
 
@@ -808,32 +788,7 @@ for count=1:1:countMax
             calcMuscleInfo3,...
             initConfig4);
         
-        %Calculate the normalization factor muscleForceNormalization
-        if(count == 1)
-          activation  = 1;
-          pathState   = [0;lpRampMid];
-                              
-          initConfig.iterMax = 100;
-          initConfig.tol     = 1e-8;
-          initConfig.useStaticFiberSolution = 0;
-          initSoln = calcDampedFiberElasticTendonInitialMuscleStateFcn(...
-                        activation,...
-                        pathState,...                                          
-                        calcDampedFiberElasticTendonMuscleInfoFcn,...
-                        initConfig);   
-                      
-          assert(initSoln.converged == 1 || initSoln.isClamped == 1,...
-                 'Failed to bring the muscle to a valid initial solution');
-               
-          muscleState = initSoln.muscleState(:);
-          
-          muscleInfo = calcDampedFiberElasticTendonMuscleInfoFcn(...
-                          activation,pathState,muscleState);
-                        
-          cosPennationAngle = muscleInfo.muscleLengthInfo.cosPennationAngle;
-          normFiberForce    = muscleInfo.muscleDynamicsInfo.normFiberForce;
-          normFiberForceAlongTendonIsometric = normFiberForce*cosPennationAngle;          
-        end        
+             
           
         benchConfig.numberOfMuscleStates = 1;
         benchConfig.minimumActivation    = ...
@@ -880,7 +835,16 @@ for count=1:1:countMax
         end
         dampedFiberElasticTendonSimulationRecord.detailedResults.measurementTime(1,count) = ...
           measurementTime;         
-                
+           
+        %Get the isometric force of the muscle at the sample point
+        if(count ==1)
+          normFiberForceAlongTendonIsometric = ...
+            interp1(...
+              dampedFiberElasticTendonSimulationRecord.standardResults.time(:,count),...
+              dampedFiberElasticTendonSimulationRecord.standardResults.normFiberForceAlongTendon(:,count),...
+              measurementTime);
+        end
+        
         dampedFiberElasticTendonSimulationRecord.detailedResults.normFiberForceAlongTendonIsometric(1,count) = ...
           normFiberForceAlongTendonIsometric;           
         
