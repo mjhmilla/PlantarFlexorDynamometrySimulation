@@ -1,32 +1,23 @@
-flag_outerLoopMode = 1;
-
-if(flag_outerLoopMode==0)
-  clc;
-  close all;
-  clear all;
-  
-  flag_simForceVelocityExpWithPreload =0;
-  % 0: Shortening begins simultaneously with the development of force
-  % 1: Shortening begins after 100% activation is reached.
-
-  fractionOfFastTwitchFibers         = 1;
-  % 0: Gives you a force-velocity curve constent with a slow-twitch fiber
-  % 1: Gives you a force-velocity curve constent with a fast-twitch fiber
-  
-  ankleAchillesTendonMomentArm = 0.054;%/1.18; %moment arm in m  
-  
-  tendonStrainAtOneNormForceOverride = 0.1;
-  
-end
+%clc;
+%close all;
+%clear all;
 
 % Running this script will perform the desired simulations and write
 % the results to a series of MAT files that are stored in the data folder.
 % Running the post-processing script "main_PlotMaxActivationRampShortening.m"
 % will generate the desired plots.
 
-fractionOfFastTwitchFibersStr = ...
-  ['FastTwitch_',num2str(round(fractionOfFastTwitchFibers*100,0))];
 
+flag_simForceVelocityExpWithPreload =0;
+% 0: Shortening begins simultaneously with the development of force
+% 1: Shortening begins after 100% activation is reached.
+
+fractionOfFastTwitchFibers         = 1;
+% 0: Gives you a force-velocity curve constent with a slow-twitch fiber
+% 1: Gives you a force-velocity curve constent with a fast-twitch fiber
+
+
+ankleAchillesTendonMomentArm = 0.054;%/1.18; %moment arm in m  
 ankleAchillesTendonMomentArmStr = sprintf('_%1.1fcm_',...
   round(ankleAchillesTendonMomentArm*100,1));
 ankleAchillesTendonMomentArmStr(1,end-4)='p';
@@ -43,6 +34,9 @@ assert( xor(measureAtAnkleAngle,measureAtNormFiberLength) == 1);
 
 flag_measurementSetting = measureAtNormFiberLength;
 
+
+fractionOfFastTwitchFibersStr = ...
+  ['FastTwitch_',num2str(round(fractionOfFastTwitchFibers*100,0))];
 %Note: To update the plots:
 % 1. Set fractionOfFastTwitchFibers to the desired value.
 % 2. Run once with          flag_simForceVelocityExpWithPreload =0
@@ -65,13 +59,12 @@ flag_generateDiagnosticPlots        = 0; %Basic/Energy/Power plots
 flag_updateExistingPlots            = 0; %Only applies to the diagnostic plots
 
 
-
+tendonStrainAtOneNormForceOverride = 0.1;
 if(tendonStrainAtOneNormForceOverride <0)
   tendonStrainAtOneNormForceOverride = 0.049; %The default
 end
-tendonStrainAtOneNormForceOverrideStr = ...
-  sprintf('_Tdn_%1.1f',round(tendonStrainAtOneNormForceOverride*100,1));
-tendonStrainAtOneNormForceOverrideStr(1,end-1)='p';
+tendonStrainAtOneNormForceOverrideStr = sprintf(
+
 
 flag_useArnold2010SoleusArchitecture = 1;
 muscle                             = 'gasmed';
@@ -660,15 +653,9 @@ for count=1:1:countMax
         
         if(count==countMax)
           disp(['  saved to: ',outputDataFolder, outputFileName,...
-            '_rigidTendon_',...
-            fractionOfFastTwitchFibersStr,...
-            tendonStrainAtOneNormForceOverrideStr,...
-            ankleAchillesTendonMomentArmStr,'.mat']);
-          
-          save( [ outputDataFolder, outputFileName,'_rigidTendon_',...
-                  fractionOfFastTwitchFibersStr,...
-                  tendonStrainAtOneNormForceOverrideStr,...
-                  ankleAchillesTendonMomentArmStr,'.mat'],...
+            '_rigidTendon_',fractionOfFastTwitchFibersStr,'.mat']);
+          save( [outputDataFolder, outputFileName,'_rigidTendon_',...
+                 fractionOfFastTwitchFibersStr,'.mat'],...
                 'rigidTendonSimulationRecord');
         end
     end
@@ -774,15 +761,9 @@ for count=1:1:countMax
 
         if(count==countMax)
           disp(['  saved to: ',outputDataFolder, outputFileName,...
-            '_classicElasticTendon_',...
-            fractionOfFastTwitchFibersStr,...
-            tendonStrainAtOneNormForceOverrideStr,...
-            ankleAchillesTendonMomentArmStr,'.mat']);          
+            '_classicElasticTendon_',fractionOfFastTwitchFibersStr,'.mat']);          
           save( [outputDataFolder, outputFileName,...
-            '_classicElasticTendon_',...
-            fractionOfFastTwitchFibersStr,...
-            tendonStrainAtOneNormForceOverrideStr,...
-            ankleAchillesTendonMomentArmStr,'.mat'],...
+            '_classicElasticTendon_',fractionOfFastTwitchFibersStr,'.mat'],...
                 'classicElasticTendonSimulationRecord');
         end
         
@@ -881,15 +862,9 @@ for count=1:1:countMax
         
         if(count==countMax)
           disp(['  saved to: ',outputDataFolder, outputFileName,...
-            '_dampedFiberElasticTendon_',...
-            fractionOfFastTwitchFibersStr,...
-            tendonStrainAtOneNormForceOverrideStr,...
-            ankleAchillesTendonMomentArmStr, '.mat']);          
+            '_dampedFiberElasticTendon_',fractionOfFastTwitchFibersStr,'.mat']);          
           save( [outputDataFolder, outputFileName,...
-            '_dampedFiberElasticTendon_',...
-            fractionOfFastTwitchFibersStr,...
-            tendonStrainAtOneNormForceOverrideStr,...
-            ankleAchillesTendonMomentArmStr,'.mat'],...
+            '_dampedFiberElasticTendon_',fractionOfFastTwitchFibersStr,'.mat'],...
                 'dampedFiberElasticTendonSimulationRecord');     
         end
     end

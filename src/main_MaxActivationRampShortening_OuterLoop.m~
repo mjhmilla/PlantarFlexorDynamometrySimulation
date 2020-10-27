@@ -1,0 +1,50 @@
+clc;
+close all;
+clear all;
+
+
+fractionOfFastTwitchFibers          = 1; 
+% Fast: norm force of 0.22 at half vmax
+% Slow: norm force of 0.15 at hal vmax
+% From Ranatunga 1984 - experiments done on rat muscle
+
+%Standard tendon, standard moment arm
+  ankleAchillesTendonMomentArm        = 0.054;
+  tendonStrainAtOneNormForceOverride  = 0.049;
+
+  flag_simForceVelocityExpWithPreload = 0;
+  main_MaxActivationRampShortening;
+
+  flag_simForceVelocityExpWithPreload = 1;
+  main_MaxActivationRampShortening;
+
+
+%More elastic tendon, standard moment arm
+  ankleAchillesTendonMomentArm        = 0.054;
+  tendonStrainAtOneNormForceOverride  = 0.1;
+
+  flag_simForceVelocityExpWithPreload = 0;
+  main_MaxActivationRampShortening;
+
+  flag_simForceVelocityExpWithPreload = 1;
+  main_MaxActivationRampShortening;
+
+%Standard tendon, shorter moment arm
+  ankleAchillesTendonMomentArm        = 0.054/1.18;
+  tendonStrainAtOneNormForceOverride  = 0.049;
+
+  flag_simForceVelocityExpWithPreload = 0;
+  main_MaxActivationRampShortening;
+
+  flag_simForceVelocityExpWithPreload = 1;
+  main_MaxActivationRampShortening;
+
+%Elastic tendon, shorter moment arm
+  ankleAchillesTendonMomentArm        = 0.054/1.18;
+  tendonStrainAtOneNormForceOverride  = 0.1;
+
+  flag_simForceVelocityExpWithPreload = 0;
+  main_MaxActivationRampShortening;
+
+  flag_simForceVelocityExpWithPreload = 1;
+  main_MaxActivationRampShortening;

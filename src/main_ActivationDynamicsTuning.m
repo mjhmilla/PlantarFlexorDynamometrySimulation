@@ -108,7 +108,7 @@ end
 %%
 
 tendonStrainAtOneNormForceOverride = 0.1;
-muscle          = 'gaslat';
+muscle          = 'gasmed';
 initialHoldTime = 1;
 
 flag_runRigidBench               = 0;
