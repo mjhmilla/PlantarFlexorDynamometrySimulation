@@ -9,7 +9,7 @@ if(flag_outerLoopMode==0)
   % 0: Shortening begins simultaneously with the development of force
   % 1: Shortening begins after 100% activation is reached.
 
-  fractionOfFastTwitchFibers         = 0.5;
+  fractionOfFastTwitchFibers         = 1;
   % 0: Gives you a force-velocity curve constent with a slow-twitch fiber
   % 1: Gives you a force-velocity curve constent with a fast-twitch fiber
   
@@ -37,7 +37,7 @@ ankleAchillesTendonMomentArmStr(1,end-4)='p';
 measureAtAnkleAngle  = 0;
   %from Rugg et al.  
   ankleAngleMaxPlantarFlexion   = -23;   %in degrees
-  ankleAngleAtMeasurement       = ankleAngleMaxPlantarFlexion;
+  ankleAngleAtMeasurement       = 0ankleAngleMaxPlantarFlexion;
   
 measureAtNormFiberLength = 1;
   normFiberLengthAtMeasurement = 0.85; %A length common to all tests
@@ -226,8 +226,8 @@ for count=1:1:countMax
     
     %Path function inputs
     initialHoldTime              = initialHoldTime;   %Initial time [s] at the starting angle
-    rampStartAngle               = -15;   %degrees, -ve: dorsiflexion
-    rampEndAngle                 =  15;    %degrees
+    rampStartAngle               = -20;   %degrees, -ve: dorsiflexion
+    rampEndAngle                 =  20;    %degrees
     rampAngularVelocity          =  n;  %degrees per second.
     ankleAngularVelocity(count)  = n;
     %Parameters from the literature
@@ -510,7 +510,7 @@ for count=1:1:countMax
     
     lpOpt = lceOpt*cos(alphaOpt) + ltSlk*ltNAtFiso;
     
-    lpDeltaStart = -(rampStartAngle-ankleAngleMaxPlantarFlexion ...
+    lpDeltaStart = -(rampStartAngle-ankleAngleAtMeasurement ...
         )*(pi/180)*ankleAchillesTendonMomentArm;
     
     lpRampStart = lpOpt + lpDeltaStart;

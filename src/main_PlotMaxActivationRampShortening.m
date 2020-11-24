@@ -9,7 +9,7 @@ standardTendonElasticity = 0.049;
 highTendonElasticity     = 0.1;
 
 %Set the configuration of the simulation that you would like to plot
-fractionOfFastTwitchFibers          = 1.0;
+fractionOfFastTwitchFibers          = 0.5;
 tendonStrainAtOneNormForceOverride  = highTendonElasticity;
 ankleAchillesTendonMomentArm        = standardMomentArm;
 %measurementSettingStr = '_fixedFiberLength';
@@ -876,7 +876,7 @@ for i=1:1:length(simDataSets)
   hold on;
   
   ht=text(xEnd, measuredFiberVelocityAlongTendon(end,1).*(-m2mm)-yDeltaStatic,...
-       ['$$v^{MaT}$$',tagPreload],...
+       ['$$v^{CE-AT}$$',tagPreload],...
        'VerticalAlignment','Top','HorizontalAlignment','Right',...
        'Color',simDataSetColor(i,:));  
 
@@ -912,9 +912,23 @@ for i=1:1:length(simDataSets)
   if(i==1)
     xlabel('Path Shortening Velocity (mm/s)');
     ylabel('Shortening Velocity (mm/s)'); 
-    title('D. Path Velocity Decomposition: Fiber(AT) \& Tendon');
+    title({'D. Path Velocity Decomposition: ','fiber vel. along tendon ($$v^{CE-AT}$$) \& tendon vel. ($$v^{T}$$)'},...
+            'HorizontalAlignment', 'center','VerticalAlignment','middle');
   end
 
+  maxPathVelocityMM = max(measuredPathVelocity.*(-m2mm));
+  maxFiberVelocityMM = measuredFiberVelocityAlongTendon(end,1).*(-m2mm);
+  plot([maxPathVelocityMM,maxPathVelocityMM],...
+       [maxFiberVelocityMM,(maxFiberVelocityMM+dy)],'-k','LineWidth',0.5);
+  hold on;
+  
+  txtH = text(maxPathVelocityMM,maxFiberVelocityMM+dy,...
+        sprintf('%1.0f mm/s',maxFiberVelocityMM),...
+        'FontSize',8,...
+        'VerticalAlignment','bottom','HorizontalAlignment','right');
+  hold on;
+       
+  
   if(flag_preload==1)
     minPathVelocity = min(measuredPathVelocity);
     maxPathVelocity = max(measuredPathVelocity);
@@ -961,17 +975,90 @@ for i=1:1:length(simDataSets)
                
       end
       
+      vel = interp1(measuredPathVelocity,measuredFiberVelocityAlongTendon,v);
+      vel = -vel*m2mm;
+      vmm = -v*m2mm;
+      vdeg=-(v/standardMomentArm)*(180/pi);      
+      
       disp('Plot D: Path velocity decomposition');
       disp('  Under the preload condition the');
       disp('  Fiber Velocity (AT) and tendon velocity are equal at');
       fprintf('  %1.1f mm/s  (error: %1.3e mm/s)\n',...
-              -v*m2mm, abs(errBest)*m2mm);
+              vmm, abs(errBest)*m2mm);
       fprintf('  %1.1f deg/s (error: %1.3e deg/s)\n\n',...
-              -(v/standardMomentArm)*(180/pi), ...
+              vdeg, ...
               abs(errBest/standardMomentArm)*(180/pi));
+      
+      dv = 0.1*(max(measuredPathVelocity)-min(measuredPathVelocity));
+      dv = dv*m2mm;
+      plot([v*(-m2mm),v*(-m2mm)],[vel,vel+dv],'-k','LineWidth',0.5);
+      hold on;
+      txtH = text(v*(-m2mm),vel+dv,...
+        [sprintf('%1.0f mm/s (%1.0f',vmm,vdeg),'$$^\circ/s$$)'],...
+        'FontSize',8,...
+        'VerticalAlignment','bottom','HorizontalAlignment','center');
+      hold on;
+      set(txtH, 'Rotation',12.5);      
       
       here=1;
     end
+  else
+    
+    %Solve for the velocity at which the tendon moves from shortening
+    %to lengthening
+    minTendonVelocity = min(measuredTendonVelocity);
+    maxTendonVelocity = max(measuredTendonVelocity);
+    
+    if(minTendonVelocity*maxTendonVelocity < 0)
+      minPathVelocity = min(measuredPathVelocity);
+      maxPathVelocity = max(measuredPathVelocity);      
+      v = 0.5*(minPathVelocity+maxPathVelocity);
+      dv= 0.25*(maxPathVelocity-minPathVelocity);
+      errBest = interp1(measuredPathVelocity,measuredTendonVelocity,v);
+      vBest = v;
+
+      for z=1:1:10
+        vL = v-dv;
+        vR = v+dv;
+        errL = interp1(measuredPathVelocity,measuredTendonVelocity,vL);
+        errR = interp1(measuredPathVelocity,measuredTendonVelocity,vR);
+        
+        if(abs(errL) < abs(errBest) && abs(errL) <= abs(errR))
+          errBest = errL;
+          v = vL;
+        elseif(abs(errR) < abs(errBest) && abs(errR) < abs(errL))
+          errBest = errR;
+          v = vR;
+        end
+        dv = dv*0.5;
+               
+      end
+      
+      vmm = -v*m2mm;
+      vdeg=-(v/standardMomentArm)*(180/pi);
+      
+      disp('Plot D: Path velocity decomposition');
+      disp('  Under the non-preload condition the');
+      disp('  tendon begins lengthening at');
+      fprintf('  %1.1f mm/s  (error: %1.3e mm/s)\n',...
+              vmm, abs(errBest)*m2mm);
+      fprintf('  %1.1f deg/s (error: %1.3e deg/s)\n\n',...
+              vdeg, ...
+              abs(errBest/standardMomentArm)*(180/pi));
+            
+      dv = 0.1*(max(measuredPathVelocity)-min(measuredPathVelocity));
+      dv = dv*m2mm;
+            
+      plot([vmm,vmm],[0,-dv],'-k','LineWidth',0.5);
+      hold on;
+      text(v*(-m2mm),-dv,...
+        [sprintf('%1.0f mm/s (%1.0f',vmm,vdeg),'$$^\circ/s$$)'],...
+        'FontSize',8,...
+        'VerticalAlignment','top','HorizontalAlignment','center');
+      
+    end
+    
+    
   end
   
   
