@@ -14,6 +14,10 @@ fractionOfFastTwitchFibers          = 1;
 % Slow: norm force of 0.15 at hal vmax
 % From Ranatunga 1984 - experiments done on slow/fast twitch muscle in rats
 
+flag_measurementSetting = 0;
+%0: ankle angle
+%1: fiber length
+
 %Standard tendon, standard moment arm
   ankleAchillesTendonMomentArm        = standardMomentArm;
   tendonStrainAtOneNormForceOverride  = standardTendonElasticity;

@@ -12,6 +12,8 @@ highTendonElasticity     = 0.1;
 fractionOfFastTwitchFibers          = 1.0;
 tendonStrainAtOneNormForceOverride  = highTendonElasticity;
 ankleAchillesTendonMomentArm        = standardMomentArm;
+%measurementSettingStr = '_fixedFiberLength';
+measurementSettingStr = '_fixedAnkleAngle';  
 
 
 flag_ignoreHauraix2013=1;
@@ -37,7 +39,8 @@ outputFolder    = '../plots/';
 outputFileName  = ['fig_ForceVelocity_Simulation_Vs_Experiment_',...
                   fractionOfFastTwitchFibersStr,...
                   tendonStrainAtOneNormForceOverrideStr,...
-                  ankleAchillesTendonMomentArmStr,'.pdf'];
+                  ankleAchillesTendonMomentArmStr,...
+                  measurementSettingStr,'.pdf'];
 
 expData = '../data/Own_Study.xlsx'; 
 
@@ -52,11 +55,13 @@ simDataSets = {...
   ['../data/simFv_gasmed_preload_1_dampedFiberElasticTendon_',...
     fractionOfFastTwitchFibersStr,...
     tendonStrainAtOneNormForceOverrideStr,...
-    ankleAchillesTendonMomentArmStr,'.mat'],...
+    ankleAchillesTendonMomentArmStr,...
+    measurementSettingStr,'.mat'],...
   ['../data/simFv_gasmed_preload_0_dampedFiberElasticTendon_',...
     fractionOfFastTwitchFibersStr,...
     tendonStrainAtOneNormForceOverrideStr,...
-    ankleAchillesTendonMomentArmStr,'.mat']};
+    ankleAchillesTendonMomentArmStr,...
+    measurementSettingStr,'.mat']};
              
 simDataSetName = {'Sim.: Preload',...
                   'Sim.: Slack'};      
@@ -538,7 +543,7 @@ figure(fig_Fv);
   %legend('Hauraix et al., 2015','current study')
   xlabel('Angular velocity ($^\circ$/s)')
   ylabel('Norm. Force (\%)')
-  title('C. Fascicle force vs. Ankle joint angular velocity');
+  title('C. Norm. force vs. Ankle joint angular velocity');
   
 
 
@@ -901,7 +906,7 @@ for i=1:1:length(simDataSets)
   textAngle = atan2(dy,dx)*(180/pi);     
   set(ht,'Rotation',textAngle);
      
-     
+       
   box off;
   
   if(i==1)
@@ -909,6 +914,67 @@ for i=1:1:length(simDataSets)
     ylabel('Shortening Velocity (mm/s)'); 
     title('D. Path Velocity Decomposition: Fiber(AT) \& Tendon');
   end
+
+  if(flag_preload==1)
+    minPathVelocity = min(measuredPathVelocity);
+    maxPathVelocity = max(measuredPathVelocity);
+    errorAtMinVelocity = calcFiberTendonVelocityDifference(minPathVelocity,...      
+                                  measuredPathVelocity, ...
+                                  measuredFiberVelocityAlongTendon,...
+                                  measuredTendonVelocity);
+    errorAtMaxVelocity = calcFiberTendonVelocityDifference(maxPathVelocity,...      
+                                  measuredPathVelocity, ...
+                                  measuredFiberVelocityAlongTendon,...
+                                  measuredTendonVelocity);    
+                                
+    %There is a crossing where the fiber and tendon velocities are equal.
+    %Use the bisection method to solve for it.
+    if(errorAtMinVelocity*errorAtMaxVelocity <= 0)
+      v = 0.5*(minPathVelocity+maxPathVelocity);
+      dv= 0.25*(maxPathVelocity-minPathVelocity);
+      vBest = v;
+      errBest = calcFiberTendonVelocityDifference(v,...      
+                                  measuredPathVelocity, ...
+                                  measuredFiberVelocityAlongTendon,...
+                                  measuredTendonVelocity);
+      
+      for z=1:1:10
+        vL = v-dv;
+        vR = v+dv;
+        errL = calcFiberTendonVelocityDifference(vL,...      
+                                    measuredPathVelocity, ...
+                                    measuredFiberVelocityAlongTendon,...
+                                    measuredTendonVelocity);
+        errR = calcFiberTendonVelocityDifference(vR,...      
+                                    measuredPathVelocity, ...
+                                    measuredFiberVelocityAlongTendon,...
+                                    measuredTendonVelocity);
+        
+        if(abs(errL) < abs(errBest) && abs(errL) <= abs(errR))
+          errBest = errL;
+          v = vL;
+        elseif(abs(errR) < abs(errBest) && abs(errR) < abs(errL))
+          errBest = errR;
+          v = vR;
+        end
+        dv = dv*0.5;
+               
+      end
+      
+      disp('Plot D: Path velocity decomposition');
+      disp('  Under the preload condition the');
+      disp('  Fiber Velocity (AT) and tendon velocity are equal at');
+      fprintf('  %1.1f mm/s  (error: %1.3e mm/s)\n',...
+              -v*m2mm, abs(errBest)*m2mm);
+      fprintf('  %1.1f deg/s (error: %1.3e deg/s)\n\n',...
+              -(v/standardMomentArm)*(180/pi), ...
+              abs(errBest/standardMomentArm)*(180/pi));
+      
+      here=1;
+    end
+  end
+  
+  
   
   %%
   % Plot fiber kinematics
