@@ -2,6 +2,8 @@ clc;
 close all;
 clear all;
 
+scaleHaraiuxJointVelocities = 1;%0.8314
+
 standardMomentArm = 0.054;
 smallMomentArm    = standardMomentArm/1.18;
 
@@ -282,7 +284,7 @@ Chino_Fascicle_Velo_STD = flip(Chino_Fascicle_Velo_STD);
 
 Hauraix_Joint_Velo = [0   29.4442   89.0488  147.9360  203.2319...
                       249.9101  277.9173];                                  % Data taken from Hauraix et al., 2015
-Hauraix_Joint_Velo = Hauraix_Joint_Velo.*0.8314;                            % account for the difference in angular ankle joint velocity and dynamometer velocity
+Hauraix_Joint_Velo = Hauraix_Joint_Velo.*scaleHaraiuxJointVelocities;       % account for the difference in angular ankle joint velocity and dynamometer velocity
 Hauraix_Force = [431.76 380.33 262.52 198.54 159.07 139.33 129.77];
 Hauraix_Force_norm = (Hauraix_Force./Hauraix_Force(1)).*scaleNormForce;
 Hauraix_Fascicle_Velo = [0 10.61 46.06 72.85 98.53 120.58 131.19];
