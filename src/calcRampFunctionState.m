@@ -63,7 +63,7 @@ rampState = zeros(2,1);
 dydt = 0;
 y    = rampStartLength;
 
-if(t > initialPauseTime && t < (initialPauseTime+rampTime))
+if(t > initialPauseTime && t <= (initialPauseTime+rampTime))
   dydt = (rampEndLength - rampStartLength)/rampTime;
   y    =  rampStartLength ...
         +((t-initialPauseTime)/(rampTime))*(rampEndLength-rampStartLength);

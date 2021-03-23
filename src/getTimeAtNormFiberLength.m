@@ -11,7 +11,11 @@ for z=1:1:size(simRecord.standardResults.normFiberLength,1)
   end                       
 end
 
-idxFitRange = [(idxBestFit-3):1:(idxBestFit+3)];
+
+
+idxFitRange = [max((idxBestFit-3),1):1:min((idxBestFit+3), size(simRecord.standardResults.normFiberLength,1))];
+
+
 
 measurementTime = interp1( ...
   simRecord.standardResults.normFiberLength(idxFitRange,count),...

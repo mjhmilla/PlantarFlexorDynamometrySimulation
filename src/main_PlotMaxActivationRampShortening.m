@@ -43,6 +43,12 @@ outputFileName  = ['fig_ForceVelocity_Simulation_Vs_Experiment_',...
                   ankleAchillesTendonMomentArmStr,...
                   measurementSettingStr,'.pdf'];
 
+outputFile2Name  = ['fig_SimulationDetail_',...
+                  fractionOfFastTwitchFibersStr,...
+                  tendonStrainAtOneNormForceOverrideStr,...
+                  ankleAchillesTendonMomentArmStr,...
+                  measurementSettingStr,'.pdf'];
+
 expData = '../data/Own_Study.xlsx'; 
 
 
@@ -66,6 +72,7 @@ simDataSets = {...
              
 simDataSetName = {'Sim.: Preload',...
                   'Sim.: Slack'};      
+                
                 
  
 %simDataSetColor = [0.5,0.5,0.5;...
@@ -127,7 +134,7 @@ subplotYlim = [0,omegaMaxDeg.*1.1;...
                0,1.1.*scaleNormForce;...
                0,1.1.*scaleNormForce;...
   -velMaxMM.*0.3,velMaxMM.*1.4;...
-               0,1.1;...
+               0,1.2;...
                -0.1,1.1];
 
 omegaDegTicks     = round([0:0.125:1].*omegaMaxDeg,0);             
@@ -148,7 +155,7 @@ subplotTicks(4).xticks = round([     0:0.125:1.125].*velMaxMM,0);
 subplotTicks(4).yticks = round([-0.25:0.125:1.125].*velMaxMM,0);
 
 subplotTicks(5).xticks = round([     0:0.125:1.125].*velMaxMM,0);
-subplotTicks(5).yticks = round([0:0.1:1.1],1);
+subplotTicks(5).yticks = round([0:0.1:1.2],1);
 
 subplotTicks(6).xticks = round([     0:0.125:1.125].*velMaxMM,0);
 subplotTicks(6).yticks = round([0:0.1:1.1],1);
@@ -157,6 +164,8 @@ simDataAddLegend = [1,1,1,0,0,0];
 simDataLegendPosition = {'SouthEast','NorthEast','SouthWest','NorthWest',...
                          'SouthEast','SouthWest'};
 
+subPlotIndexDetail = [1 2; 3 4; 5 6];                       
+                       
 %%
 % Individual Data Series Configuration
 %%
@@ -220,6 +229,7 @@ plotWidth   = 10;
 
 plotConfigGeneric;
 
+fig_ForceVsTime=figure;
 fig_Fv    = figure;
 fig_FvPub = figure;
 
@@ -560,7 +570,7 @@ for i=1:1:length(simDataSets)
   data=load(simDataSets{i});
   headField = fields(data);
   data = data.(headField{1});
-
+  
   trials = size(data.standardResults.activation,2);
   measurementLength                   = zeros(trials,1);
   measuredForceAlongTendon            = zeros(trials,1);
@@ -573,6 +583,125 @@ for i=1:1:length(simDataSets)
 
   measuredForceVelocityMultiplier     = zeros(trials,1);
   
+  
+  figure(fig_ForceVsTime);
+  
+  %Force-vs-time
+
+  
+  [rowA,colA] = find(subPlotPanelIndex== subPlotIndexDetail(1,i)); 
+  subPlotVecA = reshape(subPlotPanel(rowA,colA,:),1,4);    
+  subplot('Position',subPlotVecA); 
+  
+  colorA = [0;0;1];
+  colorB = [1;0;0];
+  
+  for j=1:1:trials
+    n = (j-1)/(trials-1);
+    lineColor = colorA.*(1-n) + colorB.*(n);
+    
+    fdot = calcCentralDifferenceDataSeries(...
+              data.detailedResults.simulationTime(:,j),...
+              data.standardResults.normFiberForceAlongTendon(:,j));
+    
+    tOffset = data.detailedResults.measurementTime(1,j);
+    plot(data.detailedResults.simulationTime(:,j)-tOffset,...
+         fdot,...
+         'Color',lineColor);
+    hold on;
+    
+%     idx = interp1(data.detailedResults.simulationTime(:,j),...
+%                   [1:1:size(data.detailedResults.simulationTime(:,j),1)],...
+%                   data.detailedResults.measurementTime(1,j));         
+%     idx = min(max(round(idx),1),size(data.detailedResults.simulationTime(:,j),1));
+%     plot(data.detailedResults.measurementTime(1,j)-tOffset,...
+%          data.standardResults.normFiberForceAlongTendon(idx,j),...
+%          'o','Color',lineColor);
+%     hold on;
+    
+  end
+  xlim([-0.01,0.01]);
+  title(['Norm. Force Along Tendon Time Derivative','(',simDataSetName{i},')']);
+  xlabel('Time (s)');
+  ylabel('d/dt Norm. Force (N/N)');
+  box off;
+  
+  %Fiber length along tendon -vs-time
+  [rowA,colA] = find(subPlotPanelIndex== subPlotIndexDetail(2,i));
+  subPlotVecA = reshape(subPlotPanel(rowA,colA,:),1,4);    
+  subplot('Position',subPlotVecA); 
+  
+  colorA = [0;0;1];
+  colorB = [1;0;0];
+  
+  for j=1:1:trials
+    n = (j-1)/(trials-1);
+    lineColor = colorA.*(1-n) + colorB.*(n);
+    tOffset = data.detailedResults.measurementTime(1,j);
+        
+    plot(data.detailedResults.simulationTime(:,j)-tOffset,...
+         data.standardResults.normFiberVelocity(:,j),...
+         'Color',lineColor);
+    hold on;
+    
+%     idx = interp1(data.detailedResults.simulationTime(:,j),...
+%                   [1:1:size(data.detailedResults.simulationTime(:,j),1)],...
+%                   data.detailedResults.measurementTime(1,j));         
+%     idx = min(max(round(idx),1),size(data.detailedResults.simulationTime(:,j),1));
+%     
+%     plot(data.detailedResults.measurementTime(1,j)-tOffset,...
+%          data.standardResults.normFiberVelocity(idx,j),...
+%          'o','Color',lineColor);
+%     hold on;
+    
+  end
+  xlim([-0.01,0.01]);
+  xlabel('Time (s)');
+  ylabel('Norm. Velocity');
+  title(['Norm. Fiber Velocity','(',simDataSetName{i},')']);
+  box off;
+  
+  %Fiber velocity along tendon -vs-time
+  [rowA,colA] = find(subPlotPanelIndex== subPlotIndexDetail(3,i));
+  subPlotVecA = reshape(subPlotPanel(rowA,colA,:),1,4);    
+  subplot('Position',subPlotVecA); 
+  
+  colorA = [0;0;1];
+  colorB = [1;0;0];
+  
+  for j=1:1:trials
+    n = (j-1)/(trials-1);
+    lineColor = colorA.*(1-n) + colorB.*(n);
+    tOffset = data.detailedResults.measurementTime(1,j);
+    
+    lceddot = calcCentralDifferenceDataSeries(...
+          data.detailedResults.simulationTime(:,j),...
+          data.standardResults.normFiberVelocity(:,j));
+    
+    plot(data.detailedResults.simulationTime(:,j)-tOffset,...
+         lceddot,...
+         'Color',lineColor);
+    hold on;
+    
+%     idx = interp1(data.detailedResults.simulationTime(:,j),...
+%                   [1:1:size(data.detailedResults.simulationTime(:,j),1)],...
+%                   data.detailedResults.measurementTime(1,j));         
+%     idx = min(max(round(idx),1),size(data.detailedResults.simulationTime(:,j),1));
+%     
+%     plot(data.detailedResults.measurementTime(1,j)-tOffset,...
+%          data.standardResults.normFiberVelocity(idx,j),...
+%          'o','Color',lineColor);
+%     hold on;
+    
+  end
+  xlim([-0.01,0.01]);
+  xlabel('Time (s)');
+  ylabel('Norm. Acceleration (mm/mm)');
+  title(['Norm. Fiber Acceleration','(',simDataSetName{i},')']);
+  box off;
+  
+  
+  figure(fig_Fv);
   for j=1:1:trials
     %Use interpolation to evaluate the data at the time of the measurement
 
@@ -887,7 +1016,7 @@ for i=1:1:length(simDataSets)
       -measuredPathVelocity(end-1,1).*(-m2mm);
   textAngle = atan2(dy,dx)*(180/pi);
      
-  set(ht,'Rotation',textAngle);
+  %set(ht,'Rotation',textAngle);
   
   plot(measuredPathVelocity.*(-m2mm),...
       measuredTendonVelocity.*(-m2mm),...
@@ -905,7 +1034,7 @@ for i=1:1:length(simDataSets)
   dy= measuredTendonVelocity(end,1).*(-m2mm)...
      -measuredTendonVelocity(end-1,1).*(-m2mm);
   textAngle = atan2(dy,dx)*(180/pi);     
-  set(ht,'Rotation',textAngle);
+  %set(ht,'Rotation',textAngle);
      
        
   box off;
@@ -1007,22 +1136,29 @@ for i=1:1:length(simDataSets)
     
     %Solve for the velocity at which the tendon moves from shortening
     %to lengthening
-    minTendonVelocity = min(measuredTendonVelocity);
-    maxTendonVelocity = max(measuredTendonVelocity);
+    
+    [uniqueValues,idxUniqueUnsorted,idxRepeated] = unique(measuredPathVelocity,'rows');
+    idxUnique = sort(idxUniqueUnsorted);
+    measuredTendonVelocityUnique  = measuredTendonVelocity(idxUnique,1);
+    measuredPathVelocityUnique    = measuredPathVelocity(idxUnique,1);
+
+    minTendonVelocity = min(measuredTendonVelocityUnique);
+    maxTendonVelocity = max(measuredTendonVelocityUnique);
+    
     
     if(minTendonVelocity*maxTendonVelocity < 0)
-      minPathVelocity = min(measuredPathVelocity);
-      maxPathVelocity = max(measuredPathVelocity);      
+      minPathVelocity = min(measuredPathVelocityUnique);
+      maxPathVelocity = max(measuredPathVelocityUnique);      
       v = 0.5*(minPathVelocity+maxPathVelocity);
       dv= 0.25*(maxPathVelocity-minPathVelocity);
-      errBest = interp1(measuredPathVelocity,measuredTendonVelocity,v);
+      errBest = interp1(measuredPathVelocityUnique,measuredTendonVelocityUnique,v);
       vBest = v;
 
       for z=1:1:10
         vL = v-dv;
         vR = v+dv;
-        errL = interp1(measuredPathVelocity,measuredTendonVelocity,vL);
-        errR = interp1(measuredPathVelocity,measuredTendonVelocity,vR);
+        errL = interp1(measuredPathVelocityUnique,measuredTendonVelocityUnique,vL);
+        errR = interp1(measuredPathVelocityUnique,measuredTendonVelocityUnique,vR);
         
         if(abs(errL) < abs(errBest) && abs(errL) <= abs(errR))
           errBest = errL;
@@ -1047,7 +1183,7 @@ for i=1:1:length(simDataSets)
               vdeg, ...
               abs(errBest/standardMomentArm)*(180/pi));
             
-      dv = 0.1*(max(measuredPathVelocity)-min(measuredPathVelocity));
+      dv = 0.1*(max(measuredPathVelocityUnique)-min(measuredPathVelocityUnique));
       dv = dv*m2mm;
             
       plot([vmm,vmm],[0,-dv],'-k','LineWidth',0.5);
@@ -1210,6 +1346,15 @@ for i=1:1:length(simDataSets)
      'DisplayName',[simDataSetName{i}, ' (damping)']);
   hold on;   
 
+  plot(measuredPathVelocity.*(-m2mm),...
+      measuredActivation,...
+      simDataSetLineType{i},...
+     'Color',[1,1,1].*0.5,...        
+     'LineWidth',simDataSetLineWidth(1,i),...
+     'DisplayName',[simDataSetName{i}, ' (act)']);
+  hold on;   
+
+  
   text(xEnd-xDelta, measuredNormDamping(end,1)-yDelta,...
        ['$$\tilde{v}^{CE}\,\beta$$',tagPreload],...
        'VerticalAlignment','Bottom','HorizontalAlignment','Right',...
@@ -1246,6 +1391,11 @@ for i=1:1:length(subplotList)
 end
 
 figure(fig_Fv); 
+configPlotExporter;
+print('-dpdf',[outputFolder,outputFileName]); 
+
+
+figure(fig_ForceVsTime);
 configPlotExporter;
 print('-dpdf',[outputFolder,outputFileName]); 
 
