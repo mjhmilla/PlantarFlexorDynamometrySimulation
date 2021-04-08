@@ -33,6 +33,7 @@
 function tendonForceLengthCurve = ...
           createTendonForceLengthCurve( eIso, kIso, ...
                                         fToe, curviness, ...
+                                        flag_useConstantTendonStiffness,...
                                         computeIntegral, ...
                                         muscleName)
 %%
@@ -162,6 +163,7 @@ yToeCtrl = yFoot + dydxToeMid*(xToeCtrl-xFoot);
 
 
 %Compute the Quintic Bezier control points
+
 p0 = calcQuinticBezierCornerControlPoints(x0,      y0,     dydx0, 0,...
                                     xToeCtrl,yToeCtrl,dydxToeMid, 0, c);
 p1 = calcQuinticBezierCornerControlPoints(xToeCtrl, yToeCtrl, dydxToeMid, 0,...
@@ -178,6 +180,22 @@ tendonForceLengthCurve.dydxEnd      = [dydx0, dydxIso];
 tendonForceLengthCurve.d2ydx2End    = [0, 0];
 
 tendonForceLengthCurve.integral = [];
+
+if(flag_useConstantTendonStiffness==1)
+
+  p0 = calcQuinticBezierCornerControlPoints(xToe,     yToe,    dydxIso, 0,...
+                                            xIso,     yIso,    dydxIso, 0, c);
+  xpts = [p0(:,1)];
+  ypts = [p0(:,2)];
+
+  tendonForceLengthCurve.xpts    = xpts;
+  tendonForceLengthCurve.ypts    = ypts;
+
+  tendonForceLengthCurve.xEnd         = [xToe,xIso];
+  tendonForceLengthCurve.yEnd         = [yToe,yIso];
+  tendonForceLengthCurve.dydxEnd      = [dydxIso,dydxIso];
+  tendonForceLengthCurve.d2ydx2End    = [0, 0];
+end
 
 if(computeIntegral == 1)
     xScaling = eIso;

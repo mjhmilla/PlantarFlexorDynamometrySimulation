@@ -23,12 +23,31 @@ if(flag_outerLoopMode==0)
   flag_measurementSetting = 0;%
   %0: measueAtAnkleAngle
   %1: measureAtNormFiberLength;
+  flag_useFlatActiveForceLengthCurve  = 0;
+  flag_useConstantTendonStiffness     = 0;
+  flag_useLinearForceVelocityCurve    = 0;
+  
+  flag_useTendonDamping = 0;
+  normalizedTendonDamping = 0.05;
+  
+  maximumNormalizedFiberVelocity = 10; %in units of norm fiber lengths/second
+  scaleLceOpt = 1;
+  ankleAngleMaxPlantarFlexion   = -17;%-17 is from Holzer, -23; (Rugg et al.)   %in degrees
 end
+
+scaleLceOptStr = ['lceOptScale_',num2str(round(scaleLceOpt*100)),'p_'];
+
+
+%assert( flag_useTendonDamping == 0,'Not yet implemented!');
 
 % Running this script will perform the desired simulations and write
 % the results to a series of MAT files that are stored in the data folder.
 % Running the post-processing script "main_PlotMaxActivationRampShortening.m"
 % will generate the desired plots.
+
+
+
+
 
 fractionOfFastTwitchFibersStr = ...
   ['FastTwitch_',num2str(round(fractionOfFastTwitchFibers*100,0))];
@@ -41,8 +60,8 @@ ankleAchillesTendonMomentArmStr(1,end-4)='p';
 
 measureAtAnkleAngle  = 0;
   %from Rugg et al.  
-  ankleAngleMaxPlantarFlexion   = -17;%-17 is from Holzer, -23; (Rugg et al.)   %in degrees
-  ankleAngleAtMeasurement       = ankleAngleMaxPlantarFlexion;
+  %ankleAngleMaxPlantarFlexion   = -17;%-17 is from Holzer, -23; (Rugg et al.)   %in degrees
+
   
 measureAtNormFiberLength = 1;
   normFiberLengthAtMeasurement = 0.85; %A length common to all tests
@@ -53,10 +72,10 @@ assert( xor(measureAtAnkleAngle,measureAtNormFiberLength) == 1);
 measurementSettingStr = '';
 
 if(flag_measurementSetting == measureAtNormFiberLength)
-  measurementSettingStr = '_fixedFiberLength';
+  measurementSettingStr = 'fixedFiberLength';
 end
 if(flag_measurementSetting == measureAtAnkleAngle)
-  measurementSettingStr = '_fixedAnkleAngle';  
+  measurementSettingStr = 'fixedAnkleAngle';  
 end
 
 %Note: To update the plots:
@@ -89,6 +108,13 @@ tendonStrainAtOneNormForceOverrideStr = ...
   sprintf('_Tdn_%1.1f',round(tendonStrainAtOneNormForceOverride*100,1));
 tendonStrainAtOneNormForceOverrideStr(1,end-1)='p';
 
+if(flag_runRigidBench==1)
+  tendonStrainAtOneNormForceOverrideStr = ...
+    sprintf('_Tdn_%1.1f',round(0,1));
+  tendonStrainAtOneNormForceOverrideStr(1,end-1)='p';
+  
+end
+
 flag_useArnold2010SoleusArchitecture = 1;
 muscle                             = 'gasmed';
 initialHoldTime                    = 0.1;
@@ -106,9 +132,19 @@ outputDataFolder = '../data/';
 outputFileName   = sprintf('simFv_%s_preload_%s',...
                            muscle,preloadStr);
 
-flag_runRigidBench               = 0;
-flag_runClassicElasticBench      = 0;
-flag_runDampedFiberElasticBench  = 1;
+% flag_runRigidBench               = 0;
+% flag_runClassicElasticBench      = 0;
+% flag_runDampedFiberElasticBench  = 1;
+% 
+% if( abs(tendonStrainAtOneNormForceOverride) < 1e-3)
+%   flag_runRigidBench               = 1;
+%   flag_runClassicElasticBench      = 0;
+%   flag_runDampedFiberElasticBench  = 0;  
+% else
+%   flag_runRigidBench               = 0;
+%   flag_runClassicElasticBench      = 0;
+%   flag_runDampedFiberElasticBench  = 1;  
+% end
 
 
 if(flag_generateDiagnosticPlots==1)
@@ -143,6 +179,20 @@ end
 
 count=0;
 countMax=21;
+
+labelsHauraix2015 = {'w30','w90','w150','w210','w270','w330'};
+Hauraix2015Fig3A   = loadDigitizedData('../dataHauraix2015/HauraixFig3A.csv',...
+                                    'x','y',labelsHauraix2015,'Fig3A');
+for z=1:1:length(Hauraix2015Fig3A)
+  Hauraix2015Fig3A(z).x = 90-(Hauraix2015Fig3A(z).x-90);
+end
+
+angularVelocitiesHauraix2015 = [1;30;90;150;210;270;330];
+
+
+if(flag_rampType==1)
+  countMax = length(angularVelocitiesHauraix2015);
+end
 
 colorStart = [0,0,1];
 colorEnd   = [1,0,0];
@@ -208,10 +258,14 @@ dampedFiberElasticTendonSimulationRecord.standardResults = emptyBenchRecord;
 dampedFiberElasticTendonSimulationRecord.detailedResults = detailedResultsStruct;
 
 
+
 for count=1:1:countMax
     fprintf('%i of %i\n',count,countMax);
+        
     n = (count-1)*10+1;
-
+    if(flag_rampType==1)
+      n = angularVelocitiesHauraix2015(count,1);
+    end
     %%
 
     muscleAbbrArnold2010                 = muscle;
@@ -233,8 +287,30 @@ for count=1:1:countMax
     
     %Path function inputs
     initialHoldTime              = initialHoldTime;   %Initial time [s] at the starting angle
-    rampStartAngle               = -15;   %degrees, -ve: dorsiflexion
-    rampEndAngle                 =  15;    %degrees
+    
+    rampStartAngle               = 0;   
+    rampEndAngle                 = 0;   
+    rampStr                      = '';
+    rampMeasurementAngle         = 0;
+    
+    switch(flag_rampType)
+      
+      case 0
+        rampStartAngle               = -15;   %degrees, -ve: dorsiflexion
+        rampEndAngle                 =  15;    %degrees
+        rampStr = 'ramp_Holzer_';
+        rampMeasurementAngle         = 0;
+      case 1
+        rampStartAngle               = -20;   %degrees, -ve: dorsiflexion
+        rampEndAngle                 =  35;    %degrees
+        rampMeasurementAngle         = 0;
+        
+        rampStr = 'ramp_Hauraix2015_';
+        
+      otherwise
+        asert(0,'flag_rampType must be 0 (Holzer) or 1 (Hauraix 2015)');
+    end
+    
     rampAngularVelocity          =  n;  %degrees per second.
     ankleAngularVelocity(count)  = n;
     %Parameters from the literature
@@ -244,7 +320,8 @@ for count=1:1:countMax
     %%
     %Parameters that apply to all muscles
     %%
-    maximumNormalizedFiberVelocity = 10; %in units of norm fiber lengths/second
+    %maximumNormalizedFiberVelocity = 10; %in units of norm fiber lengths/second
+    %vmaxStr = ['vmax_',num2str(round(maximumNormalizedFiberVelocity,0)),'_'];
     % Note:
     %  A max. normalized fiber velocity of 10 is a starting point. Mammalian
     %  slow twitch fibers can have substantially slower maximum shortening
@@ -282,6 +359,9 @@ for count=1:1:countMax
         fractionOfFastTwitchFibersStr,...
         shiftFiberForceLengthCurve,...
         outputDataFolder,...        
+        flag_useFlatActiveForceLengthCurve,...
+        flag_useLinearForceVelocityCurve,...
+        flag_useConstantTendonStiffness,...
         flag_updateNormMuscleCurves,...
         flag_plotNormMuscleCurves);
     
@@ -316,6 +396,16 @@ for count=1:1:countMax
         alphaOpt= 30*(pi/180);
         ltSlk   = 0.20;
     end
+        
+    lceOpt = lceOpt*scaleLceOpt;
+    
+    vmaxStr = ['vmax_',num2str(round(maximumNormalizedFiberVelocity,0)),'_']; 
+    if(flag_useHauraixVmax==1)
+      maximumNormalizedFiberVelocity = 0.308/lceOpt;
+      vmaxStr = ['vmax_Hauraix_']; 
+    end
+
+         
     
     %%
     % If you want to alter the achitectural properties of the
@@ -358,7 +448,6 @@ for count=1:1:countMax
     
     muscleArch.pennationAngleAtMinumumFiberLength = ...
         minFiberKinematics.pennationAngleAtMinimumFiberLength;
-    
     
 
     
@@ -472,7 +561,7 @@ for count=1:1:countMax
     %       = 0.06s
     %
     %  D. Anderson, M. Madigan, M. Nussbaum, Maximum voluntary
-    %  joint torque as a function of joint angle and angular velocity:
+    %  joint torque as a function of joint angle and angular velocity:close
     %  model development and application to the lower limb, Journal
     %  of Biomechanics 40 (14) (2007) 3105–3113.
     %
@@ -516,11 +605,18 @@ for count=1:1:countMax
     end
     
     lpOpt = lceOpt*cos(alphaOpt) + ltSlk*ltNAtFiso;
+
+    lpDelta90 = (ankleAngleMaxPlantarFlexion)*(pi/180)*ankleAchillesTendonMomentArm;
     
-    lpDeltaStart = -(rampStartAngle-ankleAngleMaxPlantarFlexion ...
-        )*(pi/180)*ankleAchillesTendonMomentArm;
     
-    lpRampStart = lpOpt + lpDeltaStart;
+    lpDeltaStart = -(rampStartAngle)*(pi/180)*ankleAchillesTendonMomentArm;
+    
+    lpRampStart = lpOpt + lpDelta90 + lpDeltaStart;
+    
+    %%
+    %
+    %%
+    
     
     %%
     % II. Change in Path Length
@@ -548,13 +644,98 @@ for count=1:1:countMax
     
     totalSimTime = initialHoldTime + rampTime;
     
-    measurementTimeAnkleAngle = initialHoldTime + 0.5*rampTime;
+    %measurementTimeAnkleAngle = initialHoldTime + 0.5*rampTime;
+    measurementAngleFraction = (rampMeasurementAngle-rampStartAngle) ...
+                              /(rampEndAngle-rampStartAngle);
+    measurementTimeAnkleAngle = ...
+      initialHoldTime + measurementAngleFraction*rampTime;
     %%
     % Construct the path function
     %%
     
-    pathFcn = @(t)calcRampFunctionState(t,initialHoldTime,...
-        lpRampStart,lpRampEnd,rampTime);
+    switch flag_rampType
+      case 0    
+        pathFcn = @(t)calcRampFunctionState(t,initialHoldTime,...
+            lpRampStart,lpRampEnd,rampTime);
+      case 1
+        %construct a function that has the same velocity profile as 
+        %Hauraix 2015 Fig 3A.
+        if(count == 1)
+          pathFcn = @(t)calcRampFunctionState(t,initialHoldTime,...
+              lpRampStart,lpRampEnd,rampTime);          
+        else
+          
+          odefun = @(argT,argX)calcHauraixCrankDerivative(argT,argX,...
+                               Hauraix2015Fig3A(count-1));
+          tspan  = [0,5];
+          angle0 = 70; 
+          angle1 = 122;
+          eventfun = @(argT,argX)calcHauraixEvent(argT,argX,angle1);
+          options = odeset('events',eventfun,'RelTol',1e-6,'AbsTol',1e-6);
+          [t,y,te,ye,ie] = ode45(odefun,tspan,angle0,options);
+          
+          dy = zeros(size(y));
+          for z=1:1:length(y)
+            dy(z,1) = odefun(t(z,1),y(z,1));
+          end
+  
+          timeSeries = t;
+          angleSeries = y.*(pi/180);
+          angularVelocitySeries = dy.*(pi/180);
+          
+          lengthSeries = lpRampStart ...
+                       - (angleSeries-angleSeries(1,1)...
+                         ).*ankleAchillesTendonMomentArm;
+          velocitySeries =  -(angularVelocitySeries ...
+                             ).*ankleAchillesTendonMomentArm;
+            
+          
+          flag_debugHauraixFcn=0;
+          if(flag_debugHauraixFcn==1)
+            figHauraixFcn =figure;
+            subplot(2,2,1);
+              plot(t,y,'r');
+              xlabel('Time');
+              ylabel('Angle');
+            subplot(2,2,2);
+              plot(y,dy,'r','LineWidth',2);
+              hold on;
+              plot(Hauraix2015Fig3A(count-1).x,...
+                   Hauraix2015Fig3A(count-1).y,'k');
+              hold on;
+              xlabel('Angle');
+              ylabel('Angular Velocity');
+            subplot(2,2,3);
+              plot([0;rampTime],[lpRampStart;lpRampEnd],'b','LineWidth',2);
+              hold on;
+              plot(timeSeries,lengthSeries,'r');
+              hold on;
+              xlabel('Time (s)');
+              ylabel('Length (m)');
+            subplot(2,2,4);
+              plot([0;rampTime],[1;1].*((lpRampEnd-lpRampStart)/rampTime),'b','LineWidth',2);
+              hold on;
+              plot(timeSeries,velocitySeries,'r');
+              hold on;
+              xlabel('Time (s)');
+              ylabel('Lengthening Rate (m/s)');              
+            here=1;
+          end
+          
+          
+          pathFcn = @(argT)calcPathFunctionState(argT,initialHoldTime,...
+                            timeSeries, lengthSeries,velocitySeries);
+          totalSimTime = max(timeSeries)+initialHoldTime;
+          rampAngularVelocity = max(dy);
+          %pathFcn = @(t)calcRampFunctionState(t,initialHoldTime,...
+          %lpRampStart,lpRampEnd,rampTime);   
+        
+        end
+        
+        
+        
+      otherwise assert(0);
+    end
     
     benchConfig.pathFcn = pathFcn;
     benchConfig.tspan   = [0, (totalSimTime)];
@@ -604,6 +785,12 @@ for count=1:1:countMax
         rigidConfig.iterMax          = 100;
         rigidConfig.tol              = 1e-12;
         rigidConfig.minActivation    = 0.0;
+        rigidConfig.useTendonDamping = 0;
+        rigidConfig.normalizedTendonDamping =0.05;
+        
+        tendonDampingStr = ['_TendonDamping_',...
+        [num2str(round((rigidConfig.useTendonDamping ...
+                       *rigidConfig.normalizedTendonDamping)*100,0)),'p']];        
         
         calcRigidTendonMuscleInfoFcn =...
             @(actState1,pathState2,mclState3)...
@@ -689,14 +876,23 @@ for count=1:1:countMax
         if(count==countMax)
           disp(['  saved to: ',outputDataFolder, outputFileName,...
             '_rigidTendon_',...
+            scaleLceOptStr,...            
+            vmaxStr,...
+            rampStr,...
             fractionOfFastTwitchFibersStr,...
             tendonStrainAtOneNormForceOverrideStr,...
+            tendonDampingStr,...
             ankleAchillesTendonMomentArmStr,...
             measurementSettingStr,'.mat']);
           
-          save( [ outputDataFolder, outputFileName,'_rigidTendon_',...
+          save( [ outputDataFolder, outputFileName,...
+                  '_rigidTendon_',...
+                  scaleLceOptStr,...  
+                  vmaxStr,...
+                  rampStr,...
                   fractionOfFastTwitchFibersStr,...
                   tendonStrainAtOneNormForceOverrideStr,...
+                  tendonDampingStr,...
                   ankleAchillesTendonMomentArmStr,...
                   measurementSettingStr,'.mat'],...
                 'rigidTendonSimulationRecord');
@@ -720,6 +916,12 @@ for count=1:1:countMax
         classicElasticTendonConfig.iterMax          = 100;
         classicElasticTendonConfig.tol              = 1e-9;
         classicElasticTendonConfig.minActivation    = 0.05;
+        classicElasticTendonConfig.useTendonDamping = 0; %Cannot be used here.
+        classicElasticTendonConfig.normalizedTendonDamping =normalizedTendonDamping;
+        
+        tendonDampingStr = ['_TendonDamping_',...
+        [num2str(round((classicElasticTendonConfig.useTendonDamping ...
+                       *classicElasticTendonConfig.normalizedTendonDamping)*100,0)),'p']];        
         
 
         classicElasticTendonSimulationRecord.muscleArchitecture = muscleArch;
@@ -814,14 +1016,22 @@ for count=1:1:countMax
         if(count==countMax)
           disp(['  saved to: ',outputDataFolder, outputFileName,...
             '_classicElasticTendon_',...
+            scaleLceOptStr,...  
+            vmaxStr,...
+            rampStr,...
             fractionOfFastTwitchFibersStr,...
             tendonStrainAtOneNormForceOverrideStr,...
+            tendonDampingStr,...
             ankleAchillesTendonMomentArmStr,...
             measurementSettingStr,'.mat']);          
           save( [outputDataFolder, outputFileName,...
             '_classicElasticTendon_',...
+            scaleLceOptStr,...  
+            vmaxStr,...
+            rampStr,...
             fractionOfFastTwitchFibersStr,...
             tendonStrainAtOneNormForceOverrideStr,...
+            tendonDampingStr,...
             ankleAchillesTendonMomentArmStr,...
             measurementSettingStr,'.mat'],...
                 'classicElasticTendonSimulationRecord');
@@ -837,10 +1047,18 @@ for count=1:1:countMax
         
         dampedFiberElasticTendonConfig.useFiberDamping  = 1;
         dampedFiberElasticTendonConfig.useElasticTendon = 1;
-        dampedFiberElasticTendonConfig.damping          = 0.01;
+        dampedFiberElasticTendonConfig.damping          = 0.1;
         dampedFiberElasticTendonConfig.iterMax          = 100;
         dampedFiberElasticTendonConfig.tol              = 1e-9;
         dampedFiberElasticTendonConfig.minActivation    = 0.0;
+        
+        dampedFiberElasticTendonConfig.useTendonDamping = flag_useTendonDamping;
+        dampedFiberElasticTendonConfig.normalizedTendonDamping =normalizedTendonDamping;
+        
+        tendonDampingStr = ['_TendonDamping_',...
+        [num2str(round((dampedFiberElasticTendonConfig.useTendonDamping ...
+                       *dampedFiberElasticTendonConfig.normalizedTendonDamping)*100,0)),'p']];        
+                
         
         calcDampedFiberElasticTendonMuscleInfoFcn =...
             @(actState1,pathState2,mclState3)...
@@ -932,18 +1150,27 @@ for count=1:1:countMax
         if(count==countMax)
           disp(['  saved to: ',outputDataFolder, outputFileName,...
             '_dampedFiberElasticTendon_',...
+            scaleLceOptStr,...              
+            vmaxStr,...
+            rampStr,...
             fractionOfFastTwitchFibersStr,...
             tendonStrainAtOneNormForceOverrideStr,...
+            tendonDampingStr,...
             ankleAchillesTendonMomentArmStr,...
             measurementSettingStr,'.mat']);          
           save( [outputDataFolder, outputFileName,...
             '_dampedFiberElasticTendon_',...
+            scaleLceOptStr,...              
+            vmaxStr,...
+            rampStr,...
             fractionOfFastTwitchFibersStr,...
             tendonStrainAtOneNormForceOverrideStr,...
+            tendonDampingStr,...
             ankleAchillesTendonMomentArmStr,...
             measurementSettingStr,'.mat'],...
                 'dampedFiberElasticTendonSimulationRecord');     
         end
+              
     end
     
 

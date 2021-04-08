@@ -171,6 +171,7 @@ function fiberForceVelocityCurve =  createFiberForceVelocityCurve2018(...
                                         dydxNearE,...
                                         fvAtHalfVmax,...
                                         eccCurviness,...
+                                        flag_useLinearForceVelocityCurve,...
                                         muscleName)
 
          
@@ -445,3 +446,20 @@ fiberForceVelocityCurve.yEnd = [yC yE];
 fiberForceVelocityCurve.dydxEnd  = [dydxC dydxE];
 fiberForceVelocityCurve.d2ydx2End= [0,0];
 fiberForceVelocityCurve.integral = [];
+
+if(flag_useLinearForceVelocityCurve==1)
+  dydxIsoC = (yIso-yC)/(xIso-xC);
+  
+  pts3  = ...
+    calcQuinticBezierCornerControlPoints(xC,    yC, dydxIsoC, 0, ...
+                                         xIso,yIso, dydxIsoC, 0, 0.5);  
+  
+  fiberForceVelocityCurve.xpts = pts3(:,1);
+  fiberForceVelocityCurve.ypts = pts3(:,2);                                       
+  fiberForceVelocityCurve.xEnd = [xC xIso];
+  fiberForceVelocityCurve.yEnd = [yC yIso];
+  fiberForceVelocityCurve.dydxEnd  = [dydxIsoC dydxIsoC];
+  fiberForceVelocityCurve.d2ydx2End= [0,0];
+  fiberForceVelocityCurve.integral = [];
+  
+end

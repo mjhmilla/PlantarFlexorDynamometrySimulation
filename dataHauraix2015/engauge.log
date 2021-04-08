@@ -1,0 +1,1276 @@
+10:46:37.070 INFO   - main args=engauge
+10:46:37.070 INFO   - MainWindow::MainWindow curDir=/home/mjhmilla/dev/projectsSmall/PlantarFlexorDynamometrySimulation/dataHauraix2015
+10:46:37.070 INFO   - MainWindow::setCurrentFile
+10:46:37.070 INFO   - MainWindow::updateWindowTitle
+10:46:37.070 INFO   - MainWindow::createIcons
+10:46:37.074 INFO   - MainWindow::createCentralWidget
+10:46:37.074 INFO   - MainWindow::createActions
+10:46:37.074 INFO   - MainWindow::createActionsFile
+10:46:37.074 INFO   - MainWindow::createActionsEdit
+10:46:37.074 INFO   - MainWindow::createActionsDigitize
+10:46:37.075 INFO   - MainWindow::createActionsView
+10:46:37.075 INFO   - MainWindow::createActionsSettings
+10:46:37.075 INFO   - MainWindow::createActionsHelp
+10:46:37.075 INFO   - MainWindow::createStatusBar
+10:46:37.113 INFO   - MainWindow::createMenus
+10:46:37.114 INFO   - MainWindow::updateRecentFileList
+10:46:37.114 INFO   - MainWindow::createToolBars
+10:46:37.118 INFO   - MainWindow::createDockableWidgets
+10:46:37.128 INFO   - FittingWindow::resizeTable
+10:46:37.128 INFO   - GeometryWindow::loadStrategies
+10:46:37.128 INFO   - GeometryWindow::initializeHeader
+10:46:37.128 INFO   - GeometryWindow::resizeTable
+10:46:37.128 INFO   - MainWindow::createHelpWindow
+10:46:37.131 INFO   - HelpBrowser::loadResource scheme=qthelp
+10:46:37.132 INFO   - MainWindow::createTutorial
+10:46:37.132 INFO   - TutorialDlg::createSceneAndView
+10:46:37.132 INFO   - TutorialStateContext::createStates
+10:46:37.132 INFO   - TutorialStateContext::requestImmediateStateTransition
+10:46:37.132 INFO   - TutorialStateIntroduction::begin ()
+10:46:37.135 INFO   - TutorialStateContext::createTimer
+10:46:37.135 INFO   - MainWindow::createScene
+10:46:37.135 INFO   - MainWindow::createNetwork
+10:46:37.219 INFO   - MainWindow::createStateContextBackground
+10:46:37.219 INFO   - BackgroundStateContext::BackgroundStateContext
+10:46:37.219 INFO   - BackgroundStateContext::requestStateTransition
+10:46:37.219 INFO   - BackgroundStateContext::completeRequestedStateTransitionIfExists
+10:46:37.219 INFO   - BackgroundStateUnloaded::begin
+10:46:37.219 INFO   - MainWindow::createStateContextDigitize
+10:46:37.219 INFO   - DigitizeStateEmpty::begin
+10:46:37.219 INFO   - ViewPointStyle::unsetPointStyle
+10:46:37.219 INFO   - MainWindow::updateDigitizeStateIfSoftwareTriggered
+10:46:37.219 INFO   - MainWindow::createStateContextTransformation
+10:46:37.219 INFO   - MainWindow::createSettingsDialogs
+10:46:37.219 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsCoords
+10:46:37.219 INFO   - DlgSettingsCoords::DlgSettingsCoords
+10:46:37.219 INFO   - DlgSettingsCoords::createSubPanel
+10:46:37.219 INFO   - DlgSettingsCoords::createGroupCoordsType
+10:46:37.219 INFO   - DlgSettingsCoords::createGroupXTheta
+10:46:37.220 INFO   - DlgSettingsCoords::createGroupYRadius
+10:46:37.220 INFO   - DlgSettingsCoords::createDateTime
+10:46:37.220 INFO   - DlgSettingsCoords::createPreview
+10:46:37.225 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsCurveAddRemove
+10:46:37.225 INFO   - DlgSettingsCurveAddRemove::DlgSettingsCurveAddRemove
+10:46:37.225 INFO   - DlgSettingsCurveAddRemove::createSubPanel
+10:46:37.225 INFO   - DlgSettingsCurveAddRemove::createListCurves
+10:46:37.225 INFO   - DlgSettingsCurveAddRemove::createButtons
+10:46:37.226 INFO   - DlgSettingsCurveAddRemove::createOptionalSaveDefault
+10:46:37.226 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsCurveProperties
+10:46:37.226 INFO   - DlgSettingsCurveProperties::DlgSettingsCurveProperties
+10:46:37.226 INFO   - DlgSettingsCurveProperties::createSubPanel
+10:46:37.226 INFO   - DlgSettingsCurveProperties::createCurveName
+10:46:37.226 INFO   - DlgSettingsCurveProperties::createPoint
+10:46:37.227 INFO   - DlgSettingsCurveProperties::createLine
+10:46:37.227 INFO   - DlgSettingsCurveProperties::createPreview
+10:46:37.232 INFO   - DlgSettingsCurveProperties::createOptionalSaveDefault
+10:46:37.233 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsDigitizeCurve
+10:46:37.233 INFO   - DlgSettingsDigitizeCurve::DlgSettingsDigitizeCurve
+10:46:37.233 INFO   - DlgSettingsDigitizeCurve::createSubPanel
+10:46:37.233 INFO   - DlgSettingsDigitizeCurve::createControls
+10:46:37.233 INFO   - DlgSettingsDigitizeCurve::createPreview
+10:46:37.234 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsExportFormat
+10:46:37.234 INFO   - DlgSettingsExportFormat::DlgSettingsExportFormat
+10:46:37.234 INFO   - DlgSettingsExportFormat::createSubPanel
+10:46:37.234 INFO   - DlgSettingsExportFormat::createCurveSelection
+10:46:37.235 INFO   - DlgSettingsExportFormat::createTabWidget
+10:46:37.235 INFO   - DlgSettingsExportFormat::createFunctionsPointsSelection
+10:46:37.235 INFO   - DlgSettingsExportFormat::createRelationsPointsSelection
+10:46:37.235 INFO   - DlgSettingsExportFormat::createDelimiters
+10:46:37.235 INFO   - DlgSettingsExportFormat::createHeader
+10:46:37.235 INFO   - DlgSettingsExportFormat::createXLabel
+10:46:37.235 INFO   - DlgSettingsExportFormat::createFileLayout
+10:46:37.235 INFO   - DlgSettingsExportFormat::createPreview
+10:46:37.237 INFO   - DlgSettingsExportFormat::createOptionalSaveDefault
+10:46:37.237 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsColorFilter
+10:46:37.237 INFO   - DlgSettingsColorFilter::DlgSettingsColorFilter
+10:46:37.237 INFO   - DlgSettingsColorFilter::createSubPanel
+10:46:37.237 INFO   - DlgSettingsColorFilter::createControls
+10:46:37.238 INFO   - DlgSettingsColorFilter::createProfileAndScale
+10:46:37.238 INFO   - DlgSettingsColorFilter::createPreview
+10:46:37.239 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsAxesChecker
+10:46:37.239 INFO   - DlgSettingsAxesChecker::DlgSettingsAxesChecker
+10:46:37.239 INFO   - DlgSettingsAxesChecker::createSubPanel
+10:46:37.239 INFO   - DlgSettingsAxesChecker::createControls
+10:46:37.239 INFO   - DlgSettingsAxesChecker::createPreview
+10:46:37.239 INFO   - DlgSettingsAxesChecker::createPoints
+10:46:37.240 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsGridDisplay
+10:46:37.240 INFO   - DlgSettingsGridDisplay::DlgSettingsGridDisplay
+10:46:37.240 INFO   - DlgSettingsGridDisplay::createSubPanel
+10:46:37.240 INFO   - DlgSettingsGridDisplay::createDisplayGridLinesX
+10:46:37.241 INFO   - DlgSettingsGridDisplay::createDisplayGridLinesY
+10:46:37.241 INFO   - DlgSettingsGridDisplay::createDisplayCommon
+10:46:37.241 INFO   - DlgSettingsGridDisplay::createPreview
+10:46:37.243 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsGridRemoval
+10:46:37.243 INFO   - DlgSettingsGridRemoval::DlgSettingsGridRemoval
+10:46:37.243 INFO   - DlgSettingsGridRemoval::createSubPanel
+10:46:37.243 INFO   - DlgSettingsGridRemoval::createRemoveGridLines
+10:46:37.243 INFO   - DlgSettingsGridRemoval::createRemoveGridLinesX
+10:46:37.243 INFO   - DlgSettingsGridRemoval::createRemoveGridLinesY
+10:46:37.244 INFO   - DlgSettingsGridRemoval::createPreview
+10:46:37.245 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsPointMatch
+10:46:37.245 INFO   - DlgSettingsPointMatch::DlgSettingsPointMatch
+10:46:37.245 INFO   - DlgSettingsPointMatch::createSubPanel
+10:46:37.245 INFO   - DlgSettingsPointMatch::createControls
+10:46:37.245 INFO   - DlgSettingsPointMatch::createPreview
+10:46:37.246 INFO   - DlgSettingsPointMatch::createTemplate
+10:46:37.247 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsSegments
+10:46:37.247 INFO   - DlgSettingsSegments::DlgSettingsSegments
+10:46:37.247 INFO   - DlgSettingsSegments::createSubPanel
+10:46:37.247 INFO   - DlgSettingsSegments::createControls
+10:46:37.247 INFO   - DlgSettingsSegments::createPreview
+10:46:37.248 INFO   - DlgSettingsSegments::createPreviewImage
+10:46:37.249 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsGeneral
+10:46:37.249 INFO   - DlgSettingsGeneral::DlgSettingsGeneral
+10:46:37.249 INFO   - DlgSettingsGeneral::createSubPanel
+10:46:37.249 INFO   - DlgSettingsGeneral::createControls
+10:46:37.250 INFO   - DlgSettingsGeneral::createOptionalSaveDefault
+10:46:37.250 INFO   - DlgSettingsAbstractBase::DlgSettingsAbstractBase name=DlgSettingsMainWindow
+10:46:37.250 INFO   - DlgSettingsMainWindow::DlgSettingsMainWindow
+10:46:37.250 INFO   - DlgSettingsMainWindow::createSubPanel
+10:46:37.250 INFO   - DlgSettingsMainWindow::createControls
+10:46:37.254 INFO   - DlgSettingsMainWindow::createOptionalSaveDefault
+10:46:37.254 INFO   - MainWindow::createCommandStackShadow
+10:46:37.254 INFO   - CmdStackShadow::CmdStackShadow
+10:46:37.254 INFO   - MainWindow::createZoomMaps
+10:46:37.254 INFO   - MainWindow::updateControls selectedItems=0
+10:46:37.254 INFO   - MainWindow::slotViewToolBarChecklistGuide
+10:46:37.255 INFO   - MainWindow::slotCmbBackground
+10:46:37.255 INFO   - BackgroundStateContext::setBackgroundImage background=Original
+10:46:37.255 INFO   - BackgroundStateContext::requestStateTransition
+10:46:37.255 INFO   - BackgroundStateContext::completeRequestedStateTransitionIfExists
+10:46:37.255 INFO   - BackgroundStateUnloaded::end
+10:46:37.255 INFO   - BackgroundStateOriginal::begin
+10:46:37.255 INFO   - MainWindow::slotViewZoom
+10:46:37.255 INFO   - MainWindow::slotViewZoomFactor
+10:46:37.255 INFO   - StatusBar::slotZoom zoom=6
+10:46:37.255 INFO   - MainWindow::slotViewZoom
+10:46:37.255 INFO   - MainWindow::slotViewZoomFactor
+10:46:37.255 INFO   - StatusBar::slotZoom zoom=6
+10:46:37.255 INFO   - MainWindow::updateSettingsMainWindow
+10:46:37.255 INFO   - MainWindow::updateWindowTitle
+10:46:37.255 INFO   - MainWindow::updateFittingWindow
+10:46:37.255 INFO   - MainWindow::updateGeometryWindow
+10:46:37.255 INFO   - MainWindow::setCurrentFile
+10:46:37.255 INFO   - MainWindow::updateWindowTitle
+10:46:37.278 INFO   - MainWindow::showEvent files=
+10:46:42.369 INFO   - MainWindow::slotFileOpen
+10:46:44.866 INFO   - MainWindow::loadDocumentFile fileName=/home/mjhmilla/dev/projectsSmall/PlantarFlexorDynamometrySimulation/dataHauraix2015/HauraixFig3F.dig
+10:46:44.868 INFO   - CoordSystemContext::CoordSystemContext
+10:46:44.868 INFO   - Document::Document fileName=/home/mjhmilla/dev/projectsSmall/PlantarFlexorDynamometrySimulation/dataHauraix2015/HauraixFig3F.dig
+10:46:44.868 INFO   - Document::bytesIndicatePreVersion6
+10:46:44.868 INFO   - Document::versionFromFile
+10:46:44.871 INFO   - Document::loadVersions7AndUp
+10:46:44.871 INFO   - Document::generateEmptyPixmap
+10:46:44.871 INFO   - Document::loadImage
+10:46:44.874 INFO   - CoordSystemContext::addCoordSystems numberToAdd=1
+10:46:44.874 INFO   - CoordSystem::CoordSystem
+10:46:44.874 INFO   - CoordSystemContext::loadVersion7AndUp
+10:46:44.874 INFO   - CoordSystem::loadVersions7AndUp
+10:46:44.874 INFO   - DocumentModelGeneral::loadXml
+10:46:44.874 INFO   - DocumentModelCoords::loadXml
+10:46:44.874 INFO   - DocumentModelDigitizeCurve::loadXml
+10:46:44.874 INFO   - DocumentModelExportFormat::loadXml
+10:46:44.874 INFO   - DocumentModelAxesChecker::loadXml
+10:46:44.874 INFO   - DocumentModelGridDisplay::loadXml
+10:46:44.874 INFO   - DocumentModelGridRemoval::loadXml
+10:46:44.874 INFO   - DocumentModelPointMatch::loadXml
+10:46:44.874 INFO   - DocumentModelSegments::loadXml
+10:46:44.874 INFO   - Curve::loadXml
+10:46:44.874 INFO   - ColorFilterSettings::loadXml
+10:46:44.874 INFO   - CurveStyle::loadXml
+10:46:44.874 INFO   - LineStyle::loadXml
+10:46:44.874 INFO   - PointStyle::loadXml
+10:46:44.874 INFO   - Curve::loadCurvePoints
+10:46:44.874 INFO   - Point::loadXml
+10:46:44.874 INFO   - Point::loadXml identifier=Axes	point	1 identifierIndex=317 posScreen=(91.2878, 201.554) posGraph=(120, 0) ordinal=1
+10:46:44.874 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=Axes	point	5 identifierIndex=317 posScreen=(397.474, 201.903) posGraph=(50, 0) ordinal=3
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=Axes	point	216 identifierIndex=317 posScreen=(91.3443, 22.0486) posGraph=(120, 150) ordinal=4
+10:46:44.875 INFO   - CurvesGraphs::loadXml
+10:46:44.875 INFO   - Curve::loadXml
+10:46:44.875 INFO   - ColorFilterSettings::loadXml
+10:46:44.875 INFO   - CurveStyle::loadXml
+10:46:44.875 INFO   - LineStyle::loadXml
+10:46:44.875 INFO   - PointStyle::loadXml
+10:46:44.875 INFO   - Curve::loadCurvePoints
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	217 identifierIndex=317 posScreen=(134.5, 185.25) posGraph=(0, 0) ordinal=0
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	218 identifierIndex=317 posScreen=(141.25, 157.75) posGraph=(0, 0) ordinal=1
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	219 identifierIndex=317 posScreen=(147.25, 129.5) posGraph=(0, 0) ordinal=2
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	220 identifierIndex=317 posScreen=(151, 111.75) posGraph=(0, 0) ordinal=3
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	221 identifierIndex=317 posScreen=(159.5, 82) posGraph=(0, 0) ordinal=4
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	222 identifierIndex=317 posScreen=(168.5, 62.5) posGraph=(0, 0) ordinal=5
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	223 identifierIndex=317 posScreen=(174.75, 57.25) posGraph=(0, 0) ordinal=6
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	224 identifierIndex=317 posScreen=(178.5, 55.75) posGraph=(0, 0) ordinal=7
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	225 identifierIndex=317 posScreen=(182, 55.25) posGraph=(0, 0) ordinal=8
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	226 identifierIndex=317 posScreen=(186, 56.25) posGraph=(0, 0) ordinal=9
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	227 identifierIndex=317 posScreen=(191.25, 58) posGraph=(0, 0) ordinal=10
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	228 identifierIndex=317 posScreen=(195.75, 60) posGraph=(0, 0) ordinal=11
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	229 identifierIndex=317 posScreen=(206.25, 65.25) posGraph=(0, 0) ordinal=12
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	230 identifierIndex=317 posScreen=(222.5, 75.25) posGraph=(0, 0) ordinal=13
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	231 identifierIndex=317 posScreen=(254, 95.75) posGraph=(0, 0) ordinal=14
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	232 identifierIndex=317 posScreen=(279.75, 113) posGraph=(0, 0) ordinal=15
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	233 identifierIndex=317 posScreen=(300.25, 127.75) posGraph=(0, 0) ordinal=16
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	234 identifierIndex=317 posScreen=(318.5, 142.75) posGraph=(0, 0) ordinal=17
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	235 identifierIndex=317 posScreen=(332.5, 154.75) posGraph=(0, 0) ordinal=18
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	236 identifierIndex=317 posScreen=(354.75, 168) posGraph=(0, 0) ordinal=19
+10:46:44.875 INFO   - Point::loadXml
+10:46:44.875 INFO   - Point::loadXml identifier=w30	point	237 identifierIndex=317 posScreen=(370.5, 182.25) posGraph=(0, 0) ordinal=20
+10:46:44.876 INFO   - Curve::loadXml
+10:46:44.876 INFO   - ColorFilterSettings::loadXml
+10:46:44.876 INFO   - CurveStyle::loadXml
+10:46:44.876 INFO   - LineStyle::loadXml
+10:46:44.876 INFO   - PointStyle::loadXml
+10:46:44.876 INFO   - Curve::loadCurvePoints
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	238 identifierIndex=317 posScreen=(134.25, 186.25) posGraph=(0, 0) ordinal=0
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	239 identifierIndex=317 posScreen=(147, 157.25) posGraph=(0, 0) ordinal=1
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	240 identifierIndex=317 posScreen=(155.5, 142.5) posGraph=(0, 0) ordinal=2
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	241 identifierIndex=317 posScreen=(166.25, 128.75) posGraph=(0, 0) ordinal=3
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	242 identifierIndex=317 posScreen=(178.75, 118.25) posGraph=(0, 0) ordinal=4
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	243 identifierIndex=317 posScreen=(192.75, 111.5) posGraph=(0, 0) ordinal=5
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	244 identifierIndex=317 posScreen=(208.75, 108.5) posGraph=(0, 0) ordinal=6
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	245 identifierIndex=317 posScreen=(229.25, 112) posGraph=(0, 0) ordinal=7
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	246 identifierIndex=317 posScreen=(248, 119) posGraph=(0, 0) ordinal=8
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	247 identifierIndex=317 posScreen=(273.75, 131) posGraph=(0, 0) ordinal=9
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	248 identifierIndex=317 posScreen=(292, 140.5) posGraph=(0, 0) ordinal=10
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	249 identifierIndex=317 posScreen=(310.75, 150.25) posGraph=(0, 0) ordinal=11
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	250 identifierIndex=317 posScreen=(328.75, 159.5) posGraph=(0, 0) ordinal=12
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	251 identifierIndex=317 posScreen=(342.75, 166.75) posGraph=(0, 0) ordinal=13
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	252 identifierIndex=317 posScreen=(353.25, 169.75) posGraph=(0, 0) ordinal=14
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	253 identifierIndex=317 posScreen=(362.75, 175.75) posGraph=(0, 0) ordinal=15
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w90	point	254 identifierIndex=317 posScreen=(371, 182.25) posGraph=(0, 0) ordinal=16
+10:46:44.876 INFO   - Curve::loadXml
+10:46:44.876 INFO   - ColorFilterSettings::loadXml
+10:46:44.876 INFO   - CurveStyle::loadXml
+10:46:44.876 INFO   - LineStyle::loadXml
+10:46:44.876 INFO   - PointStyle::loadXml
+10:46:44.876 INFO   - Curve::loadCurvePoints
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w150	point	255 identifierIndex=317 posScreen=(134.75, 185.75) posGraph=(0, 0) ordinal=0
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w150	point	256 identifierIndex=317 posScreen=(142.25, 167) posGraph=(0, 0) ordinal=1
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w150	point	257 identifierIndex=317 posScreen=(160.5, 147.25) posGraph=(0, 0) ordinal=2
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w150	point	258 identifierIndex=317 posScreen=(175.75, 138.75) posGraph=(0, 0) ordinal=3
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.876 INFO   - Point::loadXml identifier=w150	point	259 identifierIndex=317 posScreen=(197.25, 132.25) posGraph=(0, 0) ordinal=4
+10:46:44.876 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	260 identifierIndex=317 posScreen=(215.75, 132.5) posGraph=(0, 0) ordinal=5
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	261 identifierIndex=317 posScreen=(236.25, 134.75) posGraph=(0, 0) ordinal=6
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	262 identifierIndex=317 posScreen=(257, 140.25) posGraph=(0, 0) ordinal=7
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	263 identifierIndex=317 posScreen=(277.25, 148) posGraph=(0, 0) ordinal=8
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	264 identifierIndex=317 posScreen=(297.25, 156.25) posGraph=(0, 0) ordinal=9
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	265 identifierIndex=317 posScreen=(314.25, 163.25) posGraph=(0, 0) ordinal=10
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	266 identifierIndex=317 posScreen=(328.5, 167.75) posGraph=(0, 0) ordinal=11
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	267 identifierIndex=317 posScreen=(341.75, 169.5) posGraph=(0, 0) ordinal=12
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	268 identifierIndex=317 posScreen=(352.5, 169.75) posGraph=(0, 0) ordinal=13
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	269 identifierIndex=317 posScreen=(365.25, 176.75) posGraph=(0, 0) ordinal=14
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w150	point	270 identifierIndex=317 posScreen=(371, 182) posGraph=(0, 0) ordinal=15
+10:46:44.877 INFO   - Curve::loadXml
+10:46:44.877 INFO   - ColorFilterSettings::loadXml
+10:46:44.877 INFO   - CurveStyle::loadXml
+10:46:44.877 INFO   - LineStyle::loadXml
+10:46:44.877 INFO   - PointStyle::loadXml
+10:46:44.877 INFO   - Curve::loadCurvePoints
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	271 identifierIndex=317 posScreen=(134, 186) posGraph=(0, 0) ordinal=0
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	272 identifierIndex=317 posScreen=(145.25, 165) posGraph=(0, 0) ordinal=1
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	273 identifierIndex=317 posScreen=(159.75, 154.75) posGraph=(0, 0) ordinal=2
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	274 identifierIndex=317 posScreen=(182.5, 146) posGraph=(0, 0) ordinal=3
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	275 identifierIndex=317 posScreen=(203.25, 145) posGraph=(0, 0) ordinal=4
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	276 identifierIndex=317 posScreen=(225.75, 147) posGraph=(0, 0) ordinal=5
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	277 identifierIndex=317 posScreen=(247.25, 152.25) posGraph=(0, 0) ordinal=6
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	278 identifierIndex=317 posScreen=(270.5, 157.25) posGraph=(0, 0) ordinal=7
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	279 identifierIndex=317 posScreen=(294.5, 164.75) posGraph=(0, 0) ordinal=8
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	280 identifierIndex=317 posScreen=(314.25, 167.75) posGraph=(0, 0) ordinal=9
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	281 identifierIndex=317 posScreen=(330, 166.5) posGraph=(0, 0) ordinal=10
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	282 identifierIndex=317 posScreen=(341.25, 164) posGraph=(0, 0) ordinal=11
+10:46:44.877 INFO   - Point::loadXml
+10:46:44.877 INFO   - Point::loadXml identifier=w210	point	283 identifierIndex=317 posScreen=(352, 166.25) posGraph=(0, 0) ordinal=12
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w210	point	284 identifierIndex=317 posScreen=(365, 175.25) posGraph=(0, 0) ordinal=13
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w210	point	285 identifierIndex=317 posScreen=(371.25, 182.25) posGraph=(0, 0) ordinal=14
+10:46:44.878 INFO   - Curve::loadXml
+10:46:44.878 INFO   - ColorFilterSettings::loadXml
+10:46:44.878 INFO   - CurveStyle::loadXml
+10:46:44.878 INFO   - LineStyle::loadXml
+10:46:44.878 INFO   - PointStyle::loadXml
+10:46:44.878 INFO   - Curve::loadCurvePoints
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	286 identifierIndex=317 posScreen=(134, 186.75) posGraph=(0, 0) ordinal=0
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	287 identifierIndex=317 posScreen=(145, 162.5) posGraph=(0, 0) ordinal=1
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	288 identifierIndex=317 posScreen=(154.5, 156.5) posGraph=(0, 0) ordinal=2
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	289 identifierIndex=317 posScreen=(172.25, 153) posGraph=(0, 0) ordinal=3
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	290 identifierIndex=317 posScreen=(189, 152.25) posGraph=(0, 0) ordinal=4
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	291 identifierIndex=317 posScreen=(208.5, 153.25) posGraph=(0, 0) ordinal=5
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	292 identifierIndex=317 posScreen=(231, 155) posGraph=(0, 0) ordinal=6
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	293 identifierIndex=317 posScreen=(258.75, 161) posGraph=(0, 0) ordinal=7
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	294 identifierIndex=317 posScreen=(285.25, 166.25) posGraph=(0, 0) ordinal=8
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	295 identifierIndex=317 posScreen=(304, 167.5) posGraph=(0, 0) ordinal=9
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	296 identifierIndex=317 posScreen=(321.25, 162.75) posGraph=(0, 0) ordinal=10
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	297 identifierIndex=317 posScreen=(336, 160.75) posGraph=(0, 0) ordinal=11
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	298 identifierIndex=317 posScreen=(347, 164.25) posGraph=(0, 0) ordinal=12
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	299 identifierIndex=317 posScreen=(357.75, 169.75) posGraph=(0, 0) ordinal=13
+10:46:44.878 INFO   - Point::loadXml
+10:46:44.878 INFO   - Point::loadXml identifier=w270	point	300 identifierIndex=317 posScreen=(372.25, 182.5) posGraph=(0, 0) ordinal=14
+10:46:44.878 INFO   - Curve::loadXml
+10:46:44.878 INFO   - ColorFilterSettings::loadXml
+10:46:44.878 INFO   - CurveStyle::loadXml
+10:46:44.878 INFO   - LineStyle::loadXml
+10:46:44.878 INFO   - PointStyle::loadXml
+10:46:44.878 INFO   - Curve::loadCurvePoints
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	301 identifierIndex=317 posScreen=(134, 186.5) posGraph=(0, 0) ordinal=0
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	302 identifierIndex=317 posScreen=(140.75, 172.75) posGraph=(0, 0) ordinal=1
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	303 identifierIndex=317 posScreen=(150.75, 159.5) posGraph=(0, 0) ordinal=2
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	304 identifierIndex=317 posScreen=(165, 153.5) posGraph=(0, 0) ordinal=3
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	305 identifierIndex=317 posScreen=(187, 154.5) posGraph=(0, 0) ordinal=4
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	306 identifierIndex=317 posScreen=(206.5, 157.5) posGraph=(0, 0) ordinal=5
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	307 identifierIndex=317 posScreen=(227.5, 162) posGraph=(0, 0) ordinal=6
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	308 identifierIndex=317 posScreen=(252.5, 165.75) posGraph=(0, 0) ordinal=7
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	309 identifierIndex=317 posScreen=(273, 167.75) posGraph=(0, 0) ordinal=8
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	310 identifierIndex=317 posScreen=(293.25, 165.75) posGraph=(0, 0) ordinal=9
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	311 identifierIndex=317 posScreen=(306.75, 160.75) posGraph=(0, 0) ordinal=10
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	312 identifierIndex=317 posScreen=(321.25, 158.75) posGraph=(0, 0) ordinal=11
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	313 identifierIndex=317 posScreen=(334.5, 159.75) posGraph=(0, 0) ordinal=12
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	314 identifierIndex=317 posScreen=(345.25, 163.5) posGraph=(0, 0) ordinal=13
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	315 identifierIndex=317 posScreen=(367.25, 178) posGraph=(0, 0) ordinal=14
+10:46:44.879 INFO   - Point::loadXml
+10:46:44.879 INFO   - Point::loadXml identifier=w330	point	316 identifierIndex=317 posScreen=(371.5, 182.25) posGraph=(0, 0) ordinal=15
+10:46:44.880 INFO   - CmdMediator::CmdMediator filename=/home/mjhmilla/dev/projectsSmall/PlantarFlexorDynamometrySimulation/dataHauraix2015/HauraixFig3F.dig
+10:46:44.880 INFO   - MainWindow::rebuildRecentFileListForCurrentFile
+10:46:44.880 INFO   - MainWindow::updateRecentFileList
+10:46:44.886 INFO   - MainWindow::setupAfterLoadNewDocument file=/home/mjhmilla/dev/projectsSmall/PlantarFlexorDynamometrySimulation/dataHauraix2015/HauraixFig3F.dig message=File opened importType=0
+10:46:44.886 INFO   - DigitizeStateContext::resetOnLoad
+10:46:44.887 INFO   - DocumentModelColorFilter::DocumentModelColorFilter
+10:46:44.887 INFO   - BackgroundStateContext::setCurveSelected curve=
+10:46:44.887 INFO   - BackgroundStateCurve::setCurveSelected curve=
+10:46:44.887 INFO   - BackgroundStateCurve::processImageFromSavedInputs
+10:46:44.887 INFO   - BackgroundStateAbstractBase::setProcessedPixmap map=(0x0)
+10:46:44.887 INFO   - BackgroundStateNone::setCurveSelected
+10:46:44.887 INFO   - BackgroundStateOriginal::setCurveSelected
+10:46:44.887 INFO   - BackgroundStateUnloaded::setCurveSelected
+10:46:44.887 INFO   - Document::curvesGraphsNames
+10:46:44.887 INFO   - CoordSystemContext::curvesGraphsNames
+10:46:44.887 INFO   - MainWindow::setPixmap
+10:46:44.887 INFO   - DigitizeStateContext::setImageIsLoaded
+10:46:44.887 INFO   - DigitizeStateContext::setCursor
+10:46:44.887 INFO   - DocumentModelColorFilter::DocumentModelColorFilter
+10:46:44.887 INFO   - BackgroundStateContext::setPixmap image=425x278 currentState=BackgroundStateOriginal
+10:46:44.887 INFO   - BackgroundStateCurve::setPixmap
+10:46:44.887 INFO   - BackgroundStateCurve::processImageFromSavedInputs
+10:46:44.887 INFO   - DocumentModelColorFilter::high curve=w30 curves=w210,w270,Axes,w30,w150,w330,w90
+10:46:44.887 INFO   - DocumentModelColorFilter::low curve=w30 curves=w210,w270,Axes,w30,w150,w330,w90
+10:46:44.892 INFO   - GridRemoval::remove transformationIsDefined=false removeDefinedGridLines=false
+10:46:44.892 INFO   - BackgroundStateAbstractBase::setProcessedPixmap map=(425x278)
+10:46:44.892 INFO   - BackgroundStateNone::setPixmap
+10:46:44.892 INFO   - BackgroundStateAbstractBase::setProcessedPixmap map=(425x278)
+10:46:44.892 INFO   - BackgroundStateOriginal::setPixmap
+10:46:44.892 INFO   - BackgroundStateAbstractBase::setProcessedPixmap map=(425x278)
+10:46:44.892 INFO   - BackgroundStateUnloaded::setPixmap
+10:46:44.892 INFO   - Transformation::resetOnLoad
+10:46:44.892 INFO   - TransformationStateContext::resetOnLoad
+10:46:44.892 INFO   - GraphicsLinesForCurves::resetOnLoad
+10:46:44.892 INFO   - GraphicsScene::resetOnLoad itemsBefore=4 itemsAfter=4
+10:46:44.892 INFO   - MainWindow::loadCurveListFromCmdMediator
+10:46:44.892 INFO   - Document::curvesGraphsNames
+10:46:44.892 INFO   - CoordSystemContext::curvesGraphsNames
+10:46:44.892 INFO   - MainWindow::loadCoordSystemListFromCmdMediator
+10:46:44.892 INFO   - Document::coordSystemCount
+10:46:44.892 INFO   - MainWindow::updateViewsOfSettings
+10:46:44.892 INFO   - ViewPointStyle::unsetPointStyle
+10:46:44.892 INFO   - DocumentModelColorFilter::DocumentModelColorFilter
+10:46:44.892 INFO   - BackgroundStateContext::setCurveSelected curve=w30
+10:46:44.892 INFO   - BackgroundStateCurve::setCurveSelected curve=w30
+10:46:44.892 INFO   - BackgroundStateCurve::processImageFromSavedInputs
+10:46:44.892 INFO   - DocumentModelColorFilter::high curve=w30 curves=w210,w270,Axes,w30,w150,w330,w90
+10:46:44.892 INFO   - DocumentModelColorFilter::low curve=w30 curves=w210,w270,Axes,w30,w150,w330,w90
+10:46:44.897 INFO   - GridRemoval::remove transformationIsDefined=false removeDefinedGridLines=false
+10:46:44.897 INFO   - BackgroundStateAbstractBase::setProcessedPixmap map=(425x278)
+10:46:44.897 INFO   - BackgroundStateNone::setCurveSelected
+10:46:44.897 INFO   - BackgroundStateOriginal::setCurveSelected
+10:46:44.897 INFO   - BackgroundStateUnloaded::setCurveSelected
+10:46:44.897 INFO   - BackgroundStateContext::setBackgroundImage background=Original
+10:46:44.897 INFO   - BackgroundStateContext::requestStateTransition
+10:46:44.897 INFO   - BackgroundStateContext::completeRequestedStateTransitionIfExists
+10:46:44.897 INFO   - MainWindow::slotViewZoom
+10:46:44.897 INFO   - MainWindow::slotViewZoomFactor
+10:46:44.897 INFO   - StatusBar::slotZoom zoom=6
+10:46:44.897 INFO   - MainWindow::setCurrentFile
+10:46:44.897 INFO   - MainWindow::updateWindowTitle
+10:46:44.899 INFO   - MainWindow::saveStartingDocumentSnapshot
+10:46:44.907 INFO   - CoordSystemContext::saveXml
+10:46:44.907 INFO   - DocumentModelGeneral::saveXml
+10:46:44.907 INFO   - DocumentModelCoords::saveXml
+10:46:44.907 INFO   - DocumentModelDigitizeCurve::saveXml
+10:46:44.907 INFO   - DocumentModelExportFormat::saveXml
+10:46:44.907 INFO   - DocumentModelAxesChecker::saveXml
+10:46:44.907 INFO   - DocumentModelGridDisplay::saveXml
+10:46:44.907 INFO   - DocumentModelGridRemoval::saveXml
+10:46:44.907 INFO   - DocumentModelPointMatch::saveXml
+10:46:44.907 INFO   - DocumentModelSegments::saveXml
+10:46:44.907 INFO   - Curve::saveXml
+10:46:44.907 INFO   - ColorFilterSettings::saveXml
+10:46:44.907 INFO   - CurveStyle::saveXml
+10:46:44.907 INFO   - LineStyle::saveXml
+10:46:44.907 INFO   - PointStyle::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - CurvesGraphs::saveXml
+10:46:44.907 INFO   - Curve::saveXml
+10:46:44.907 INFO   - ColorFilterSettings::saveXml
+10:46:44.907 INFO   - CurveStyle::saveXml
+10:46:44.907 INFO   - LineStyle::saveXml
+10:46:44.907 INFO   - PointStyle::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Curve::saveXml
+10:46:44.907 INFO   - ColorFilterSettings::saveXml
+10:46:44.907 INFO   - CurveStyle::saveXml
+10:46:44.907 INFO   - LineStyle::saveXml
+10:46:44.907 INFO   - PointStyle::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.907 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Curve::saveXml
+10:46:44.908 INFO   - ColorFilterSettings::saveXml
+10:46:44.908 INFO   - CurveStyle::saveXml
+10:46:44.908 INFO   - LineStyle::saveXml
+10:46:44.908 INFO   - PointStyle::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Curve::saveXml
+10:46:44.908 INFO   - ColorFilterSettings::saveXml
+10:46:44.908 INFO   - CurveStyle::saveXml
+10:46:44.908 INFO   - LineStyle::saveXml
+10:46:44.908 INFO   - PointStyle::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Curve::saveXml
+10:46:44.908 INFO   - ColorFilterSettings::saveXml
+10:46:44.908 INFO   - CurveStyle::saveXml
+10:46:44.908 INFO   - LineStyle::saveXml
+10:46:44.908 INFO   - PointStyle::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Curve::saveXml
+10:46:44.908 INFO   - ColorFilterSettings::saveXml
+10:46:44.908 INFO   - CurveStyle::saveXml
+10:46:44.908 INFO   - LineStyle::saveXml
+10:46:44.908 INFO   - PointStyle::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.908 INFO   - Point::saveXml
+10:46:44.909 INFO   - Point::saveXml
+10:46:44.909 INFO   - Point::saveXml
+10:46:44.909 INFO   - Point::saveXml
+10:46:44.909 INFO   - Point::saveXml
+10:46:44.909 INFO   - Point::saveXml
+10:46:44.909 INFO   - MainWindow::updateAfterCommand
+10:46:44.909 INFO   - MainWindow::updateAfterCommandStatusBarCoords
+10:46:44.909 INFO   - Document::iterateThroughCurvePointsAxes
+10:46:44.909 INFO   - CoordSystemContext::iterateThroughCurvePointsAxes
+10:46:44.909 INFO   - Transformation::calculateTransformFromLinearCartesianPoints
+10:46:44.909 INFO   - Transformation::updateTransformFromMatrices matrixScreen=
+                     91.2878        397.474        91.3443
+                     201.554        201.903        22.0486
+                           1              1              1  matrixGraphRaw=
+                         120             50            120
+                           0              0            150
+                           1              1              1  matrixGraphLinear=
+                         120             50            120
+                           0              0            150
+                           1              1              1
+ originalScreen0=(91.2878, 201.554)
+ originalScreen1=(397.474, 201.903)
+ originalScreen2=(91.3443, 22.0486)
+ roundTripScreen0=(91.2878, 201.554)
+ roundTripScreen1=(397.474, 201.903)
+ roundTripScreen2=(91.3443, 22.0486)
+
+10:46:44.909 INFO   - DocumentModelColorFilter::DocumentModelColorFilter
+10:46:44.909 INFO   - BackgroundStateContext::setCurveSelected curve=w30
+10:46:44.909 INFO   - BackgroundStateCurve::setCurveSelected curve=w30
+10:46:44.909 INFO   - BackgroundStateCurve::processImageFromSavedInputs
+10:46:44.909 INFO   - DocumentModelColorFilter::high curve=w30 curves=w210,w270,Axes,w30,w150,w330,w90
+10:46:44.909 INFO   - DocumentModelColorFilter::low curve=w30 curves=w210,w270,Axes,w30,w150,w330,w90
+10:46:44.914 INFO   - GridRemoval::remove transformationIsDefined=true removeDefinedGridLines=false
+10:46:44.914 INFO   - BackgroundStateAbstractBase::setProcessedPixmap map=(425x278)
+10:46:44.914 INFO   - BackgroundStateNone::setCurveSelected
+10:46:44.914 INFO   - BackgroundStateOriginal::setCurveSelected
+10:46:44.914 INFO   - BackgroundStateUnloaded::setCurveSelected
+10:46:44.914 INFO   - MainWindow::updateGridLines
+10:46:44.915 INFO   - TransformationStateContext::triggerStateTransition
+10:46:44.915 INFO   - TransformationStateDefined::begin
+10:46:44.915 INFO   - TransformationStateDefined::initializeModelGridRemoval
+10:46:44.915 INFO   - DocumentModelColorFilter::DocumentModelColorFilter
+10:46:44.915 INFO   - DocumentModelColorFilter::high curve=w30 curves=w210,w270,Axes,w30,w150,w330,w90
+10:46:44.915 INFO   - DocumentModelColorFilter::low curve=w30 curves=w210,w270,Axes,w30,w150,w330,w90
+10:46:44.919 INFO   - GridRemoval::remove transformationIsDefined=true removeDefinedGridLines=false
+10:46:44.919 INFO   - GridClassifier::classify
+10:46:44.919 INFO   - GridClassifier::computeGraphCoordinateLimits
+10:46:44.919 INFO   - GridClassifier::initializeHistogramBins
+10:46:44.919 INFO   - GridClassifier::populateHistogramBins
+10:46:44.922 INFO   - GridClassifier::searchStartStepSpace
+10:46:44.934 INFO   - GridClassifier::searchStartStepSpace
+10:46:44.947 INFO   - GridClassifier::searchCountSpace start=30 step=43
+10:46:44.948 INFO   - GridClassifier::searchCountSpace start=24 step=46
+10:46:44.949 INFO   - Document::setModelGridRemoval
+10:46:44.949 INFO   - CoordSystemContext::setModelGridRemoval
+10:46:44.949 INFO   - Document::iterateThroughCurvePointsAxes
+10:46:44.949 INFO   - CoordSystemContext::iterateThroughCurvePointsAxes
+10:46:44.950 INFO   - Checker::prepareForDisplay  transformation=Transformation
+  affine=no matrix=(-0.228619, -7.19587e-05, 140.885, 0.000952475, -0.835629, 168.337, 2.1684e-19, -8.67362e-19, 1)
+10:46:44.950 INFO   - Checker::adjustPolarAngleRanges transformation=Transformation
+  affine=no matrix=(-0.228619, -7.19587e-05, 140.885, 0.000952475, -0.835629, 168.337, 2.1684e-19, -8.67362e-19, 1)
+10:46:44.950 INFO   - Checker::adjustPolarAngleRanges path=()
+10:46:44.950 INFO   - TransformationStateDefined::startTimer
+10:46:44.951 INFO   - GraphicsScene::updateAfterCommand
+10:46:44.951 INFO   - GraphicsLinesForCurves::updateHighlightOpacity highlightOpacity=0.35
+10:46:44.951 INFO   - GraphicsScene::updateCurves
+10:46:44.951 INFO   - Document::curvesGraphsNames
+10:46:44.951 INFO   - CoordSystemContext::curvesGraphsNames
+10:46:44.951 INFO   - GraphicsLinesForCurves::addRemoveCurves curveCount=0
+10:46:44.951 INFO   - GraphicsScene::updatePointMembership
+10:46:44.951 INFO   - GraphicsLinesForCurves::lineMembershipReset
+10:46:44.951 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w210
+10:46:44.951 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w270
+10:46:44.951 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=Axes
+10:46:44.951 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w30
+10:46:44.951 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w150
+10:46:44.951 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w330
+10:46:44.951 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w90
+10:46:44.951 INFO   - Document::iterateThroughCurvePointsAxes
+10:46:44.951 INFO   - CoordSystemContext::iterateThroughCurvePointsAxes
+10:46:44.951 INFO   - GraphicsScene::createPoint identifier=Axes	point	1
+10:46:44.951 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.951 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.951 INFO   - GraphicsScene::createPoint identifier=Axes	point	5
+10:46:44.951 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.951 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.952 INFO   - GraphicsScene::createPoint identifier=Axes	point	216
+10:46:44.952 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.952 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.952 INFO   - Document::iterateThroughCurvesPointsGraphs
+10:46:44.952 INFO   - CoordSystemContext::iterateThroughCurvesPointsGraphs
+10:46:44.952 INFO   - GraphicsScene::createPoint identifier=w30	point	217
+10:46:44.952 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.952 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.952 INFO   - GraphicsScene::createPoint identifier=w30	point	218
+10:46:44.952 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.952 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.952 INFO   - GraphicsScene::createPoint identifier=w30	point	219
+10:46:44.953 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.953 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.953 INFO   - GraphicsScene::createPoint identifier=w30	point	220
+10:46:44.953 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.953 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.953 INFO   - GraphicsScene::createPoint identifier=w30	point	221
+10:46:44.953 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.953 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.953 INFO   - GraphicsScene::createPoint identifier=w30	point	222
+10:46:44.953 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.953 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.954 INFO   - GraphicsScene::createPoint identifier=w30	point	223
+10:46:44.954 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.954 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.954 INFO   - GraphicsScene::createPoint identifier=w30	point	224
+10:46:44.954 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.954 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.954 INFO   - GraphicsScene::createPoint identifier=w30	point	225
+10:46:44.954 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.954 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.955 INFO   - GraphicsScene::createPoint identifier=w30	point	226
+10:46:44.955 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.955 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.955 INFO   - GraphicsScene::createPoint identifier=w30	point	227
+10:46:44.955 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.955 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.955 INFO   - GraphicsScene::createPoint identifier=w30	point	228
+10:46:44.955 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.955 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.955 INFO   - GraphicsScene::createPoint identifier=w30	point	229
+10:46:44.955 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.955 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.956 INFO   - GraphicsScene::createPoint identifier=w30	point	230
+10:46:44.956 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.956 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.956 INFO   - GraphicsScene::createPoint identifier=w30	point	231
+10:46:44.956 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.956 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.956 INFO   - GraphicsScene::createPoint identifier=w30	point	232
+10:46:44.956 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.956 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.957 INFO   - GraphicsScene::createPoint identifier=w30	point	233
+10:46:44.957 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.957 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.957 INFO   - GraphicsScene::createPoint identifier=w30	point	234
+10:46:44.957 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.957 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.957 INFO   - GraphicsScene::createPoint identifier=w30	point	235
+10:46:44.957 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.957 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.957 INFO   - GraphicsScene::createPoint identifier=w30	point	236
+10:46:44.958 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.958 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.958 INFO   - GraphicsScene::createPoint identifier=w30	point	237
+10:46:44.958 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.958 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.958 INFO   - GraphicsScene::createPoint identifier=w90	point	238
+10:46:44.958 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.958 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.958 INFO   - GraphicsScene::createPoint identifier=w90	point	239
+10:46:44.958 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.959 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.959 INFO   - GraphicsScene::createPoint identifier=w90	point	240
+10:46:44.959 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.959 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.959 INFO   - GraphicsScene::createPoint identifier=w90	point	241
+10:46:44.959 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.959 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.959 INFO   - GraphicsScene::createPoint identifier=w90	point	242
+10:46:44.959 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.959 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.960 INFO   - GraphicsScene::createPoint identifier=w90	point	243
+10:46:44.960 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.960 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.960 INFO   - GraphicsScene::createPoint identifier=w90	point	244
+10:46:44.960 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.960 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.960 INFO   - GraphicsScene::createPoint identifier=w90	point	245
+10:46:44.960 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.960 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.960 INFO   - GraphicsScene::createPoint identifier=w90	point	246
+10:46:44.960 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.961 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.961 INFO   - GraphicsScene::createPoint identifier=w90	point	247
+10:46:44.961 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.961 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.961 INFO   - GraphicsScene::createPoint identifier=w90	point	248
+10:46:44.961 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.961 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.961 INFO   - GraphicsScene::createPoint identifier=w90	point	249
+10:46:44.961 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.961 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.962 INFO   - GraphicsScene::createPoint identifier=w90	point	250
+10:46:44.962 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.962 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.962 INFO   - GraphicsScene::createPoint identifier=w90	point	251
+10:46:44.962 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.962 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.962 INFO   - GraphicsScene::createPoint identifier=w90	point	252
+10:46:44.962 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.962 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.963 INFO   - GraphicsScene::createPoint identifier=w90	point	253
+10:46:44.963 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.963 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.963 INFO   - GraphicsScene::createPoint identifier=w90	point	254
+10:46:44.963 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.963 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.963 INFO   - GraphicsScene::createPoint identifier=w150	point	255
+10:46:44.963 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.963 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.963 INFO   - GraphicsScene::createPoint identifier=w150	point	256
+10:46:44.963 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.963 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.964 INFO   - GraphicsScene::createPoint identifier=w150	point	257
+10:46:44.964 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.964 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.964 INFO   - GraphicsScene::createPoint identifier=w150	point	258
+10:46:44.964 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.964 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.964 INFO   - GraphicsScene::createPoint identifier=w150	point	259
+10:46:44.964 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.964 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.965 INFO   - GraphicsScene::createPoint identifier=w150	point	260
+10:46:44.965 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.965 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.965 INFO   - GraphicsScene::createPoint identifier=w150	point	261
+10:46:44.965 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.965 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.965 INFO   - GraphicsScene::createPoint identifier=w150	point	262
+10:46:44.965 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.965 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.965 INFO   - GraphicsScene::createPoint identifier=w150	point	263
+10:46:44.965 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.966 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.966 INFO   - GraphicsScene::createPoint identifier=w150	point	264
+10:46:44.966 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.966 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.966 INFO   - GraphicsScene::createPoint identifier=w150	point	265
+10:46:44.966 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.966 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.966 INFO   - GraphicsScene::createPoint identifier=w150	point	266
+10:46:44.966 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.966 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.967 INFO   - GraphicsScene::createPoint identifier=w150	point	267
+10:46:44.967 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.967 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.967 INFO   - GraphicsScene::createPoint identifier=w150	point	268
+10:46:44.967 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.967 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.967 INFO   - GraphicsScene::createPoint identifier=w150	point	269
+10:46:44.967 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.967 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.968 INFO   - GraphicsScene::createPoint identifier=w150	point	270
+10:46:44.968 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.968 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.968 INFO   - GraphicsScene::createPoint identifier=w210	point	271
+10:46:44.968 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.968 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.968 INFO   - GraphicsScene::createPoint identifier=w210	point	272
+10:46:44.968 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.968 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.968 INFO   - GraphicsScene::createPoint identifier=w210	point	273
+10:46:44.968 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.969 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.969 INFO   - GraphicsScene::createPoint identifier=w210	point	274
+10:46:44.969 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.969 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.969 INFO   - GraphicsScene::createPoint identifier=w210	point	275
+10:46:44.969 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.969 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.969 INFO   - GraphicsScene::createPoint identifier=w210	point	276
+10:46:44.969 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.969 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.970 INFO   - GraphicsScene::createPoint identifier=w210	point	277
+10:46:44.970 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.970 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.970 INFO   - GraphicsScene::createPoint identifier=w210	point	278
+10:46:44.970 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.970 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.970 INFO   - GraphicsScene::createPoint identifier=w210	point	279
+10:46:44.970 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.970 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.971 INFO   - GraphicsScene::createPoint identifier=w210	point	280
+10:46:44.971 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.971 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.971 INFO   - GraphicsScene::createPoint identifier=w210	point	281
+10:46:44.971 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.971 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.971 INFO   - GraphicsScene::createPoint identifier=w210	point	282
+10:46:44.971 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.971 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.971 INFO   - GraphicsScene::createPoint identifier=w210	point	283
+10:46:44.971 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.971 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.972 INFO   - GraphicsScene::createPoint identifier=w210	point	284
+10:46:44.972 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.972 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.972 INFO   - GraphicsScene::createPoint identifier=w210	point	285
+10:46:44.972 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.972 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.972 INFO   - GraphicsScene::createPoint identifier=w270	point	286
+10:46:44.972 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.972 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.973 INFO   - GraphicsScene::createPoint identifier=w270	point	287
+10:46:44.973 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.973 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.973 INFO   - GraphicsScene::createPoint identifier=w270	point	288
+10:46:44.973 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.973 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.973 INFO   - GraphicsScene::createPoint identifier=w270	point	289
+10:46:44.973 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.973 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.974 INFO   - GraphicsScene::createPoint identifier=w270	point	290
+10:46:44.974 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.974 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.974 INFO   - GraphicsScene::createPoint identifier=w270	point	291
+10:46:44.974 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.974 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.974 INFO   - GraphicsScene::createPoint identifier=w270	point	292
+10:46:44.974 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.974 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.974 INFO   - GraphicsScene::createPoint identifier=w270	point	293
+10:46:44.974 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.974 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.975 INFO   - GraphicsScene::createPoint identifier=w270	point	294
+10:46:44.975 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.975 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.975 INFO   - GraphicsScene::createPoint identifier=w270	point	295
+10:46:44.975 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.975 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.975 INFO   - GraphicsScene::createPoint identifier=w270	point	296
+10:46:44.975 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.975 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.976 INFO   - GraphicsScene::createPoint identifier=w270	point	297
+10:46:44.976 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.976 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.976 INFO   - GraphicsScene::createPoint identifier=w270	point	298
+10:46:44.976 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.976 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.976 INFO   - GraphicsScene::createPoint identifier=w270	point	299
+10:46:44.976 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.976 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.976 INFO   - GraphicsScene::createPoint identifier=w270	point	300
+10:46:44.976 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.976 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.977 INFO   - GraphicsScene::createPoint identifier=w330	point	301
+10:46:44.977 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.977 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.977 INFO   - GraphicsScene::createPoint identifier=w330	point	302
+10:46:44.977 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.977 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.977 INFO   - GraphicsScene::createPoint identifier=w330	point	303
+10:46:44.977 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.977 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.978 INFO   - GraphicsScene::createPoint identifier=w330	point	304
+10:46:44.978 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.978 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.978 INFO   - GraphicsScene::createPoint identifier=w330	point	305
+10:46:44.978 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.978 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.978 INFO   - GraphicsScene::createPoint identifier=w330	point	306
+10:46:44.978 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.978 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.978 INFO   - GraphicsScene::createPoint identifier=w330	point	307
+10:46:44.978 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.978 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.979 INFO   - GraphicsScene::createPoint identifier=w330	point	308
+10:46:44.979 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.979 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.979 INFO   - GraphicsScene::createPoint identifier=w330	point	309
+10:46:44.979 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.979 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.979 INFO   - GraphicsScene::createPoint identifier=w330	point	310
+10:46:44.979 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.979 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.980 INFO   - GraphicsScene::createPoint identifier=w330	point	311
+10:46:44.980 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.980 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.980 INFO   - GraphicsScene::createPoint identifier=w330	point	312
+10:46:44.980 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.980 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.980 INFO   - GraphicsScene::createPoint identifier=w330	point	313
+10:46:44.980 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.980 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.980 INFO   - GraphicsScene::createPoint identifier=w330	point	314
+10:46:44.981 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.981 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.981 INFO   - GraphicsScene::createPoint identifier=w330	point	315
+10:46:44.981 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.981 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.981 INFO   - GraphicsScene::createPoint identifier=w330	point	316
+10:46:44.981 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.981 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.981 INFO   - GraphicsLinesForCurves::lineMembershipPurge
+10:46:44.981 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w210
+10:46:44.981 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=15 ordinalRenumbering=false
+10:46:44.981 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w210
+10:46:44.981 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w270
+10:46:44.981 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=15 ordinalRenumbering=false
+10:46:44.981 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w270
+10:46:44.981 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=Axes
+10:46:44.981 INFO   - GraphicsLinesForCurve::renumberOrdinals
+10:46:44.981 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=3 ordinalRenumbering=true
+10:46:44.981 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w30
+10:46:44.982 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=21 ordinalRenumbering=false
+10:46:44.982 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w30
+10:46:44.982 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w150
+10:46:44.982 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=16 ordinalRenumbering=false
+10:46:44.982 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w150
+10:46:44.982 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w330
+10:46:44.982 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=16 ordinalRenumbering=false
+10:46:44.982 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w330
+10:46:44.982 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w90
+10:46:44.982 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=17 ordinalRenumbering=false
+10:46:44.982 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w90
+10:46:44.982 INFO   - DigitizeStateEmpty::updateAfterPointAddition
+10:46:44.982 INFO   - MainWindow::updateControls selectedItems=0
+10:46:44.982 INFO   - CmdStackShadow::canRedo
+10:46:44.982 INFO   - MainWindow::updateChecklistGuide
+10:46:44.982 INFO   - ChecklistGuide::update
+10:46:44.982 INFO   - ChecklistGuideBrowser::update
+10:46:44.982 INFO   - ChecklistGuideBrowser::repopulateCheckedTags
+10:46:44.982 INFO   - Document::curveAxes
+10:46:44.982 INFO   - CoordSystemContext::curveAxes
+10:46:44.982 INFO   - Document::curveAxes
+10:46:44.982 INFO   - CoordSystemContext::curveAxes
+10:46:44.982 INFO   - Document::curveAxes
+10:46:44.982 INFO   - CoordSystemContext::curveAxes
+10:46:44.982 INFO   - ChecklistGuideBrowser::refresh
+10:46:44.982 INFO   - ChecklistGuideBrowser::processAhrefs
+10:46:44.982 INFO   - ChecklistGuideBrowser::bindToDocument
+10:46:44.982 INFO   - ChecklistGuideBrowser::bindToDocument
+10:46:44.982 INFO   - ChecklistGuideBrowser::bindToDocument
+10:46:44.982 INFO   - ChecklistGuideBrowser::bindToDocument
+10:46:44.982 INFO   - ChecklistGuideBrowser::bindToDocument
+10:46:44.982 INFO   - ChecklistGuideBrowser::processCheckboxes
+10:46:44.982 INFO   - ChecklistGuideBrowser::check
+10:46:44.982 INFO   - ChecklistGuideBrowser::check
+10:46:44.982 INFO   - ChecklistGuideBrowser::check
+10:46:44.982 INFO   - ChecklistGuideBrowser::check
+10:46:44.982 INFO   - ChecklistGuideBrowser::check
+10:46:44.982 INFO   - ChecklistGuideBrowser::processDivs
+10:46:44.982 INFO   - ChecklistGuideBrowser::divShow anchor=
+10:46:44.982 INFO   - ChecklistGuideBrowser::divHide anchor=BACKGROUND
+10:46:44.982 INFO   - ChecklistGuideBrowser::divHide anchor=AXIS1
+10:46:44.982 INFO   - ChecklistGuideBrowser::divHide anchor=AXIS2
+10:46:44.982 INFO   - ChecklistGuideBrowser::divHide anchor=AXIS3
+10:46:44.982 INFO   - ChecklistGuideBrowser::divHide anchor=EXPORT
+10:46:44.982 INFO   - MainWindow::updateFittingWindow
+10:46:44.982 INFO   - FittingWindow::update
+10:46:44.982 INFO   - Document::curveForCurveName
+10:46:44.982 INFO   - CoordSystemContext::curveForCurveName
+10:46:44.982 INFO   - FittingWindow::resizeTable
+10:46:44.983 INFO   - MainWindow::slotFittingWindowCurveFit order=9
+10:46:44.983 INFO   - MainWindow::updateGeometryWindow
+10:46:44.983 INFO   - GeometryWindow::update
+10:46:44.983 INFO   - Document::curveForCurveName
+10:46:44.983 INFO   - CoordSystemContext::curveForCurveName
+10:46:44.984 INFO   - GeometryWindow::resizeTable
+10:46:44.984 INFO   - CoordSystemContext::printStream
+10:46:44.984 INFO   - MainWindow::slotDigitizeSelect
+10:46:44.985 INFO   - DigitizeStateEmpty::end
+10:46:44.985 INFO   - DigitizeStateSelect::begin
+10:46:44.985 INFO   - DigitizeStateSelect::addHoverHighlighting
+10:46:44.985 INFO   - ViewPointStyle::setPointStyle
+10:46:44.985 INFO   - ViewPointStyle::pixmapForCurrentSettings
+10:46:44.985 INFO   - DocumentModelColorFilter::DocumentModelColorFilter
+10:46:44.985 INFO   - ViewSegmentFilter::setColorFilterSettings
+10:46:44.985 INFO   - MainWindow::updateDigitizeStateIfSoftwareTriggered
+10:46:44.985 INFO   - MainWindow::slotDigitizeSelect
+10:46:44.985 INFO   - ViewPointStyle::setEnabled enabled=false
+10:46:44.985 INFO   - ViewPointStyle::pixmapForCurrentSettings
+10:46:44.985 INFO   - ViewSegmentFilter::setEnabled enabled=false
+10:46:44.985 INFO   - MainWindow::updateControls selectedItems=0
+10:46:44.985 INFO   - CmdStackShadow::canRedo
+10:46:44.985 INFO   - ViewPointStyle::setEnabled enabled=false
+10:46:44.985 INFO   - ViewPointStyle::pixmapForCurrentSettings
+10:46:44.985 INFO   - ViewSegmentFilter::setEnabled enabled=false
+10:46:44.985 INFO   - MainWindow::updateControls selectedItems=0
+10:46:44.985 INFO   - CmdStackShadow::canRedo
+10:46:44.985 INFO   - MainWindow::updateGridLines
+10:46:44.986 INFO   - MainWindow::updateAfterCommand
+10:46:44.986 INFO   - MainWindow::updateAfterCommandStatusBarCoords
+10:46:44.987 INFO   - Document::iterateThroughCurvePointsAxes
+10:46:44.987 INFO   - CoordSystemContext::iterateThroughCurvePointsAxes
+10:46:44.987 INFO   - Transformation::calculateTransformFromLinearCartesianPoints
+10:46:44.987 INFO   - Transformation::updateTransformFromMatrices matrixScreen=
+                     91.2878        397.474        91.3443
+                     201.554        201.903        22.0486
+                           1              1              1  matrixGraphRaw=
+                         120             50            120
+                           0              0            150
+                           1              1              1  matrixGraphLinear=
+                         120             50            120
+                           0              0            150
+                           1              1              1
+ originalScreen0=(91.2878, 201.554)
+ originalScreen1=(397.474, 201.903)
+ originalScreen2=(91.3443, 22.0486)
+ roundTripScreen0=(91.2878, 201.554)
+ roundTripScreen1=(397.474, 201.903)
+ roundTripScreen2=(91.3443, 22.0486)
+
+10:46:44.987 INFO   - DocumentModelColorFilter::DocumentModelColorFilter
+10:46:44.987 INFO   - BackgroundStateContext::setCurveSelected curve=w30
+10:46:44.987 INFO   - BackgroundStateCurve::setCurveSelected curve=w30
+10:46:44.987 INFO   - BackgroundStateCurve::processImageFromSavedInputs
+10:46:44.987 INFO   - DocumentModelColorFilter::high curve=w30 curves=w210,w270,Axes,w30,w150,w330,w90
+10:46:44.987 INFO   - DocumentModelColorFilter::low curve=w30 curves=w210,w270,Axes,w30,w150,w330,w90
+10:46:44.991 INFO   - GridRemoval::remove transformationIsDefined=true removeDefinedGridLines=false
+10:46:44.991 INFO   - BackgroundStateAbstractBase::setProcessedPixmap map=(425x278)
+10:46:44.991 INFO   - BackgroundStateNone::setCurveSelected
+10:46:44.991 INFO   - BackgroundStateOriginal::setCurveSelected
+10:46:44.992 INFO   - BackgroundStateUnloaded::setCurveSelected
+10:46:44.992 INFO   - MainWindow::updateGridLines
+10:46:44.993 INFO   - GraphicsScene::updateAfterCommand
+10:46:44.993 INFO   - GraphicsLinesForCurves::updateHighlightOpacity highlightOpacity=0.35
+10:46:44.993 INFO   - GraphicsLinesForCurve::updateCurveStyle curve=w210 highlightOpacity=0.35
+10:46:44.993 INFO   - GraphicsLinesForCurve::updateCurveStyle curve=w270 highlightOpacity=0.35
+10:46:44.993 INFO   - GraphicsLinesForCurve::updateCurveStyle curve=Axes highlightOpacity=0.35
+10:46:44.993 INFO   - GraphicsLinesForCurve::updateCurveStyle curve=w30 highlightOpacity=0.35
+10:46:44.993 INFO   - GraphicsLinesForCurve::updateCurveStyle curve=w150 highlightOpacity=0.35
+10:46:44.993 INFO   - GraphicsLinesForCurve::updateCurveStyle curve=w330 highlightOpacity=0.35
+10:46:44.993 INFO   - GraphicsLinesForCurve::updateCurveStyle curve=w90 highlightOpacity=0.35
+10:46:44.993 INFO   - GraphicsScene::updateCurves
+10:46:44.993 INFO   - Document::curvesGraphsNames
+10:46:44.993 INFO   - CoordSystemContext::curvesGraphsNames
+10:46:44.993 INFO   - GraphicsLinesForCurves::addRemoveCurves curveCount=7
+10:46:44.993 INFO   - GraphicsScene::updatePointMembership
+10:46:44.993 INFO   - GraphicsLinesForCurves::lineMembershipReset
+10:46:44.993 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w210
+10:46:44.993 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w270
+10:46:44.993 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=Axes
+10:46:44.993 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w30
+10:46:44.993 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w150
+10:46:44.993 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w330
+10:46:44.993 INFO   - GraphicsLinesForCurve::lineMembershipReset curve=w90
+10:46:44.993 INFO   - Document::iterateThroughCurvePointsAxes
+10:46:44.993 INFO   - CoordSystemContext::iterateThroughCurvePointsAxes
+10:46:44.994 INFO   - GraphicsScene::createPoint identifier=Axes	point	5
+10:46:44.994 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.994 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.994 INFO   - GraphicsScene::createPoint identifier=Axes	point	216
+10:46:44.994 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.994 INFO   - GraphicsPointPolygon::GraphicsPointPolygon
+10:46:44.994 INFO   - Document::iterateThroughCurvesPointsGraphs
+10:46:44.994 INFO   - CoordSystemContext::iterateThroughCurvesPointsGraphs
+10:46:45.018 INFO   - GraphicsLinesForCurves::lineMembershipPurge
+10:46:45.018 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w210
+10:46:45.018 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=15 ordinalRenumbering=false
+10:46:45.018 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w210
+10:46:45.018 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w270
+10:46:45.018 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=15 ordinalRenumbering=false
+10:46:45.018 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w270
+10:46:45.018 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=Axes
+10:46:45.018 INFO   - GraphicsLinesForCurve::renumberOrdinals
+10:46:45.018 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=3 ordinalRenumbering=true
+10:46:45.018 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w30
+10:46:45.019 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=21 ordinalRenumbering=false
+10:46:45.019 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w30
+10:46:45.019 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w150
+10:46:45.019 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=16 ordinalRenumbering=false
+10:46:45.019 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w150
+10:46:45.019 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w330
+10:46:45.019 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=16 ordinalRenumbering=false
+10:46:45.019 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w330
+10:46:45.019 INFO   - GraphicsLinesForCurve::lineMembershipPurge curve=w90
+10:46:45.019 INFO   - GraphicsLinesForCurve::updateGraphicsLinesToMatchGraphicsPoints numberPoints=17 ordinalRenumbering=false
+10:46:45.019 INFO   - GraphicsLinesForCurve::drawLinesStraight curve=w90
+10:46:45.019 INFO   - DigitizeStateSelect::updateAfterPointAddition
+10:46:45.019 INFO   - DigitizeStateSelect::addHoverHighlighting
+10:46:45.019 INFO   - MainWindow::updateControls selectedItems=0
+10:46:45.019 INFO   - CmdStackShadow::canRedo
+10:46:45.019 INFO   - MainWindow::updateChecklistGuide
+10:46:45.019 INFO   - ChecklistGuide::update
+10:46:45.019 INFO   - ChecklistGuideBrowser::update
+10:46:45.019 INFO   - ChecklistGuideBrowser::repopulateCheckedTags
+10:46:45.019 INFO   - Document::curveAxes
+10:46:45.019 INFO   - CoordSystemContext::curveAxes
+10:46:45.019 INFO   - Document::curveAxes
+10:46:45.019 INFO   - CoordSystemContext::curveAxes
+10:46:45.019 INFO   - Document::curveAxes
+10:46:45.019 INFO   - CoordSystemContext::curveAxes
+10:46:45.019 INFO   - ChecklistGuideBrowser::refresh
+10:46:45.019 INFO   - ChecklistGuideBrowser::processAhrefs
+10:46:45.019 INFO   - ChecklistGuideBrowser::bindToDocument
+10:46:45.019 INFO   - ChecklistGuideBrowser::bindToDocument
+10:46:45.019 INFO   - ChecklistGuideBrowser::bindToDocument
+10:46:45.019 INFO   - ChecklistGuideBrowser::bindToDocument
+10:46:45.019 INFO   - ChecklistGuideBrowser::bindToDocument
+10:46:45.019 INFO   - ChecklistGuideBrowser::processCheckboxes
+10:46:45.019 INFO   - ChecklistGuideBrowser::check
+10:46:45.019 INFO   - ChecklistGuideBrowser::check
+10:46:45.019 INFO   - ChecklistGuideBrowser::check
+10:46:45.019 INFO   - ChecklistGuideBrowser::check
+10:46:45.019 INFO   - ChecklistGuideBrowser::check
+10:46:45.019 INFO   - ChecklistGuideBrowser::processDivs
+10:46:45.019 INFO   - ChecklistGuideBrowser::divShow anchor=
+10:46:45.019 INFO   - ChecklistGuideBrowser::divHide anchor=BACKGROUND
+10:46:45.019 INFO   - ChecklistGuideBrowser::divHide anchor=AXIS1
+10:46:45.019 INFO   - ChecklistGuideBrowser::divHide anchor=AXIS2
+10:46:45.019 INFO   - ChecklistGuideBrowser::divHide anchor=AXIS3
+10:46:45.019 INFO   - ChecklistGuideBrowser::divHide anchor=EXPORT
+10:46:45.019 INFO   - MainWindow::updateFittingWindow
+10:46:45.019 INFO   - FittingWindow::update
+10:46:45.019 INFO   - Document::curveForCurveName
+10:46:45.019 INFO   - CoordSystemContext::curveForCurveName
+10:46:45.019 INFO   - FittingWindow::resizeTable
+10:46:45.019 INFO   - MainWindow::slotFittingWindowCurveFit order=9
+10:46:45.020 INFO   - MainWindow::updateGeometryWindow
+10:46:45.020 INFO   - GeometryWindow::update
+10:46:45.020 INFO   - Document::curveForCurveName
+10:46:45.020 INFO   - CoordSystemContext::curveForCurveName
+10:46:45.020 INFO   - GeometryWindow::resizeTable
+10:46:45.021 INFO   - CoordSystemContext::printStream
+10:46:45.132 INFO   - GeometryModel::setCurrentPointIdentifier rows=25 cols=8 identifier=w30	point	230
+10:46:45.132 INFO   - GeometryModel::rowToBeHighlighted rows=25 cols=8
+10:46:45.143 INFO   - GeometryModel::setCurrentPointIdentifier rows=25 cols=8 identifier=
+10:46:48.026 INFO   - TransformationStateDefined::slotTimeout
+10:46:52.189 INFO   - DlgSettingsCoords::~DlgSettingsCoords
+10:46:52.189 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsCoords
+10:46:52.190 INFO   - DlgSettingsCurveAddRemove::~DlgSettingsCurveAddRemove
+10:46:52.190 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsCurveAddRemove
+10:46:52.190 INFO   - DlgSettingsCurveProperties::~DlgSettingsCurveProperties
+10:46:52.190 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsCurveProperties
+10:46:52.191 INFO   - DlgSettingsDigitizeCurve::~DlgSettingsDigitizeCurve
+10:46:52.191 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsDigitizeCurve
+10:46:52.191 INFO   - DlgSettingsExportFormat::~DlgSettingsExportFormat
+10:46:52.191 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsExportFormat
+10:46:52.192 INFO   - DlgSettingsColorFilter::~DlgSettingsColorFilter
+10:46:52.192 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsColorFilter
+10:46:52.192 INFO   - DlgSettingsAxesChecker::~DlgSettingsAxesChecker
+10:46:52.192 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsAxesChecker
+10:46:52.193 INFO   - DlgSettingsGridDisplay::~DlgSettingsGridDisplay
+10:46:52.193 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsGridDisplay
+10:46:52.193 INFO   - DlgSettingsGridRemoval::~DlgSettingsGridRemoval
+10:46:52.193 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsGridRemoval
+10:46:52.194 INFO   - DlgSettingsPointMatch::~DlgSettingsPointMatch
+10:46:52.194 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsPointMatch
+10:46:52.194 INFO   - DlgSettingsSegments::~DlgSettingsSegments
+10:46:52.194 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsSegments
+10:46:52.195 INFO   - DlgSettingsGeneral::~DlgSettingsGeneral
+10:46:52.195 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsGeneral
+10:46:52.195 INFO   - DlgSettingsMainWindow::~DlgSettingsMainWindow
+10:46:52.195 INFO   - DlgSettingsAbstractBase::~DlgSettingsAbstractBase name=DlgSettingsMainWindow

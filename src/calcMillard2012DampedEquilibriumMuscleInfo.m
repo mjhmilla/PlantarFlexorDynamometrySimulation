@@ -225,13 +225,20 @@ epsRoot = eps^0.5;
 useFiberDamping  = modelConfig.useFiberDamping;
 useElasticTendon = modelConfig.useElasticTendon;
 
+useTendonDamping  = modelConfig.useTendonDamping;
+normalizedTendonDamping = modelConfig.normalizedTendonDamping;
+
+
 if(useFiberDamping == 0 && useElasticTendon == 1)
    assert(modelConfig.minActivation > 0,...
           ['modelConfig.minActivation must be greater than zero',...
            ' when the model is configured as a classic elastic',...
            ' muscle model, otherwise a singularity is possible']);
+   assert(useTendonDamping == 0, 'Tendon damping cannot be used with the classic Hill model');
+end 
+if(useElasticTendon == 0)
+  assert(useTendonDamping == 0,'Tendon damping cannot be used with the rigid tendon model');
 end
-
 useInitializationCode = 0;
 if(isempty(muscleState) == 0)
     if(length(muscleState) == 2)
@@ -268,6 +275,8 @@ lceMin       = muscleArchitecture.minimumFiberLength;
 lceATMin     = muscleArchitecture.minimumFiberLengthAlongTendon;
 alphaLceMin  = muscleArchitecture.pennationAngleAtMinumumFiberLength;
 
+
+
 %Create function handles for the curves to make the code easier to read
 
 calcFalDer = @(arg1, arg2)calcBezierYFcnXDerivative(arg1, ...
@@ -303,6 +312,10 @@ calcFtDer = @(arg1, arg2)calcBezierYFcnXDerivative(arg1, ...
 %0. Check the model inputs
 %%
 assert( a >= 0       && a <= 1     ,   'Check activation model should be [0, 1]');
+
+if( (lp < 1 && lp >= 0) == 0)
+  here=1;
+end
 assert( lp < 1       && lp >= 0    ,   'Check Units: path length in m!');
 assert( alphaOpt < pi/2            ,   'Check Units: Pennation angle must be in radians!');
 assert( lceOpt < 0.5 && lceOpt > 0 ,   'Check Units: fiber length in m!');
@@ -382,10 +395,14 @@ kf         = NaN; %fiber stiffness in N/m
 kfAT       = NaN; %fber stiffness along the tendon
 km         = NaN; %stiffness of the entire muscle
 
+ftDN          = 0; %Normalized tendon damping force
+D_ftDN_DdlceN = 0; %Partial derivatie of the tendon damping force w.r.t. normalized fiber velocity
+
 %Equations for the initialization error
 init              = [];
 init.err          = NaN;
 init.Derr_DlceAT  = NaN;
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -619,13 +636,22 @@ elseif(useElasticTendon == 1 )
         err     = 10*tol;
         iter    = 1;
 
-        Ddlce_DdlceN = (lceOpt*dlceMaxN);
+        %Ddlce_DdlceN = (lceOpt*dlceMaxN);
         
         Dalpha_Dlce = calcFixedWidthPennationDalphaDlce(alpha,...
                                                        lce,...
                                                        lceOpt,...
                                                        alphaOpt);
                                                    
+        %useTendonDamping  = modelConfig.useTendonDamping;
+        %normalizedTendonDamping = modelConfig.normalizedTendonDamping;                                                     
+
+        % ltN         = [lp - lceN*(lceOpt)*cos(alpha)]*(1/ltSlk)
+        %dltN         = [dlp - dlceN*(lceOpt*dlceMaxN)*cos(alpha) + lce*sin(alpha)*Dalpha_Dlce*dlceN*(lceOpt*dlceMaxN)]*(1/ltSlk)
+
+        %D_dltN_D_dlceN = -cos(alpha) + lce*sin(alpha)*Dalpha_Dlce
+        DdltN_DdlceN    =(-cosAlpha   + (lceN/dlceMaxN)*sinAlpha*Dalpha_Dlce)*((lceOpt*dlceMaxN)/ltSlk);        
+        
         if(useInitializationCode == 0)
                                                 
             fvN    = ((ftN/cos(alpha)) - fpeN) / (a*falN + 1e-8);
@@ -637,24 +663,76 @@ elseif(useElasticTendon == 1 )
               dlceN = -a*0.99;
             end
                      
+            dlce       = dlceN * lceOpt * dlceMaxN;
+            fiberState = clampFiberState(lce,dlce,lceMin); 
+            isClamped  = fiberState.isClamped;
+            dlce       = fiberState.dlce;
 
+
+            fvN         = 0;
+            DfvN_DdlceN = 0;
+
+            %Tension is +
+            %shortening is -
+            % ... thus the sign of beta is +
+            ffN         = 0;
+            DffN_DdlceN = 0;
+
+            err          = Inf;
+            Derr_DdlceN  = 0;            
             %%
             %use Newton's method to polish the root to high precision
             %%
             while abs(err) > tol && iter < iterMax 
           
-                fvN         = calcFvDer(dlceN,0);
-                DfvN_DdlceN = calcFvDer(dlceN,1);
-                
-                %Tension is +
-                %shortening is -
-                % ... thus the sign of beta is +
-                ffN         = a*(falN*fvN) + fpeN + beta*dlceN;
-                DffN_DdlceN = (a*(falN*DfvN_DdlceN) + beta);
+                ftDN = 0;
+                DftDN_DdlceN = 0;
+                if(useTendonDamping)
+                  dlce = dlceN*(lceOpt*dlceMaxN);
+                  fiberKinematics = ...
+                    calcFixedWidthPennatedFiberKinematicsAlongTendon(...
+                                          lce,...
+                                          dlce,...
+                                          lceOpt,...
+                                          alphaOpt);
 
-                err = ffN*cosAlpha - ftN;
-                Derr_DdlceN  = DffN_DdlceN*cosAlpha;
+                  dlt = dlp - fiberKinematics.fiberVelocityAlongTendon;
+                  dltN = dlt / ltSlk;
+                  ftDN          = DftN_DltN*normalizedTendonDamping*dltN;
+                  DftDN_DdlceN  = DftN_DltN*normalizedTendonDamping*DdltN_DdlceN ;
+                  
 
+                  fvN         = calcFvDer(dlceN,0);
+                  DfvN_DdlceN = calcFvDer(dlceN,1);
+
+                  %Tension is +
+                  %shortening is -
+                  % ... thus the sign of beta is +
+                  ffN         = a*(falN*fvN) + fpeN + beta*dlceN;
+                  DffN_DdlceN = (a*(falN*DfvN_DdlceN) + beta);
+
+                  err = ffN*cosAlpha - ftN-ftDN;
+                  Derr_DdlceN  = DffN_DdlceN*cosAlpha - DftDN_DdlceN;
+
+                  if(iter > 50)
+                    here=1;
+                  end
+
+                else
+
+                  fvN         = calcFvDer(dlceN,0);
+                  DfvN_DdlceN = calcFvDer(dlceN,1);
+
+                  %Tension is +
+                  %shortening is -
+                  % ... thus the sign of beta is +
+                  ffN         = a*(falN*fvN) + fpeN + beta*dlceN;
+                  DffN_DdlceN = (a*(falN*DfvN_DdlceN) + beta);
+
+                  err = ffN*cosAlpha - ftN;
+                  Derr_DdlceN  = DffN_DdlceN*cosAlpha;
+                end
+              
                 if(abs(err) > tol && abs(Derr_DdlceN) > eps*10)               
                      delta = -err/Derr_DdlceN;
                      dlceN = dlceN + delta;
@@ -720,7 +798,26 @@ elseif(useElasticTendon == 1 )
         % d/dlce    fiso*ffN*cos(alpha)
         %     =     kf*cos(alpha) - fiso*ffN*sin(alpha)*Dalpha_Dlce 
         %        
-        kfAT       = kf*cosAlpha - fiso*ffN*sinAlpha*Dalpha_Dlce;         
+        kfAT       = kf*cosAlpha - fiso*ffN*sinAlpha*Dalpha_Dlce;     
+        
+        ftDN = 0;
+        D_ftDN_DdlceN = 0;
+        D_ftDN_DltN   = 0;
+        if(useTendonDamping)
+          fiberKinematics = ...
+            calcFixedWidthPennatedFiberKinematicsAlongTendon(...
+                                  lce,...
+                                  dlce,...
+                                  lceOpt,...
+                                  alphaOpt);
+
+          dlt = dlp - fiberKinematics.fiberVelocityAlongTendon;
+          dltN = dlt / ltSlk;
+          ftDN          = DftN_DltN*normalizedTendonDamping*dltN;
+          D_ftDN_DdlceN = DftN_DltN*normalizedTendonDamping*DdltN_DdlceN;
+          
+        end
+        
     end
        
     %Fiber and tendon velocities       
@@ -752,14 +849,21 @@ elseif(useElasticTendon == 1 )
     %      DffAT_DlceAT - DftN_DlceAT
     %
     %%        
-    init.err        = fiso*( (ffaN + ffpN)*cosAlpha - ftN );
+    init.err        = fiso*( (ffaN + ffpN)*cosAlpha - ftN -ftDN );
     
     Dff_DlceAT       = kfAT;        
-    DftN_Dlt          = kt;        
+    DftN_Dlt         = kt;    
+
     % lt         = lp - lceAT
     % dlt_dlceAT = -1
-    Dlt_DlceAT   = -1;    
-    DftN_DlceAT   = DftN_Dlt * Dlt_DlceAT;
+    Dlt_DlceAT   = -1; 
+    
+    DftDN_Dlt    = 0;
+    if(useTendonDamping ==1)
+      DftDN_Dlt    = DftN_Dlt*( normalizedTendonDamping*dltN );    
+    end
+    DftN_DlceAT  = DftN_Dlt * Dlt_DlceAT + DftDN_Dlt * Dlt_DlceAT ;
+
     
     init.Derr_DlceAT = Dff_DlceAT - DftN_DlceAT;
     
@@ -852,15 +956,15 @@ mtInfo.muscleDynamicsInfo.activeFiberForceAlongTendon  = ffaN*fiso*cosAlpha;    
 mtInfo.muscleDynamicsInfo.passiveFiberForce            = ffpN*fiso;      % force                N
 mtInfo.muscleDynamicsInfo.passiveFiberForceAlongTendon = ffpN*fiso*cosAlpha;      % force                N
 
-mtInfo.muscleDynamicsInfo.tendonForce               = ftN*fiso;        % force                N
-mtInfo.muscleDynamicsInfo.normTendonForce           = ftN;             % force/force          N/N
+mtInfo.muscleDynamicsInfo.tendonForce               = (ftN+ftDN)*fiso;        % force                N
+mtInfo.muscleDynamicsInfo.normTendonForce           = ftN+ftDN;             % force/force          N/N
 mtInfo.muscleDynamicsInfo.fiberStiffness            = kf;             % force/length         N/m
 mtInfo.muscleDynamicsInfo.fiberStiffnessAlongTendon = kfAT;           % force/length         N/m
 mtInfo.muscleDynamicsInfo.tendonStiffness           = kt;             % force/length         N/m
 mtInfo.muscleDynamicsInfo.muscleStiffness           = km;             % force/length         N/m
 mtInfo.muscleDynamicsInfo.fiberActivePower          = -ffaN*fiso*dlce; % force*velocity       W
 mtInfo.muscleDynamicsInfo.fiberPassivePower         = -ffpN*fiso*dlce; % force*velocity       W
-mtInfo.muscleDynamicsInfo.tendonPower               = -ftN*fiso*dlt;    % force*velocity       W
+mtInfo.muscleDynamicsInfo.tendonPower               = -(ftN+ftDN)*fiso*dlt;    % force*velocity       W
 mtInfo.muscleDynamicsInfo.musclePower               = -ffN*fiso*dlce;  % force*velocity       W
 
 %%
@@ -869,7 +973,7 @@ mtInfo.muscleDynamicsInfo.musclePower               = -ffN*fiso*dlce;  % force*v
 mtInfo.muscleDynamicsInfo.fiberParallelElementPower = -fiso*fpeN*dlce; 
 mtInfo.muscleDynamicsInfo.dampingForces             =  fiso*beta*dlceN;
 mtInfo.muscleDynamicsInfo.dampingPower              = -(fiso*beta*dlceN)*dlce;
-mtInfo.muscleDynamicsInfo.boundaryPower             =  fiso*ftN*dlp;
+mtInfo.muscleDynamicsInfo.boundaryPower             =  fiso*(ftN+ftDN)*dlp;
 
 mtInfo.musclePotentialEnergyInfo.fiberPotentialEnergy  = ppe;   %force*distance    J   
 mtInfo.musclePotentialEnergyInfo.tendonPotentialEnergy = pt;    %force*distance    J   
