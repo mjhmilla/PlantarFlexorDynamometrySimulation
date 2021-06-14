@@ -154,7 +154,7 @@ else
 %   The Journal of Physiology, 351, 517.
 
     concCurviness = 0.7;
-    eccCurviness  = 0.9;
+    eccCurviness  = 0.5;
     computeIntegral = 0;
 
 %     fiberForceVelocityCurve =  createFiberForceVelocityCurve2012(...

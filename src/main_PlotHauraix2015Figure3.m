@@ -16,11 +16,11 @@ highTendonElasticity     = 0.092;
 
 %flag_useSubsampleOfTrials = 0;
 preloadHauraixReplication = 0.15;
-flag_useTendonDamping   = 0;
-normalizedTendonDamping = 0.05;
+flag_useTendonDamping   = 1;
+normalizedTendonDamping = 0.05*(2/3);
 
 %maximumNormalizedFiberVelocity = 6; %in units of norm fiber lengths/second
-vmaxStr = ['vmax_Hauraix_'];
+vmaxStr = ['vmax_10_'];
 
 preloadStr = [num2str(round(preloadHauraixReplication*100,0)),'p'];
 
@@ -165,6 +165,7 @@ end
 %%
 
 outputFileName  = ['fig_Hauraix2015Fig3Reproduction_',...
+                  modelName,...
                   scaleLceOptStr,...
                   vmaxStr,...
                   rampStr,...

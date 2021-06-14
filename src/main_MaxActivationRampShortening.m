@@ -28,7 +28,8 @@ if(flag_outerLoopMode==0)
   flag_useLinearForceVelocityCurve    = 0;
   
   flag_useTendonDamping = 0;
-  normalizedTendonDamping = 0.05;
+  normalizedTendonDamping         = 0.05*0.9;
+  normalizedTendonDampingConstant = 0.05*0.1;
   
   maximumNormalizedFiberVelocity = 10; %in units of norm fiber lengths/second
   scaleLceOpt = 1;
@@ -786,8 +787,9 @@ for count=1:1:countMax
         rigidConfig.tol              = 1e-12;
         rigidConfig.minActivation    = 0.0;
         rigidConfig.useTendonDamping = 0;
-        rigidConfig.normalizedTendonDamping =0.05;
-        
+        rigidConfig.normalizedTendonDamping =normalizedTendonDamping;
+        rigidConfig.normalizedTendonDampingConstant =normalizedTendonDampingConstant;
+                
         tendonDampingStr = ['_TendonDamping_',...
         [num2str(round((rigidConfig.useTendonDamping ...
                        *rigidConfig.normalizedTendonDamping)*100,0)),'p']];        
@@ -918,6 +920,7 @@ for count=1:1:countMax
         classicElasticTendonConfig.minActivation    = 0.05;
         classicElasticTendonConfig.useTendonDamping = 0; %Cannot be used here.
         classicElasticTendonConfig.normalizedTendonDamping =normalizedTendonDamping;
+        classicElasticTendonConfig.normalizedTendonDamping =normalizedTendonDampingConstant;
         
         tendonDampingStr = ['_TendonDamping_',...
         [num2str(round((classicElasticTendonConfig.useTendonDamping ...
@@ -1054,6 +1057,7 @@ for count=1:1:countMax
         
         dampedFiberElasticTendonConfig.useTendonDamping = flag_useTendonDamping;
         dampedFiberElasticTendonConfig.normalizedTendonDamping =normalizedTendonDamping;
+        dampedFiberElasticTendonConfig.normalizedTendonDampingConstant =normalizedTendonDampingConstant;
         
         tendonDampingStr = ['_TendonDamping_',...
         [num2str(round((dampedFiberElasticTendonConfig.useTendonDamping ...

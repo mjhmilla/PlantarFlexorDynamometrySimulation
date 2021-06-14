@@ -226,7 +226,8 @@ useFiberDamping  = modelConfig.useFiberDamping;
 useElasticTendon = modelConfig.useElasticTendon;
 
 useTendonDamping  = modelConfig.useTendonDamping;
-normalizedTendonDamping = modelConfig.normalizedTendonDamping;
+normalizedTendonDamping        = modelConfig.normalizedTendonDamping;
+normalizedTendonDampingConstant= modelConfig.normalizedTendonDampingConstant;
 
 
 if(useFiberDamping == 0 && useElasticTendon == 1)
@@ -543,8 +544,7 @@ elseif(useElasticTendon == 1 )
 
     ftN        =  calcFtDer(ltN, 0);
     DftN_DltN   =  calcFtDer(ltN, 1);
-    
-    
+    DftN_DltN_Max = normMuscleCurves.tendonForceLengthCurve.dydxEnd(1,2);
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
     %
@@ -698,8 +698,12 @@ elseif(useElasticTendon == 1 )
 
                   dlt = dlp - fiberKinematics.fiberVelocityAlongTendon;
                   dltN = dlt / ltSlk;
-                  ftDN          = DftN_DltN*normalizedTendonDamping*dltN;
-                  DftDN_DdlceN  = DftN_DltN*normalizedTendonDamping*DdltN_DdlceN ;
+                  betaT = (DftN_DltN*normalizedTendonDamping ...
+                     + DftN_DltN_Max*normalizedTendonDampingConstant);
+                   
+                  ftDN          = betaT*dltN;                     
+                  DftDN_DdlceN  = betaT*DdltN_DdlceN ;
+                  
                   
 
                   fvN         = calcFvDer(dlceN,0);
@@ -714,9 +718,6 @@ elseif(useElasticTendon == 1 )
                   err = ffN*cosAlpha - ftN-ftDN;
                   Derr_DdlceN  = DffN_DdlceN*cosAlpha - DftDN_DdlceN;
 
-                  if(iter > 50)
-                    here=1;
-                  end
 
                 else
 
@@ -760,6 +761,10 @@ elseif(useElasticTendon == 1 )
 
                 end
                 iter = iter+1;
+                
+                if(iter > 90)
+                  here=1;
+                end
             end
 
             %Clamp the fiber velocity if necessary
@@ -801,7 +806,7 @@ elseif(useElasticTendon == 1 )
         kfAT       = kf*cosAlpha - fiso*ffN*sinAlpha*Dalpha_Dlce;     
         
         ftDN = 0;
-        D_ftDN_DdlceN = 0;
+        DftDN_DdlceN = 0;
         D_ftDN_DltN   = 0;
         if(useTendonDamping)
           fiberKinematics = ...
@@ -813,8 +818,11 @@ elseif(useElasticTendon == 1 )
 
           dlt = dlp - fiberKinematics.fiberVelocityAlongTendon;
           dltN = dlt / ltSlk;
-          ftDN          = DftN_DltN*normalizedTendonDamping*dltN;
-          D_ftDN_DdlceN = DftN_DltN*normalizedTendonDamping*DdltN_DdlceN;
+          betaT = (DftN_DltN*normalizedTendonDamping ...
+             + DftN_DltN_Max*normalizedTendonDampingConstant);
+
+          ftDN          = betaT*dltN;                     
+          DftDN_DdlceN  = betaT*DdltN_DdlceN ;          
           
         end
         

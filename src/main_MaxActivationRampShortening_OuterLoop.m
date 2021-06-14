@@ -1,13 +1,13 @@
-%clc;
-%close all;
-%clear all;
+clc;
+close all;
+clear all;
 
 flag_useFlatActiveForceLengthCurve = 0;
 flag_useConstantTendonStiffness    = 0;
 flag_useLinearForceVelocityCurve   = 0;
 
-% flag_rampType = 1;
-% flag_useTendonDampingDampedEq = 1;   
+flag_rampType = 1;
+flag_useTendonDampingDampedEq = 1;   
 
 % 0: matches the -15-to-15 degrees of ankle movement of Holzer et al.
 % 1: matches the -20-to-35 degrees of ankle movement of Hauraix et al.
@@ -15,10 +15,11 @@ flag_useLinearForceVelocityCurve   = 0;
 %    30,90,150,210,270,330
 
 preloadHauraixReplication = 0.15; 
-normalizedTendonDamping       = 0.05;
+normalizedTendonDamping          = 0.05*(2/3);
+normalizedTendonDampingConstant  = 0.05*(1/3);
 
-flag_useHauraixVmax = 1;
-maximumNormalizedFiberVelocity = NaN;%10
+flag_useHauraixVmax = 0;
+maximumNormalizedFiberVelocity = 10;
 
 ankleAngleMaxPlantarFlexion   = -17; %Holzer
 
@@ -47,12 +48,12 @@ flag_measurementSetting = 0;
 %1: fiber length
 
 %Configure this run
-flag_rigidTendon         = 1;
-flag_standardTendon      = 1;
-flag_highlyElasticTendon = 1;
+ flag_rigidTendon         = 0;
+ flag_standardTendon      = 1;
+ flag_highlyElasticTendon = 1;
 
 flag_standardMomentArm   = 1;
-flag_smallMomentArm      = 1;
+flag_smallMomentArm      = 0;
 
 %Do not touch: used by main_MaxActivationRampShortening
 flag_runRigidBench               = 0;
