@@ -6,13 +6,13 @@ This code is an extension of https://github.com/mjhmilla/Millard2012EquilibriumM
 # Installation
 
 1. Clone/download this repository to your machine.
-2. Put these files into the 'dataKGR' folder (which comes empty):
+2. Make sure these files are in the 'data' and 'dataKGR' directories:
 
 - Isos_for_Matt.mat
 - Isos_for_Matt.xlsx
 - Own_Study.xlsx
 
-Contact Denis Holzer for this data
+If this data is missing, look at the supplementary data for the paper that accompanies this simulation
 
 3. Check that everything works:
   - Run main_runAll.m, then run main_plotAll. This should save 3 pdf files to the "plots" folder:
