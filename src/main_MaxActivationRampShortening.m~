@@ -1,6 +1,6 @@
 flag_outerLoopMode = 1;
 
-%disp('Update preload protocol to begin rotating at 95% activation');
+disp('Update preload protocol to begin rotating at 95% activation');
 
 if(flag_outerLoopMode==0)
   clc;
@@ -801,10 +801,9 @@ for count=1:1:countMax
     %%=========================================================================
     
     if(flag_useMaganarisCEArchitecture==1)
-      disp('Using Maganaris 2003 and Arnold 2010 Muscle Architecture');
+      
     else
-      disp('Using Arnold 2010 Muscle Architecture');
-    end
+      
     
     if(flag_runRigidBench == 1)
         disp('  Rigid-tendon model');

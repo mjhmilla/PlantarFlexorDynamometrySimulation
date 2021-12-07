@@ -641,16 +641,10 @@ elseif(useElasticTendon == 1 )
 
         %Ddlce_DdlceN = (lceOpt*dlceMaxN);
         
-        Dalpha_Dlce_orig = calcFixedWidthPennationDalphaDlce(alpha,...
+        Dalpha_Dlce = calcFixedWidthPennationDalphaDlce(alpha,...
                                                        lce,...
                                                        lceOpt,...
                                                        alphaOpt);
-        fibKinDer = calcFixedWidthPennationPartialDerivatives(alpha,...
-                                                              lce,...
-                                                              lceOpt,...
-                                                              alphaOpt);
-        Dalpha_Dlce   = fibKinDer.Dalpha_Dlce;
-        Ddalpha_Ddlce = fibKinDer.Ddalpha_Ddlce;                                                     
                                                    
         %useTendonDamping  = modelConfig.useTendonDamping;
         %normalizedTendonDamping = modelConfig.normalizedTendonDamping;                                                     
@@ -659,9 +653,7 @@ elseif(useElasticTendon == 1 )
         %dltN         = [dlp - dlceN*(lceOpt*dlceMaxN)*cos(alpha) + lce*sin(alpha)*Dalpha_Dlce*dlceN*(lceOpt*dlceMaxN)]*(1/ltSlk)
 
         %D_dltN_D_dlceN = -cos(alpha) + lce*sin(alpha)*Dalpha_Dlce
-        
-        
-        DdltN_DdlceN    =(-cosAlpha + lce*sinAlpha*Ddalpha_Ddlce)*((lceOpt*dlceMaxN)/ltSlk);        
+        DdltN_DdlceN    =(-cosAlpha   + (lceN/dlceMaxN)*sinAlpha*Dalpha_Dlce)*((lceOpt*dlceMaxN)/ltSlk);        
         
         if(useInitializationCode == 0)
                                                 
@@ -696,9 +688,7 @@ elseif(useElasticTendon == 1 )
             %%
             while abs(err) > tol && iter < iterMax 
           
-                if(iter > round(iterMax*0.5))
-                  here=1;
-                end
+              
               
                 ftDN = 0;
                 DftDN_DdlceN = 0;

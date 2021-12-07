@@ -1,27 +1,40 @@
-clc;
-close all;
-clear all;
+
+flag_runAll_Mode = 1;
+
+if(flag_runAll_Mode==0)
+  flag_useMaganarisCEArchitecture = 1;
+  flag_rampType                   = 1;
+  flag_useTendonDampingDampedEq   = 1; 
+  
+  flag_rigidTendon                = 0;
+  flag_standardTendon             = 1;
+  flag_highlyElasticTendon        = 1;  
+end
+
+
 
 flag_useFlatActiveForceLengthCurve = 0;
 flag_useConstantTendonStiffness    = 0;
 flag_useLinearForceVelocityCurve   = 0;
 
-flag_rampType = 1;
-flag_useTendonDampingDampedEq = 1;   
-
 % 0: matches the -15-to-15 degrees of ankle movement of Holzer et al.
 % 1: matches the -20-to-35 degrees of ankle movement of Hauraix et al.
 %    this also changes the angular velocites simulated to match Hauraix:
 %    30,90,150,210,270,330
-
 preloadHauraixReplication = 0.15; 
+
 normalizedTendonDamping          = 0.05*(2/3);
 normalizedTendonDampingConstant  = 0.05*(1/3);
 
 flag_useHauraixVmax = 0;
 maximumNormalizedFiberVelocity = 10;
 
-ankleAngleMaxPlantarFlexion   = -17; %Holzer
+ankleAngleMaxPlantarFlexion   = -17; 
+%Obtained from averaging the ankle angles of peak torque in Figure 1 of
+% 
+%Holzer D, Paternoster FK, Hahn D, Siebert T, Seiberl W. Considerations on 
+%the human Achilles tendon moment arm for in vivo triceps surae 
+%muscle–tendon unit force estimates. Scientific Reports. 2020 Nov 11;10(1):1-1.
 
 scaleLceOpt = 1;
 
@@ -47,10 +60,7 @@ flag_measurementSetting = 0;
 %0: ankle angle
 %1: fiber length
 
-%Configure this run
- flag_rigidTendon         = 0;
- flag_standardTendon      = 1;
- flag_highlyElasticTendon = 1;
+
 
 flag_standardMomentArm   = 1;
 flag_smallMomentArm      = 0;
