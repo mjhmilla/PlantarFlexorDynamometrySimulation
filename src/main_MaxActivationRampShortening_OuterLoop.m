@@ -9,6 +9,8 @@ if(flag_runAll_Mode==0)
   flag_rigidTendon                = 0;
   flag_standardTendon             = 1;
   flag_highlyElasticTendon        = 1;  
+  
+  
 end
 
 
@@ -23,8 +25,9 @@ flag_useLinearForceVelocityCurve   = 0;
 %    30,90,150,210,270,330
 preloadHauraixReplication = 0.15; 
 
-normalizedTendonDamping          = 0.05*(2/3);
-normalizedTendonDampingConstant  = 0.05*(1/3);
+flag_useTendonDamping = 0;
+normalizedTendonDamping         = 0.0556; %0.05*0.9;
+normalizedTendonDampingConstant = 0;%0.05*0.1;
 
 flag_useHauraixVmax = 0;
 maximumNormalizedFiberVelocity = 10;
@@ -45,8 +48,8 @@ scaleLceOpt = 1;
 % end
 
 
-standardMomentArm = 0.054;
-smallMomentArm    = standardMomentArm/1.18;
+smallMomentArm    = 0.0459;
+standardMomentArm = smallMomentArm*1.22;
 
 standardTendonElasticity = 0.049; %Magnusson et al. 2001
 highTendonElasticity     = 0.092; %Waugh et al. 2012 (adults results)

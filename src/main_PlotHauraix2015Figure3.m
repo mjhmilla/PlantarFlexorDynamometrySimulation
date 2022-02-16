@@ -98,8 +98,9 @@ end
 %%
 
 scaleHauraix = 1.0;% 0.8314;
-standardMomentArm = 0.054;
-smallMomentArm    = standardMomentArm/1.18;
+
+smallMomentArm    = 0.0459;
+standardMomentArm = smallMomentArm*1.22;
 
 fractionOfFastTwitchFibers          = 0.5;
 ankleAchillesTendonMomentArm        = standardMomentArm;
