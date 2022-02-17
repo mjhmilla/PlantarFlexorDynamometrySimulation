@@ -28,11 +28,11 @@ end
 if(flag_plotPreloadComparisonFigure==1)
   flag_preloadSetting = 2;
   
-  flag_useMaganarisCEArchitecture = 0;
-  for flag_tendonType = 1:1:3    
-     close all;
-     main_PlotMaxActivationRampShortening;    
-  end
+%   flag_useMaganarisCEArchitecture = 0;
+%   for flag_tendonType = 1:1:3    
+%      close all;
+%      main_PlotMaxActivationRampShortening;    
+%   end
   flag_useMaganarisCEArchitecture = 1;
   for flag_tendonType = 1:1:3    
      close all;    

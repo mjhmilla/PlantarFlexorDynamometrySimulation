@@ -305,7 +305,7 @@ end
 
  
 
-simDataSetTag = {'Slack','100\% Preload', '50\% Preload',};
+simDataSetTag = {'Non-preloaded','100\% Preload', '50\% Preload',};
              
 simDataSetName = {['Sim.: ',simDataSetTag{1}],...
                   ['Sim.: ',simDataSetTag{2}],...
@@ -468,14 +468,14 @@ expColor = [1,1,1].*0.5;
 expFillColor = expColor.*0.25 + greyFill1.*(0.75);
 expLineWidth = 1.0;
 expErrorLineType = 'o';
-expLabel = 'Exp.: Preloaded';
+expLabel = 'Exp.: Preload';
 
 ChinoColor = [1,0.65,1];
 ChinoFillColor = ChinoColor.*0.25+greyFill2.*0.75;
 ChinoLineWidth = 1.0;
 ChinoErrorLineType = 'o';
 ChinoLineType = '';
-ChinoLabel = 'Chino 2008: Preloaded';
+ChinoLabel = 'Chino 2008: Preload';
 
 
 Hauraix2015Color        = [0.5,0.5,1]; 
@@ -1015,7 +1015,7 @@ end
                 ChinoFillColor,ChinoColor,...
                 ChinoColor,...
                 ChinoLineWidth, ...
-                'Chino 2008: Preloaded');    
+                'Chino 2008: Preload');    
       hold on;   
     end
 
@@ -1032,7 +1032,7 @@ end
                   'MarkerSize',errorBarMarkerSize,...
                   'MarkerEdgeColor',errorBarMarkerEdgeColor,...
                   'CapSize',errorBarCapSize,...
-                  'DisplayName', 'Chino 2008: Preloaded');
+                  'DisplayName', 'Chino 2008: Preload');
     hold on
 
 

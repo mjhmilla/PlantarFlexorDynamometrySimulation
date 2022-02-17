@@ -245,7 +245,7 @@ simDataSets = {...
 simDataSetColor = [  1, 0, 0];
 expDataSetColor = [  0, 0, 1];
 
-simDataSetTag = {'Slack'};
+simDataSetTag = {'Non-preloaded'};
 trialDataSetOmega = zeros(length(simDataSetTag));
 
             
