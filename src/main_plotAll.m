@@ -3,7 +3,7 @@ close all;
 clear all;
 
 flag_plotMainFigure              = 1;
-flag_plotPreloadComparisonFigure = 0;
+flag_plotPreloadComparisonFigure = 1;
 flag_useTendonDamping            = 1;
 
 %Plot 0% and 100% preload
